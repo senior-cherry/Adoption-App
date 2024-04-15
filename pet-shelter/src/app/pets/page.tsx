@@ -1,78 +1,70 @@
-'use client';
-import {Prisma, PrismaClient} from '@prisma/client';
-import { DefaultArgs, GetFindResult } from '@prisma/client/runtime/library';
-import Link from 'next/link';
-import Pet from '@/app/components/Pet';
-import { useState, useEffect } from 'react';
+import {Prisma, PrismaClient, PrismaPromise} from '@prisma/client';
+import {DefaultArgs, GetFindResult} from "@prisma/client/runtime/library";
+import Link from "next/link";
+import Pet from "@/app/components/Pet";
+import PetLayout from "@/app/layouts/PetLayout";
 
 const prisma = new PrismaClient();
 
-const getPetsByCategory = async (filter: string): Promise<GetFindResult<Prisma.$PetPayload<DefaultArgs>, {}>[]> => {
-    if (filter === 'All') {
-        return prisma.pet.findMany({
+let pets: any;
+
+async function getPets(category: any): Promise<{}> {
+    if (category === "All") {
+        pets = prisma.pet.findMany({
             include: {
                 category: {
-                    select: { name: true },
-                },
-            },
+                    select: {name: true}
+                }
+            }
         });
+        return pets;
     } else {
-        return prisma.pet.findMany({
+        pets = await prisma.pet.findMany({
             include: {
                 category: {
                     select: { name: true },
-                },
+                }
             },
             where: {
-                category: filter,
-            },
+                category: {
+                    name: category
+                }
+            }
         });
+        return pets;
     }
-};
+}
 
-const getCategories = async () => {
+async function getCategories() {
     return prisma.category.findMany();
-};
+}
 
-export default function Pets() {
-    const [pets, setPets] = useState<GetFindResult<Prisma.$PetPayload<DefaultArgs>, {}>[]>([]);
-    const [filter, setFilter] = useState<string>('All');
-    const [categories, setCategories] = useState<string[]>([]);
-
-    useEffect(() => {
-        async function fetchData() {
-            const initialPets = await getPetsByCategory(filter);
-            const categoryList = await getCategories();
-            setPets(initialPets);
-            setCategories(categoryList.map((category) => category.name));
-        }
-        fetchData();
-    }, [filter]);
-
-    const handleCategoryClick = async (category: string) => {
-        setFilter(category);
-    };
+export default async function Home() {
+    const categories = await getCategories();
 
     return (
-        <main className="flex min-h-screen flex-col items-center justify-between p-24">
-            <Link href="/addPet">Add Pet</Link>
-            {categories.map((category) => (
-                <button onClick={() => handleCategoryClick(category)} key={category}>
-                    {category}
-                </button>
-            ))}
+       <PetLayout>
+            <Link href={'/addPet'}>Add Pet</Link>
             <h1>Pets</h1>
-            {pets.map((pet) => (
-                <Pet
-                    id={pet.id}
-                    name={pet.name}
-                    species={pet.species}
-                    age={pet.age}
-                    skills={pet.skills}
-                    categoryName={pet.category.name}
-                    key={pet.id}
-                />
-            ))}
-        </main>
+           {categories.map((c) => {
+               return (
+                   <button onClick={() => getPets(c.name)}>{c.name}</button>
+               );
+           })}
+            {pets && pets.map((pet: any) => {
+                return (
+                    <Pet
+                        id={pet.id}
+                        name={pet.name}
+                        species={pet.species}
+                        age={pet.age}
+                        skills={pet.skills}
+                        categoryName={pet.category.name}
+                        key={pet.id} />
+                );
+            })}
+       </PetLayout>
     );
 }
+
+
