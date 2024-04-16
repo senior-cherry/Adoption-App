@@ -2,6 +2,7 @@ import {PrismaClient} from '@prisma/client';
 import Link from "next/link";
 import Pet from "@/app/components/Pet";
 import PetLayout from "@/app/layouts/PetLayout";
+import { cookies } from "next/headers";
 
 const prisma = new PrismaClient();
 
@@ -15,7 +16,7 @@ async function getPets(): Promise<{}> {
         });
 }
 
-async function getCategories() {
+export async function getCategories() {
     return prisma.category.findMany();
 }
 
