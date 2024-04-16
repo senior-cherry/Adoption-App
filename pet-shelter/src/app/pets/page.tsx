@@ -19,7 +19,7 @@ async function getCategories() {
     return prisma.category.findMany();
 }
 
-export default async function Home() {
+export default async function Pets() {
     const categories = await getCategories();
     let pets = await getPets();
 
