@@ -1,8 +1,8 @@
 import {PrismaClient} from '@prisma/client';
 import Link from "next/link";
 import Pet from "@/app/components/Pet";
-import PetLayout from "@/app/layouts/PetLayout";
 import { cookies } from "next/headers";
+import {Category} from "@/types/types";
 
 const prisma = new PrismaClient();
 
@@ -16,22 +16,35 @@ async function getPets(): Promise<{}> {
         });
 }
 
-export async function getCategories() {
-    return prisma.category.findMany();
+const getCategories = async () => {
+    const res = await fetch("http://localhost:3000/api/categories", {
+        cache: "no-store"
+    })
+
+    if (!res.ok) {
+        throw new Error("Failed!");
+    }
+
+    return res.json();
 }
 
 export default async function Pets() {
-    const categories = await getCategories();
+    const categories: Category = await getCategories();
     let pets = await getPets();
 
     return (
-       <PetLayout>
+        <main>
             <Link href={'/addPet'}>Add Pet</Link>
             <h1>Pets</h1>
            <Link href='/pets'>All</Link>
-           {categories.map((c) => {
+           {categories.map((category) => {
                return (
-                   <Link href={`/pets/${c.name}`}>{c.name}</Link>
+                   <Link
+                       href={`/pets/${category.name}`}
+                       key={category.id}
+                       className="w-full h-1/3 bg-cover p-8 md:h-1/2">
+                       {category.name}
+                   </Link>
                );
            })}
             {pets && pets.map((pet: any) => {
@@ -46,7 +59,7 @@ export default async function Pets() {
                     />
                 );
             })}
-       </PetLayout>
+        </main>
     );
 }
 

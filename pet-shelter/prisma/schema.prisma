@@ -12,18 +12,20 @@ model User {
   id        String   @id @default(cuid())
   name      String
   email     String   @unique
+  isAdmin   Boolean
   createdAt DateTime @default(now())
 }
 
 model Pet {
-  id          String    @id @default(cuid())
-  name        String
-  species     String
-  age         String
-  skills      String[]
-  imageUrl    String?
-  category    Category? @relation(fields: [category_id], references: [id])
-  category_id String?
+  id         String    @id @default(cuid())
+  name       String
+  species    String
+  age        String
+  skills     String[]
+  imageUrl   String?
+  isFeatured Boolean   @default(false)
+  category   Category? @relation(fields: [catSlug], references: [slug])
+  catSlug    String?
 }
 
 model Category {
@@ -31,4 +33,13 @@ model Category {
   name        String
   description String
   pets        Pet[]
+  slug        String @unique
+}
+
+model Post {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  imageUrl    String
+  createdAt   DateTime @default(now())
 }
