@@ -1,39 +1,39 @@
-import prisma from "../../../../lib/prisma";
-import PetLayout from "@/app/layouts/PetLayout";
 import Pet from "@/app/components/Pet";
+import {PetType} from "@/types/types";
 
-const PetsByCategory = async ({ params }: any) => {
-    const { category } = params;
+const getData = async (category: string) => {
+    const res = await fetch(`http://localhost:3000/api/pets/category=${category}`, {
+        cache: "no-store"
+    })
 
-    const pets = await prisma.pet.findMany({
-        include: {
-            category: {
-                select: { name: true },
-            }
-        },
-        where: {
-            category: {
-                name: category
-            }
-        }
-    });
+    if (!res.ok) {
+        throw new Error("Failed");
+    }
+
+    return res.json();
+}
+
+type Props = {
+    params: {category: string}
+}
+
+const PetsByCategory = async ({params}: Props) => {
+    const pets: PetType = await getData(params.category);
     return (
-        <PetLayout>
-            <div>
-                {pets.map((pet) => {
-                    return (
-                        <Pet id={pet.id}
-                             name={pet.name}
-                             species={pet.species}
-                             age={pet.age}
-                             skills={pet.skills}
-                             categoryName={pet.category.name}
-                             key={pet.id}
-                        />
-                    );
-                })}
-            </div>
-        </PetLayout>
+        <div>
+            {pets.map((pet) => {
+                return (
+                    <Pet id={pet.id}
+                         name={pet.name}
+                         species={pet.species}
+                         age={pet.age}
+                         skills={pet.skills}
+                         categoryName={pet.category.name}
+                         key={pet.id}
+                    />
+                );
+            })}
+        </div>
     );
 };
 

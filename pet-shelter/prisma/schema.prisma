@@ -26,6 +26,7 @@ model Pet {
   isFeatured Boolean   @default(false)
   category   Category? @relation(fields: [catSlug], references: [slug])
   catSlug    String?
+  createdAt  DateTime  @default(now())
 }
 
 model Category {

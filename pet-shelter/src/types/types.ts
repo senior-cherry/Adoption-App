@@ -1,11 +1,11 @@
-export type Category = {
+export type CategoryType = {
     id: string;
     name: string,
     description: string,
-    pets: Pet[]
+    pets: PetType[]
 }[];
 
-export type Pet = {
+export type PetType = {
     id: string,
     name: string,
     species: string,
@@ -13,6 +13,6 @@ export type Pet = {
     skills: [],
     imageUrl: string,
     isFeatured: boolean,
-    category: Category,
+    category: CategoryType,
     catSlug: string
-}
+}[];

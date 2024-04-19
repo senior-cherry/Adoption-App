@@ -8,7 +8,7 @@ interface Pet {
 }
 export default function Pet({id, name, species, age, skills, categoryName}: Pet) {
     return (
-        <div className="pet">
+        <main className="pet">
             <h3>Name: {name}</h3>
             <h4>Species: {species}</h4>
             <h4>Age: {age}</h4>
@@ -17,6 +17,6 @@ export default function Pet({id, name, species, age, skills, categoryName}: Pet)
             {/*    <UpdatePetButton petId={id} />*/}
             {/*    <DeletePetButton petId={id} />*/}
             {/*</div>*/}
-        </div>
+        </main>
     );
 }
