@@ -24,7 +24,7 @@ const Featured = async () => {
                             <h3>Name: {pet.name}</h3>
                             <h4>Species: {pet.species}</h4>
                             <h4>Age: {pet.age}</h4>
-                            <p>Category: {pet.category.name}</p>
+                            <p>Category: {pet.catSlug}</p>
                         </div>
                     );
                 })}
@@ -32,3 +32,5 @@ const Featured = async () => {
         </main>
     );
 }
+
+export default Featured;

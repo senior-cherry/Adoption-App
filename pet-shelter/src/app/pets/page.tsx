@@ -3,6 +3,7 @@ import Link from "next/link";
 import Pet from "@/app/components/Pet";
 import { cookies } from "next/headers";
 import {Category} from "@/types/types";
+import Featured from "@/app/components/Featured";
 
 const prisma = new PrismaClient();
 
@@ -37,7 +38,7 @@ export default async function Pets() {
             <Link href={'/addPet'}>Add Pet</Link>
             <h1>Pets</h1>
            <Link href='/pets'>All</Link>
-           {categories.map((category) => {
+           {categories.map((category: Category) => {
                return (
                    <Link
                        href={`/pets/${category.name}`}
@@ -47,18 +48,19 @@ export default async function Pets() {
                    </Link>
                );
            })}
-            {pets && pets.map((pet: any) => {
-                return (
-                    <Pet
-                        id={pet.id}
-                        name={pet.name}
-                        species={pet.species}
-                        age={pet.age}
-                        skills={pet.skills}
-                        categoryName={pet.category.name}
-                    />
-                );
-            })}
+           {/* {pets && pets.map((pet: any) => {*/}
+           {/*     return (*/}
+           {/*         <Pet*/}
+           {/*             id={pet.id}*/}
+           {/*             name={pet.name}*/}
+           {/*             species={pet.species}*/}
+           {/*             age={pet.age}*/}
+           {/*             skills={pet.skills}*/}
+           {/*             categoryName={pet.category.name}*/}
+           {/*         />*/}
+           {/*     );*/}
+           {/* })}*/}
+            <Featured />
         </main>
     );
 }

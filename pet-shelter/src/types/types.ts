@@ -15,4 +15,4 @@ export type PetType = {
     isFeatured: boolean,
     category: CategoryType,
     catSlug: string
-}[];
+};

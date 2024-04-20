@@ -1,8 +1,7 @@
-import Pet from "@/app/components/Pet";
 import {PetType} from "@/types/types";
 
 const getData = async (category: string) => {
-    const res = await fetch(`http://localhost:3000/api/pets/category=${category}`, {
+    const res = await fetch(`http://localhost:3000/api/pets?cat=${category}`, {
         cache: "no-store"
     })
 
@@ -18,19 +17,14 @@ type Props = {
 }
 
 const PetsByCategory = async ({params}: Props) => {
-    const pets: PetType = await getData(params.category);
+    const pets: PetType[] = await getData(params.category);
     return (
         <div>
             {pets.map((pet) => {
                 return (
-                    <Pet id={pet.id}
-                         name={pet.name}
-                         species={pet.species}
-                         age={pet.age}
-                         skills={pet.skills}
-                         categoryName={pet.category.name}
-                         key={pet.id}
-                    />
+                    <div>
+                        <h2>{pet.name}</h2>
+                    </div>
                 );
             })}
         </div>

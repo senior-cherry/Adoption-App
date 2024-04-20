@@ -3,12 +3,12 @@ import {prisma} from "@/utils/connect";
 export const GET = async (req: NextRequest) => {
 
     const { searchParams } = new URL(req.url);
-    const category = searchParams.get("category");
+    const cat = searchParams.get("cat");
 
     try {
         const pets = await prisma.pet.findMany({
             where: {
-                ...(category ? {catSlug: category} : {isFeatured: true})
+                ...(cat ? {catSlug: cat} : {isFeatured: true})
             }
         });
         return new NextResponse(
