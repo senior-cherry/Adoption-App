@@ -23,3 +23,14 @@ export const GET = async (req: NextRequest) => {
     }
 }
 
+export const POST = async (req: NextRequest) => {
+    try {
+        const body = await req.json();
+        const pet = await prisma.pet.create({
+            data: body
+        });
+        return new NextResponse(JSON.stringify(pet), { status: 201 })
+    } catch (err) {
+        return new NextResponse(JSON.stringify({ message: "Something went wrong!" }), { status: 500 })
+    }
+}

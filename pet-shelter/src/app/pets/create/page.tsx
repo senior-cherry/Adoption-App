@@ -68,7 +68,7 @@ const AddPage = () => {
         data.append("file", file!);
         data.append("upload_preset", "restaurant");
 
-        const res = await fetch("https://api.unsplash.com/photos", {
+        const res = await fetch(`https://api.unsplash.com/photos/${process.env.}`, {
             method: "POST",
             headers: { "Content-Type": "multipart/form-data" },
             body: data,
