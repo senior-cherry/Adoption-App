@@ -6,9 +6,9 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 type Inputs = {
-    title: string;
-    desc: string;
-    price: number;
+    name: string;
+    species: string;
+    age: string;
     catSlug: string;
 };
 
@@ -20,9 +20,9 @@ type Skill = {
 const AddPage = () => {
     // const { data: session, status } = useSession();
     const [inputs, setInputs] = useState<Inputs>({
-        title: "",
-        desc: "",
-        price: 0,
+        name: "",
+        species: "",
+        age: "",
         catSlug: "",
     });
 
@@ -66,9 +66,9 @@ const AddPage = () => {
     const upload = async () => {
         const data = new FormData();
         data.append("file", file!);
-        data.append("upload_preset", "restaurant");
+        data.append("upload_preset", "pet-shelter");
 
-        const res = await fetch(`https://api.unsplash.com/photos/${process.env.}`, {
+        const res = await fetch('/uploads', {
             method: "POST",
             headers: { "Content-Type": "multipart/form-data" },
             body: data,
@@ -124,7 +124,7 @@ const AddPage = () => {
                 <div className="w-full flex flex-col gap-2 ">
                     <label className="text-sm">Name</label>
                     <input
-                        className="ring-1 ring-red-200 p-4 rounded-sm placeholder:text-red-200 outline-none"
+                        className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
                         placeholder="Name"
                         name="name"
@@ -134,7 +134,7 @@ const AddPage = () => {
                 <div className="w-full flex flex-col gap-2 ">
                     <label className="text-sm">Species</label>
                     <input
-                        className="ring-1 ring-red-200 p-4 rounded-sm placeholder:text-red-200 outline-none"
+                        className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
                         placeholder="Species"
                         name="species"
@@ -144,7 +144,7 @@ const AddPage = () => {
                 <div className="w-full flex flex-col gap-2 ">
                     <label className="text-sm">Age</label>
                     <input
-                        className="ring-1 ring-red-200 p-4 rounded-sm placeholder:text-red-200 outline-none"
+                        className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
                         placeholder="Age"
                         name="age"
@@ -174,7 +174,7 @@ const AddPage = () => {
                 <div className="w-full flex flex-col gap-2 ">
                     <label className="text-sm">Category</label>
                     <input
-                        className="ring-1 ring-red-200 p-4 rounded-sm placeholder:text-red-200 outline-none"
+                        className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
                         placeholder="Dogs, Cats, etc."
                         name="catSlug"
@@ -185,14 +185,14 @@ const AddPage = () => {
                     <label className="text-sm">Skills</label>
                     <div className="flex">
                         <input
-                            className="ring-1 ring-red-200 p-4 rounded-sm placeholder:text-red-200 outline-none"
+                            className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                             type="text"
                             placeholder="Title"
                             name="title"
                             onChange={changeOption}
                         />
                         <input
-                            className="ring-1 ring-red-200 p-4 rounded-sm placeholder:text-red-200 outline-none"
+                            className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                             type="text"
                             placeholder="Additional Description"
                             name="additionalDesc"
@@ -224,7 +224,7 @@ const AddPage = () => {
                 </div>
                 <button
                     type="submit"
-                    className="bg-red-500 p-4 text-white w-48 rounded-md relative h-14 flex items-center justify-center"
+                    className="bg-orange-500 p-4 text-white w-48 rounded-md relative h-14 flex items-center justify-center"
                 >
                     Submit
                 </button>
