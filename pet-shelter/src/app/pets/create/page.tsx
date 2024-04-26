@@ -4,6 +4,7 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import * as fs from "fs";
 
 type Inputs = {
     name: string;
@@ -16,6 +17,8 @@ type Skill = {
     title: string;
     additionalDesc: string;
 };
+
+const uploadDir = './public/uploads';
 
 const AddPage = () => {
     // const { data: session, status } = useSession();
@@ -63,19 +66,27 @@ const AddPage = () => {
         setFile(item);
     };
 
+    // const getNewImageName = (name: string | undefined) => {
+    //     let newName = uuid();
+    //     return newName + name.substring(name.lastIndexOf('.'), name.length);
+    // }
+
     const upload = async () => {
-        const data = new FormData();
-        data.append("file", file!);
-        data.append("upload_preset", "pet-shelter");
+        // @ts-ignore
+        const newImageName = file.name;
+        // // @ts-ignore
+        // const buffer = Buffer.from(await file.arrayBuffer());
+        //
+        // try {
+        //     await fs.writeFile(`${uploadDir}/${file}`, buffer, (err) => {
+        //         if (err) throw err;
+        //         console.log('The file has been saved!');
+        //     });
+        // } catch(error) {
+        //     console.log(error);
+        // }
 
-        const res = await fetch('/uploads', {
-            method: "POST",
-            headers: { "Content-Type": "multipart/form-data" },
-            body: data,
-        });
-
-        const resData = await res.json();
-        return resData.url;
+        return newImageName;
     };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
