@@ -2,9 +2,10 @@
 
 // import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
-import * as fs from "fs";
+import {useRouter} from "next/navigation";
+import React, {useState} from "react";
+import {writeFile} from 'fs/promises';
+
 
 type Inputs = {
     name: string;
@@ -35,6 +36,9 @@ const AddPage = () => {
     });
 
     const [skills, setSkills] = useState<Skill[]>([]);
+
+    const [uploading, setUploading] = useState(false);
+    const [imageUrl, setImageUrl] = useState("");
     const [file, setFile] = useState<File>();
 
     const router = useRouter();
@@ -71,33 +75,39 @@ const AddPage = () => {
     //     return newName + name.substring(name.lastIndexOf('.'), name.length);
     // }
 
-    const upload = async () => {
-        // @ts-ignore
-        const newImageName = file.name;
-        // // @ts-ignore
-        // const buffer = Buffer.from(await file.arrayBuffer());
-        //
-        // try {
-        //     await fs.writeFile(`${uploadDir}/${file}`, buffer, (err) => {
-        //         if (err) throw err;
-        //         console.log('The file has been saved!');
-        //     });
-        // } catch(error) {
-        //     console.log(error);
-        // }
-
-        return newImageName;
+    const uploadImage = async () => {
+        const buffer = Buffer.from(await (file?.arrayBuffer() || new ArrayBuffer(0)));
+        try {
+            await writeFile(`${uploadDir}/${file?.name}`, buffer);
+        } catch(error) {
+            console.log(error);
+        }
     };
+
+    // const handleUpload = async () => {
+    //     setUploading(true);
+    //     try {
+    //         if (!file) return;
+    //         const formData = new FormData();
+    //         // @ts-ignore
+    //         formData.append(imageUrl, formData);
+    //         const { data } = await axios.post("/api/images/image", formData);
+    //         console.log(data);
+    //     } catch (error: any) {
+    //         console.log(error.response?.data)
+    //     }
+    //     setUploading(false);
+    // }
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        await uploadImage();
         try {
-            const url = await upload();
             const res = await fetch("http://localhost:3000/api/pets", {
                 method: "POST",
                 body: JSON.stringify({
-                    img: url,
+                    imageUrl: file?.name,
                     ...inputs,
                     skills,
                 }),
@@ -106,6 +116,7 @@ const AddPage = () => {
             const data = await res.json();
 
             router.push(`/pets/${data.id}`);
+            console.log(file?.name)
         } catch (err) {
             console.log(err);
         }
@@ -114,23 +125,20 @@ const AddPage = () => {
     return (
         <div>
             <form onSubmit={handleSubmit} className="flex flex-wrap gap-6">
-                <h1 className="text-4xl mb-2 text-gray-300 font-bold">
-                    Add New Product
-                </h1>
-                <div className="w-full flex flex-col gap-2 ">
-                    <label
-                        className="text-sm cursor-pointer flex gap-4 items-center"
-                        htmlFor="file"
-                    >
-                        <Image src="/upload.png" alt="" width={30} height={20} />
-                        <span>Upload Image</span>
-                    </label>
-                    <input
-                        type="file"
-                        onChange={handleChangeImg}
-                        id="file"
-                        className="hidden"
-                    />
+                    <div className="w-full flex flex-col gap-2 ">
+                        <label
+                            className="text-sm cursor-pointer flex gap-4 items-center"
+                            htmlFor="file"
+                        >
+                            <Image src="/upload.png" alt="" width={30} height={20} />
+                            <span>Upload Image</span>
+                        </label>
+                        <input
+                            type="file"
+                            onChange={handleChangeImg}
+                            id="file"
+                            className="hidden"
+                        />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
                     <label className="text-sm">Name</label>
@@ -192,6 +200,15 @@ const AddPage = () => {
                         onChange={handleChange}
                     />
                 </div>
+                {/*<div className="w-full flex flex-col gap-2 ">*/}
+                {/*    <label className="text-sm">Featured</label>*/}
+                {/*    <input*/}
+                {/*        className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"*/}
+                {/*        type=""*/}
+                {/*        name="isFeatured"*/}
+                {/*        onChange={handleChange}*/}
+                {/*    />*/}
+                {/*</div>*/}
                 <div className="w-full flex flex-col gap-2">
                     <label className="text-sm">Skills</label>
                     <div className="flex">
