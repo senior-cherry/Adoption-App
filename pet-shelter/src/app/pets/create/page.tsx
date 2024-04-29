@@ -74,7 +74,18 @@ const AddPage = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        await uploadImage(file!);
+        const formData = new FormData();
+        formData.append('file', file!);
+
+        try {
+            await fetch("http://localhost:3000/api/photos", {
+                method: "POST",
+                body: formData
+            })
+        } catch (err) {
+            console.log(err)
+        }
+
         try {
             const res = await fetch("http://localhost:3000/api/pets", {
                 method: "POST",
