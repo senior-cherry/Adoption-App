@@ -5,6 +5,7 @@ import Image from "next/image";
 import {useRouter} from "next/navigation";
 import React, {useState} from "react";
 import {writeFile} from 'fs/promises';
+import uploadImage from "@/utils/file-handler";
 
 
 type Inputs = {
@@ -70,29 +71,10 @@ const AddPage = () => {
         setFile(item);
     };
 
-    const uploadImage = async () => {
-        const data = new FormData();
-        data.append("file", file!);
-        data.append("upload_preset", "pet_shelter");
-
-        const res = await fetch("https://api.cloudinary.com/v1_1/dnnfklqqf/image/upload", {
-            method: "POST",
-            headers: { "Content-Type": "multipart/form-data" },
-            mode: "no-cors",
-            body: data,
-        });
-
-        if (res.ok) {
-            console.log("Success");
-        } else {
-            console.log("Failed");
-        }
-    }
-
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        await uploadImage();
+        await uploadImage(file!);
         try {
             const res = await fetch("http://localhost:3000/api/pets", {
                 method: "POST",
