@@ -70,34 +70,24 @@ const AddPage = () => {
         setFile(item);
     };
 
-    // const getNewImageName = (name: string | undefined) => {
-    //     let newName = uuid();
-    //     return newName + name.substring(name.lastIndexOf('.'), name.length);
-    // }
-
     const uploadImage = async () => {
-        const buffer = Buffer.from(await (file?.arrayBuffer() || new ArrayBuffer(0)));
-        try {
-            await writeFile(`${uploadDir}/${file?.name}`, buffer);
-        } catch(error) {
-            console.log(error);
-        }
-    };
+        const data = new FormData();
+        data.append("file", file!);
+        data.append("upload_preset", "pet_shelter");
 
-    // const handleUpload = async () => {
-    //     setUploading(true);
-    //     try {
-    //         if (!file) return;
-    //         const formData = new FormData();
-    //         // @ts-ignore
-    //         formData.append(imageUrl, formData);
-    //         const { data } = await axios.post("/api/images/image", formData);
-    //         console.log(data);
-    //     } catch (error: any) {
-    //         console.log(error.response?.data)
-    //     }
-    //     setUploading(false);
-    // }
+        const res = await fetch("https://api.cloudinary.com/v1_1/dnnfklqqf/image/upload", {
+            method: "POST",
+            headers: { "Content-Type": "multipart/form-data" },
+            mode: "no-cors",
+            body: data,
+        });
+
+        if (res.ok) {
+            console.log("Success");
+        } else {
+            console.log("Failed");
+        }
+    }
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -114,9 +104,7 @@ const AddPage = () => {
             });
 
             const data = await res.json();
-
-            router.push(`/pets/${data.id}`);
-            console.log(file?.name)
+            console.log(data)
         } catch (err) {
             console.log(err);
         }
