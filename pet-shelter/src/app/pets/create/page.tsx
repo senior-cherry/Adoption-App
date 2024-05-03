@@ -37,9 +37,6 @@ const AddPage = () => {
     });
 
     const [skills, setSkills] = useState<Skill[]>([]);
-
-    const [uploading, setUploading] = useState(false);
-    const [imageUrl, setImageUrl] = useState("");
     const [file, setFile] = useState<File>();
 
     const router = useRouter();
@@ -65,23 +62,20 @@ const AddPage = () => {
         });
     };
 
-    const handleChangeImg = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const target = e.target as HTMLInputElement;
-        const item = (target.files as FileList)[0];
-        setFile(item);
-    };
-
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const formData = new FormData();
-        formData.append('file', file!);
+        if (!file) return
 
         try {
-            await fetch("http://localhost:3000/api/photos", {
-                method: "POST",
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const res = await fetch('/api/upload', {
+                method: 'POST',
                 body: formData
             })
+            if (!res.ok) throw new Error(await res.text())
         } catch (err) {
             console.log(err)
         }
@@ -97,7 +91,9 @@ const AddPage = () => {
             });
 
             const data = await res.json();
-            console.log(data)
+            console.log(data);
+
+            router.push(`/pets/${data.id}`);
         } catch (err) {
             console.log(err);
         }
@@ -116,7 +112,7 @@ const AddPage = () => {
                         </label>
                         <input
                             type="file"
-                            onChange={handleChangeImg}
+                            onChange={(e) => setFile(e.target.files?.[0])}
                             id="file"
                             className="hidden"
                         />
