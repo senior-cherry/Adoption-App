@@ -13,6 +13,7 @@ type Inputs = {
     species: string;
     age: string;
     catSlug: string;
+    isFeatured: boolean
 };
 
 type Skill = {
@@ -29,6 +30,7 @@ const AddPage = () => {
         species: "",
         age: "",
         catSlug: "",
+        isFeatured: true
     });
 
     const [skill, setSkill] = useState<Skill>({
