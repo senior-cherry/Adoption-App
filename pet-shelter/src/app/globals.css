@@ -26,6 +26,13 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+.active {
+  color: white;
+  background: darkorange;
+  padding: 10px;
+  border-radius: 25px;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

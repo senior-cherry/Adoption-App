@@ -1,6 +1,8 @@
 import {PetType} from "@/types/types";
 import {Card, CardBody, CardFooter} from "@chakra-ui/card";
 import {Button, ButtonGroup, Divider, Heading, Stack, Text, Image} from "@chakra-ui/react";
+import { Grid } from "@chakra-ui/react"
+import Link from "next/link";
 
 
 const getData = async () => {
@@ -18,8 +20,8 @@ const getData = async () => {
 const Featured = async () => {
     const featuredPets: PetType = await getData();
     return (
-        <main className="pet">
-            <div>
+        <main className="mt-12">
+            <Grid templateColumns='repeat(5, 1fr)' gap={6}>
                 {featuredPets.map((pet) => {
                     return (
                         <Card maxW='sm'>
@@ -28,9 +30,12 @@ const Featured = async () => {
                                     src={`/uploads/${pet.imageUrl}`}
                                     alt={pet.imageUrl}
                                     borderRadius='lg'
+                                    height="400"
                                 />
                                 <Stack mt='6' spacing='3'>
-                                    <Heading size='md'>{pet.name}</Heading>
+                                    <Link href={`/pets/${pet.id}`} className="hover:text-orange-500">
+                                        <Heading size='md'>{pet.name}</Heading>
+                                    </Link>
                                     <Text>
                                         {pet.species}
                                     </Text>
@@ -43,17 +48,17 @@ const Featured = async () => {
                             <CardFooter>
                                 <ButtonGroup spacing='2'>
                                     <Button variant='solid' colorScheme='blue'>
-                                        Buy now
+                                        Adopt now
                                     </Button>
                                     <Button variant='ghost' colorScheme='blue'>
-                                        Add to cart
+                                        Add to favorites
                                     </Button>
                                 </ButtonGroup>
                             </CardFooter>
                         </Card>
                     );
                 })}
-            </div>
+            </Grid>
         </main>
     );
 }
