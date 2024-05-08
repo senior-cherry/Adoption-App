@@ -1,9 +1,8 @@
 "use client";
 
-// import { useSession } from "next-auth/react";
-import Image from "next/image";
 import {useRouter} from "next/navigation";
 import React, {useState} from "react";
+import {Params} from "next/dist/shared/lib/router/utils/route-matcher";
 
 
 type Inputs = {
@@ -19,9 +18,7 @@ type Skill = {
     additionalDesc: string;
 };
 
-const uploadDir = './public/uploads';
-
-const AddPage = () => {
+const UpdatePage = ({ params }: Params) => {
     // const { data: session, status } = useSession();
     const [inputs, setInputs] = useState<Inputs>({
         name: "",
@@ -81,8 +78,8 @@ const AddPage = () => {
         }
 
         try {
-            const res = await fetch("http://localhost:3000/api/pets", {
-                method: "POST",
+            const res = await fetch(`http://localhost:3000/api/pets/${params.id}`, {
+                method: "PATCH",
                 body: JSON.stringify({
                     imageUrl: file?.name,
                     ...inputs,
@@ -102,20 +99,20 @@ const AddPage = () => {
     return (
         <div>
             <form onSubmit={handleSubmit} className="flex flex-wrap gap-6">
-                    <div className="w-full flex flex-col gap-2 ">
-                        <label
-                            className="text-sm cursor-pointer flex gap-4 items-center"
-                            htmlFor="file"
-                        >
-                            <Image src="/upload.png" alt="" width={30} height={20} />
-                            <span>Upload Image</span>
-                        </label>
-                        <input
-                            type="file"
-                            onChange={(e) => setFile(e.target.files?.[0])}
-                            id="file"
-                            className="hidden"
-                        />
+                <div className="w-full flex flex-col gap-2 ">
+                    <label
+                        className="text-sm cursor-pointer flex gap-4 items-center"
+                        htmlFor="file"
+                    >
+                        {/*<Image src="/upload.png" alt="" width={30} height={20} />*/}
+                        <span>Upload Image</span>
+                    </label>
+                    <input
+                        type="file"
+                        onChange={(e) => setFile(e.target.files?.[0])}
+                        id="file"
+                        className="hidden"
+                    />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
                     <label className="text-sm">Name</label>
@@ -238,4 +235,4 @@ const AddPage = () => {
     );
 };
 
-export default AddPage;
+export default UpdatePage;
