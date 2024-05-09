@@ -35,7 +35,7 @@ const Header = () => {
                         <SignInButton />
                     </SignedOut>
                     <SignedIn>
-                        <UserButton />
+                        <UserButton afterSignOutUrl="/" />
                     </SignedIn>
                 </HStack>
             </Flex>

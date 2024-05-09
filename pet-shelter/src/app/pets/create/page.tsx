@@ -1,10 +1,9 @@
 "use client";
-
-// import { useSession } from "next-auth/react";
 import Image from "next/image";
 import {useRouter} from "next/navigation";
-import React, {useState} from "react";
-
+import React, {useEffect, useState} from "react";
+import {useUser, useSession} from "@clerk/nextjs";
+import {checkUserRole} from "@/utils/userUtils";
 
 type Inputs = {
     name: string;
@@ -19,10 +18,11 @@ type Skill = {
     additionalDesc: string;
 };
 
-const uploadDir = './public/uploads';
-
 const AddPage = () => {
-    // const { data: session, status } = useSession();
+    const {session} = useSession();
+    const {user}  = useUser();
+    const userRole = checkUserRole(session);
+
     const [inputs, setInputs] = useState<Inputs>({
         name: "",
         species: "",
@@ -41,13 +41,14 @@ const AddPage = () => {
 
     const router = useRouter();
 
-    if (status === "loading") {
-        return <p>Loading...</p>;
-    }
-
-    // if (status === "unauthenticated" || !session?.user.isAdmin) {
-    //     router.push("/");
-    // }
+    useEffect(() => {
+        if (!user || !userRole) {
+            router.push("/");
+        }
+        // if (userRole !== "org:admin") {
+        //     alert("hello admin")
+        // }
+    })
 
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -56,6 +57,7 @@ const AddPage = () => {
             return { ...prev, [e.target.name]: e.target.value };
         });
     };
+
     const changeOption = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSkill((prev) => {
             return { ...prev, [e.target.name]: e.target.value };
@@ -147,26 +149,6 @@ const AddPage = () => {
                         onChange={handleChange}
                     />
                 </div>
-                {/*<div className="w-full flex flex-col gap-2">*/}
-                {/*    <label className="text-sm">Description</label>*/}
-                {/*    <textarea*/}
-                {/*        rows={3}*/}
-                {/*        className="ring-1 ring-red-200 p-4 rounded-sm placeholder:text-red-200 outline-none"*/}
-                {/*        placeholder="A timeless favorite with a twist, showcasing a thin crust topped with sweet tomatoes, fresh basil and creamy mozzarella."*/}
-                {/*        name="desc"*/}
-                {/*        onChange={handleChange}*/}
-                {/*    />*/}
-                {/*</div>*/}
-                {/*<div className="w-full flex flex-col gap-2 ">*/}
-                {/*    <label className="text-sm">Price</label>*/}
-                {/*    <input*/}
-                {/*        className="ring-1 ring-red-200 p-4 rounded-sm placeholder:text-red-200 outline-none"*/}
-                {/*        type="number"*/}
-                {/*        placeholder="29"*/}
-                {/*        name="price"*/}
-                {/*        onChange={handleChange}*/}
-                {/*    />*/}
-                {/*</div>*/}
                 <div className="w-full flex flex-col gap-2 ">
                     <label className="text-sm">Category</label>
                     <input
@@ -177,15 +159,6 @@ const AddPage = () => {
                         onChange={handleChange}
                     />
                 </div>
-                {/*<div className="w-full flex flex-col gap-2 ">*/}
-                {/*    <label className="text-sm">Featured</label>*/}
-                {/*    <input*/}
-                {/*        className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"*/}
-                {/*        type=""*/}
-                {/*        name="isFeatured"*/}
-                {/*        onChange={handleChange}*/}
-                {/*    />*/}
-                {/*</div>*/}
                 <div className="w-full flex flex-col gap-2">
                     <label className="text-sm">Skills</label>
                     <div className="flex">

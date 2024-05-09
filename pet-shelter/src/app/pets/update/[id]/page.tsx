@@ -1,8 +1,11 @@
 "use client";
 
 import {useRouter} from "next/navigation";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Params} from "next/dist/shared/lib/router/utils/route-matcher";
+import Image from "next/image";
+import {useUser, useSession} from "@clerk/nextjs";
+import {checkUserRole} from "@/utils/userUtils";
 
 
 type Inputs = {
@@ -19,7 +22,10 @@ type Skill = {
 };
 
 const UpdatePage = ({ params }: Params) => {
-    // const { data: session, status } = useSession();
+    const {session} = useSession();
+    const {user}  = useUser();
+    const userRole = checkUserRole(session);
+
     const [inputs, setInputs] = useState<Inputs>({
         name: "",
         species: "",
@@ -38,13 +44,11 @@ const UpdatePage = ({ params }: Params) => {
 
     const router = useRouter();
 
-    if (status === "loading") {
-        return <p>Loading...</p>;
-    }
-
-    // if (status === "unauthenticated" || !session?.user.isAdmin) {
-    //     router.push("/");
-    // }
+    useEffect(() => {
+        if (!user || userRole !== "admin") {
+            router.push("/");
+        }
+    })
 
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -53,6 +57,7 @@ const UpdatePage = ({ params }: Params) => {
             return { ...prev, [e.target.name]: e.target.value };
         });
     };
+
     const changeOption = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSkill((prev) => {
             return { ...prev, [e.target.name]: e.target.value };
@@ -104,7 +109,7 @@ const UpdatePage = ({ params }: Params) => {
                         className="text-sm cursor-pointer flex gap-4 items-center"
                         htmlFor="file"
                     >
-                        {/*<Image src="/upload.png" alt="" width={30} height={20} />*/}
+                        <Image src="/upload.png" alt="" width={30} height={20} />
                         <span>Upload Image</span>
                     </label>
                     <input
@@ -144,26 +149,6 @@ const UpdatePage = ({ params }: Params) => {
                         onChange={handleChange}
                     />
                 </div>
-                {/*<div className="w-full flex flex-col gap-2">*/}
-                {/*    <label className="text-sm">Description</label>*/}
-                {/*    <textarea*/}
-                {/*        rows={3}*/}
-                {/*        className="ring-1 ring-red-200 p-4 rounded-sm placeholder:text-red-200 outline-none"*/}
-                {/*        placeholder="A timeless favorite with a twist, showcasing a thin crust topped with sweet tomatoes, fresh basil and creamy mozzarella."*/}
-                {/*        name="desc"*/}
-                {/*        onChange={handleChange}*/}
-                {/*    />*/}
-                {/*</div>*/}
-                {/*<div className="w-full flex flex-col gap-2 ">*/}
-                {/*    <label className="text-sm">Price</label>*/}
-                {/*    <input*/}
-                {/*        className="ring-1 ring-red-200 p-4 rounded-sm placeholder:text-red-200 outline-none"*/}
-                {/*        type="number"*/}
-                {/*        placeholder="29"*/}
-                {/*        name="price"*/}
-                {/*        onChange={handleChange}*/}
-                {/*    />*/}
-                {/*</div>*/}
                 <div className="w-full flex flex-col gap-2 ">
                     <label className="text-sm">Category</label>
                     <input
@@ -174,15 +159,6 @@ const UpdatePage = ({ params }: Params) => {
                         onChange={handleChange}
                     />
                 </div>
-                {/*<div className="w-full flex flex-col gap-2 ">*/}
-                {/*    <label className="text-sm">Featured</label>*/}
-                {/*    <input*/}
-                {/*        className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"*/}
-                {/*        type=""*/}
-                {/*        name="isFeatured"*/}
-                {/*        onChange={handleChange}*/}
-                {/*    />*/}
-                {/*</div>*/}
                 <div className="w-full flex flex-col gap-2">
                     <label className="text-sm">Skills</label>
                     <div className="flex">
