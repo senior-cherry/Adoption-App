@@ -42,13 +42,10 @@ const AddPage = () => {
     const router = useRouter();
 
     useEffect(() => {
-        if (!user || !userRole) {
-            router.push("/");
+        if (!user || userRole === "user") {
+            router.push("/")
         }
-        // if (userRole !== "org:admin") {
-        //     alert("hello admin")
-        // }
-    })
+    }, [])
 
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>

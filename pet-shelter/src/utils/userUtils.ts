@@ -5,7 +5,7 @@ const checkUserRole = (session: any) => {
         !session.user.organizationMemberships ||
         session.user.organizationMemberships.length === 0
     ) {
-        return null;
+        return "user";
     }
 
     const organizationMemberships = session.user.organizationMemberships;
