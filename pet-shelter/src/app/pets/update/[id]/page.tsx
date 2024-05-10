@@ -1,6 +1,6 @@
 "use client";
 
-import {useRouter} from "next/navigation";
+import {redirect, useRouter} from "next/navigation";
 import React, {useEffect, useState} from "react";
 import {Params} from "next/dist/shared/lib/router/utils/route-matcher";
 import Image from "next/image";
@@ -23,7 +23,7 @@ type Skill = {
 
 const UpdatePage = ({ params }: Params) => {
     const {session} = useSession();
-    const {user}  = useUser();
+    const {isLoaded, user}  = useUser();
     const userRole = checkUserRole(session);
 
     const [inputs, setInputs] = useState<Inputs>({
@@ -44,11 +44,11 @@ const UpdatePage = ({ params }: Params) => {
 
     const router = useRouter();
 
-    useEffect(() => {
-        if (!user || userRole !== "admin") {
-            router.push("/");
+    if (isLoaded) {
+        if (userRole !== "org:admin") {
+            redirect("/")
         }
-    })
+    }
 
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -109,8 +109,8 @@ const UpdatePage = ({ params }: Params) => {
                         className="text-sm cursor-pointer flex gap-4 items-center"
                         htmlFor="file"
                     >
-                        <Image src="/upload.png" alt="" width={30} height={20} />
-                        <span>Upload Image</span>
+                        <Image src="/download.png" alt="" width={30} height={20} />
+                        <span>Завантажити картинку</span>
                     </label>
                     <input
                         type="file"

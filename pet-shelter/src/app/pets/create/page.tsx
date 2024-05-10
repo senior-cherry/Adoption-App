@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import {useRouter} from "next/navigation";
+import {redirect, useRouter} from "next/navigation";
 import React, {useEffect, useState} from "react";
 import {useUser, useSession} from "@clerk/nextjs";
 import {checkUserRole} from "@/utils/userUtils";
@@ -20,7 +20,7 @@ type Skill = {
 
 const AddPage = () => {
     const {session} = useSession();
-    const {user}  = useUser();
+    const {isLoaded, user}  = useUser();
     const userRole = checkUserRole(session);
 
     const [inputs, setInputs] = useState<Inputs>({
@@ -41,11 +41,11 @@ const AddPage = () => {
 
     const router = useRouter();
 
-    useEffect(() => {
-        if (!user || userRole === "user") {
-            router.push("/")
+    if (isLoaded) {
+        if (userRole !== "org:admin") {
+            redirect("/")
         }
-    }, [])
+    }
 
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -106,8 +106,8 @@ const AddPage = () => {
                             className="text-sm cursor-pointer flex gap-4 items-center"
                             htmlFor="file"
                         >
-                            <Image src="/upload.png" alt="" width={30} height={20} />
-                            <span>Upload Image</span>
+                            <Image src="/download.png" alt="" width={30} height={20} />
+                            <span>Завантажити картинку</span>
                         </label>
                         <input
                             type="file"
@@ -164,13 +164,6 @@ const AddPage = () => {
                             type="text"
                             placeholder="Title"
                             name="title"
-                            onChange={changeOption}
-                        />
-                        <input
-                            className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
-                            type="text"
-                            placeholder="Additional Description"
-                            name="additionalDesc"
                             onChange={changeOption}
                         />
                         <button
