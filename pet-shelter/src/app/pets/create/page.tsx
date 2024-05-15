@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import {redirect, useRouter} from "next/navigation";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {useUser, useSession} from "@clerk/nextjs";
 import {checkUserRole} from "@/utils/userUtils";
 
@@ -11,11 +11,6 @@ type Inputs = {
     age: string;
     catSlug: string;
     isFeatured: boolean
-};
-
-type Skill = {
-    title: string;
-    additionalDesc: string;
 };
 
 const AddPage = () => {
@@ -31,12 +26,6 @@ const AddPage = () => {
         isFeatured: true
     });
 
-    const [skill, setSkill] = useState<Skill>({
-        title: "",
-        additionalDesc: "",
-    });
-
-    const [skills, setSkills] = useState<Skill[]>([]);
     const [file, setFile] = useState<File>();
 
     const router = useRouter();
@@ -51,12 +40,6 @@ const AddPage = () => {
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
         setInputs((prev) => {
-            return { ...prev, [e.target.name]: e.target.value };
-        });
-    };
-
-    const changeOption = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSkill((prev) => {
             return { ...prev, [e.target.name]: e.target.value };
         });
     };
@@ -84,8 +67,7 @@ const AddPage = () => {
                 method: "POST",
                 body: JSON.stringify({
                     imageUrl: file?.name,
-                    ...inputs,
-                    skills,
+                    ...inputs
                 }),
             });
 
@@ -155,40 +137,6 @@ const AddPage = () => {
                         name="catSlug"
                         onChange={handleChange}
                     />
-                </div>
-                <div className="w-full flex flex-col gap-2">
-                    <label className="text-sm">Skills</label>
-                    <div className="flex">
-                        <input
-                            className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
-                            type="text"
-                            placeholder="Title"
-                            name="title"
-                            onChange={changeOption}
-                        />
-                        <button
-                            className="bg-gray-500 p-2 text-white"
-                            onClick={() => setSkills((prev) => [...prev, skill])}
-                        >
-                            Add Skill
-                        </button>
-                    </div>
-                    <div className="flex flex-wrap gap-4 mt-2">
-                        {skills.map((skill) => (
-                            <div
-                                key={skill.title}
-                                className="p-2  rounded-md cursor-pointer bg-gray-200 text-gray-400"
-                                onClick={() =>
-                                    setSkills((prev) =>
-                                        prev.filter((item) => item.title !== skill.title)
-                                    )
-                                }
-                            >
-                                <span>{skill.title}</span>
-                                <span className="text-xs"> ({skill.additionalDesc})</span>
-                            </div>
-                        ))}
-                    </div>
                 </div>
                 <button
                     type="submit"

@@ -15,19 +15,21 @@ const Header = () => {
                 align="center"
                 justify="space-between"
             >
-                <Image src='/uploads/logo_w_bg-removebg-preview.png' alt='Paw in Paw' width="150" height="75" />
+                <Link href="/">
+                    <Image src='/uploads/logo_w_bg-removebg-preview.png' alt='Paw in Paw' width="150" height="75" />
+                </Link>
                 <HStack as="nav" spacing="5" fontSize={32} letterSpacing={2}>
-                        <Link href="/">
+                        <Link href="/about">
                             <Button variant="nav">Про нас</Button>
                         </Link>
-                    <Link href="/">
+                    <Link href="/pets">
                         <Button variant="nav">Улюбленці</Button>
                     </Link>
-                    <Link href="/">
+                    <Link href="/blog">
                         <Button variant="nav">Блог</Button>
                     </Link>
-                    <Link href="/">
-                        <Button variant="nav">Адмінпанель</Button>
+                    <Link href="/dashboard">
+                        <Button variant="nav">Адміністративна панель</Button>
                     </Link>
                 </HStack>
                 <HStack>
