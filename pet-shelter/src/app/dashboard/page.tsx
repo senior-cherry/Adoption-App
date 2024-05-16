@@ -12,6 +12,7 @@ import {
 import {PetType} from "@/types/types";
 import {useEffect, useState} from "react";
 import Link from "next/link";
+import DeleteButton from "@/app/components/DeleteButton";
 
 const getData = async (collection: String) => {
     const res = await fetch(`http://localhost:3000/api/${collection}`, {
@@ -107,7 +108,7 @@ const Dashboard = () => {
                                                     <Link href={`/pets/update/${pet.id}`}>
                                                         <Button colorScheme='orange'>Оновити</Button>
                                                     </Link>
-                                                    <Button colorScheme='red' onClick={() => handleDelete(pet.id)}>Видалити</Button>
+                                                    <DeleteButton id={pet.id} />
                                                 </ButtonGroup>
                                             </Td>
                                         </Tr>

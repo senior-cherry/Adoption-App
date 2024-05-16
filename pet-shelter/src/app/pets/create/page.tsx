@@ -9,6 +9,7 @@ type Inputs = {
     name: string;
     species: string;
     age: string;
+    desc: string;
     catSlug: string;
     isFeatured: boolean
 };
@@ -22,6 +23,7 @@ const AddPage = () => {
         name: "",
         species: "",
         age: "",
+        desc: "",
         catSlug: "",
         isFeatured: true
     });
@@ -42,6 +44,7 @@ const AddPage = () => {
         setInputs((prev) => {
             return { ...prev, [e.target.name]: e.target.value };
         });
+        console.log(e.target.name + " " + e.target.value)
     };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -125,6 +128,16 @@ const AddPage = () => {
                         type="text"
                         placeholder="Age"
                         name="age"
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="w-full flex flex-col gap-2 ">
+                    <label className="text-sm">Description</label>
+                    <input
+                        className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
+                        type="text"
+                        placeholder="Description"
+                        name="desc"
                         onChange={handleChange}
                     />
                 </div>

@@ -21,16 +21,17 @@ const Featured = async () => {
     const featuredPets: PetType = await getData();
     return (
         <main className="mt-12">
-            <Grid templateColumns='repeat(5, 1fr)' gap={6}>
+            <Grid templateColumns='repeat(4, 1fr)' gap={6}>
                 {featuredPets.map((pet) => {
                     return (
-                        <Card maxW='sm'>
+                        <Card width="80%">
                             <CardBody>
                                 <Image
                                     src={`/uploads/${pet.imageUrl}`}
                                     alt={pet.imageUrl}
                                     borderRadius='lg'
                                     height="400"
+                                    width="100%"
                                 />
                                 <Stack mt='6' spacing='3'>
                                     <Link href={`/pets/${pet.id}`} className="hover:text-orange-500">
