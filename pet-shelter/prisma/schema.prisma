@@ -13,6 +13,7 @@ model Pet {
   name       String
   species    String
   age        String
+  gender     String    @default("Невідомо")
   desc       String
   imageUrl   String?
   isFeatured Boolean   @default(false)
@@ -35,4 +36,13 @@ model Post {
   description String
   imageUrl    String
   createdAt   DateTime @default(now())
+}
+
+model Adoption {
+  id        String   @id @default(cuid())
+  pet       String
+  imageUrl  String
+  user      String
+  email     String
+  createdAt DateTime @default(now())
 }

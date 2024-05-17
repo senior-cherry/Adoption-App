@@ -16,3 +16,11 @@ export type PetType = {
     category: CategoryType,
     catSlug: string
 };
+
+export type Adoption = {
+    id: string,
+    pet: string,
+    imageUrl: string,
+    user: string,
+    email: string
+}

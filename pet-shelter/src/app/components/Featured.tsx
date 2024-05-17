@@ -49,10 +49,10 @@ const Featured = async () => {
                             <CardFooter>
                                 <ButtonGroup spacing='2'>
                                     <Button variant='solid' colorScheme='blue'>
-                                        Adopt now
+                                        Взяти тварину
                                     </Button>
                                     <Button variant='ghost' colorScheme='blue'>
-                                        Add to favorites
+                                        Дізнатись більше
                                     </Button>
                                 </ButtonGroup>
                             </CardFooter>
