@@ -17,10 +17,10 @@ export type PetType = {
     catSlug: string
 };
 
-export type Adoption = {
+export type AdoptionType = {
     id: string,
     pet: string,
     imageUrl: string,
     user: string,
     email: string
-}
+};

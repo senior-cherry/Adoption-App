@@ -9,7 +9,7 @@ import {
     AccordionPanel,
     AccordionIcon, Box, TableContainer, Table, TableCaption, Thead, Tr, Th, Tbody, Td, Tfoot, Image, ButtonGroup, Button
 } from '@chakra-ui/react';
-import {PetType} from "@/types/types";
+import {AdoptionType, PetType} from "@/types/types";
 import {useEffect, useState} from "react";
 import Link from "next/link";
 import DeleteButton from "@/app/components/DeleteButton";
@@ -31,6 +31,7 @@ const Dashboard = () => {
     const {isLoaded, user}  = useUser();
     const userRole = checkUserRole(session);
     const [pets, setPets] = useState<PetType[]>([]);
+    const [adoptionReqs, setAdoptionReqs] = useState<AdoptionType[]>([]);
 
     const router = useRouter();
 
@@ -39,6 +40,8 @@ const Dashboard = () => {
             try {
                 const petsData = await getData("pets");
                 setPets(petsData);
+                const adoptionData = await getData("adoption");
+                setAdoptionReqs(adoptionData)
             } catch (error) {
                 console.error("Error fetching pets:", error);
             }
@@ -51,16 +54,6 @@ const Dashboard = () => {
         }
     }, [isLoaded, userRole])
 
-    const handleDelete = async (petId: string) => {
-        try {
-            await fetch(`/api/pets/${petId}`, {
-                method: 'DELETE'
-            })
-            router.refresh();
-        } catch (e) {
-            console.error(e);
-        }
-    }
 
     return (
         <Accordion>
@@ -151,6 +144,58 @@ const Dashboard = () => {
                     tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
                     veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
                     commodo consequat.
+                </AccordionPanel>
+            </AccordionItem>
+
+            <AccordionItem>
+                <h2>
+                    <AccordionButton>
+                        <Box as='span' flex='1' textAlign='left'>
+                            Заявки на адопцію
+                        </Box>
+                        <AccordionIcon />
+                    </AccordionButton>
+                </h2>
+                <AccordionPanel pb={4}>
+                    <TableContainer>
+                        <Table variant='simple'>
+                            <TableCaption>База заявок на адопцію</TableCaption>
+                            <Thead>
+                                <Tr>
+                                    <Th>Фото</Th>
+                                    <Th>Ім'я</Th>
+                                    <Th>Користувач</Th>
+                                    <Th>Електронна пошта</Th>
+                                    <Th>Дії</Th>
+                                </Tr>
+                            </Thead>
+                            <Tbody>
+                                {adoptionReqs.map((req) => {
+                                    return (
+                                        <Tr>
+                                            <Td>
+                                                <Image
+                                                    borderRadius='full'
+                                                    boxSize='40px'
+                                                    src={`/uploads/${req.imageUrl}`}
+                                                    alt={req.pet}
+                                                />
+                                            </Td>
+                                            <Td>{req.pet}</Td>
+                                            <Td>{req.user}</Td>
+                                            <Td>{req.email}</Td>
+                                            <Td>
+                                                <ButtonGroup gap='4'>
+                                                    <Button colorScheme='teal'>Прийняти</Button>
+                                                    <Button colorScheme='red'>Відхилити</Button>
+                                                </ButtonGroup>
+                                            </Td>
+                                        </Tr>
+                                    );
+                                })}
+                            </Tbody>
+                        </Table>
+                    </TableContainer>
                 </AccordionPanel>
             </AccordionItem>
         </Accordion>

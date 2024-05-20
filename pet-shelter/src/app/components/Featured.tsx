@@ -1,8 +1,10 @@
 import {PetType} from "@/types/types";
 import {Card, CardBody, CardFooter} from "@chakra-ui/card";
-import {Button, ButtonGroup, Divider, Heading, Stack, Text, Image} from "@chakra-ui/react";
+import {Button, ButtonGroup, Divider, Heading, Stack, Text, Image, useToast} from "@chakra-ui/react";
 import { Grid } from "@chakra-ui/react"
 import Link from "next/link";
+import {useSession, useUser} from "@clerk/nextjs";
+import AdoptButtonGroup from "@/app/components/AdoptButtonGroup";
 
 
 const getData = async () => {
@@ -19,6 +21,7 @@ const getData = async () => {
 
 const Featured = async () => {
     const featuredPets: PetType = await getData();
+
     return (
         <main className="mt-12">
             <Grid templateColumns='repeat(4, 1fr)' gap={6}>
@@ -48,12 +51,12 @@ const Featured = async () => {
                             <Divider />
                             <CardFooter>
                                 <ButtonGroup spacing='2'>
-                                    <Button variant='solid' colorScheme='blue'>
-                                        Взяти тварину
-                                    </Button>
-                                    <Button variant='ghost' colorScheme='blue'>
-                                        Дізнатись більше
-                                    </Button>
+                                    <AdoptButtonGroup pet={pet.name} imageUrl={pet.imageUrl} />
+                                    <Link href={`/pets/${pet.id}`}>
+                                        <Button variant='ghost' colorScheme='blue'>
+                                            Дізнатись більше
+                                        </Button>
+                                    </Link>
                                 </ButtonGroup>
                             </CardFooter>
                         </Card>
