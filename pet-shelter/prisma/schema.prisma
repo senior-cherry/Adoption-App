@@ -39,10 +39,11 @@ model Post {
 }
 
 model Adoption {
-  id        String   @id @default(cuid())
-  pet       String
-  imageUrl  String
-  user      String
-  email     String
-  createdAt DateTime @default(now())
+  id         String   @id @default(cuid())
+  pet        String
+  imageUrl   String
+  user       String
+  email      String
+  isAccepted Boolean  @default(false)
+  createdAt  DateTime @default(now())
 }

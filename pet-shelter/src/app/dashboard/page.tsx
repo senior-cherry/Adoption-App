@@ -26,12 +26,14 @@ const getData = async (collection: String) => {
     return res.json();
 }
 
+
 const Dashboard = () => {
     const {session} = useSession();
     const {isLoaded, user}  = useUser();
     const userRole = checkUserRole(session);
     const [pets, setPets] = useState<PetType[]>([]);
     const [adoptionReqs, setAdoptionReqs] = useState<AdoptionType[]>([]);
+    const [decisionValue, setDecisionValue] = useState(false);
 
     const router = useRouter();
 
@@ -54,6 +56,16 @@ const Dashboard = () => {
         }
     }, [isLoaded, userRole])
 
+    const handleAdoptionRequest = (id: String, decision: String) => {
+
+        if (decision === "accept") {
+            setDecisionValue(true);
+        } else {
+            setDecisionValue(false);
+        }
+
+
+    }
 
     return (
         <Accordion>
@@ -186,8 +198,16 @@ const Dashboard = () => {
                                             <Td>{req.email}</Td>
                                             <Td>
                                                 <ButtonGroup gap='4'>
-                                                    <Button colorScheme='teal'>Прийняти</Button>
-                                                    <Button colorScheme='red'>Відхилити</Button>
+                                                    <Button
+                                                        colorScheme='teal'
+                                                        onClick={() => handleAdoptionRequest(req.id, "accept")}>
+                                                        Прийняти
+                                                    </Button>
+                                                    <Button
+                                                        colorScheme='red'
+                                                        onClick={() => handleAdoptionRequest(req.id, "deny")}>
+                                                        Відхилити
+                                                    </Button>
                                                 </ButtonGroup>
                                             </Td>
                                         </Tr>
