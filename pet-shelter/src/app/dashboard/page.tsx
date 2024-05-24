@@ -26,6 +26,18 @@ const getData = async (collection: String) => {
     return res.json();
 }
 
+const handleAdoptionRequest = async (id: String, decision: Boolean) => {
+    const res = await fetch(`http://localhost:3000/api/adoption/${id}`, {
+        method: 'PATCH',
+        body: JSON.stringify(decision)
+    })
+
+    if (!res.ok) {
+        throw new Error("Failed");
+    }
+
+    return res.json();
+}
 
 const Dashboard = () => {
     const {session} = useSession();
@@ -33,9 +45,6 @@ const Dashboard = () => {
     const userRole = checkUserRole(session);
     const [pets, setPets] = useState<PetType[]>([]);
     const [adoptionReqs, setAdoptionReqs] = useState<AdoptionType[]>([]);
-    const [decisionValue, setDecisionValue] = useState(false);
-
-    const router = useRouter();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -55,17 +64,6 @@ const Dashboard = () => {
             fetchData();
         }
     }, [isLoaded, userRole])
-
-    const handleAdoptionRequest = (id: String, decision: String) => {
-
-        if (decision === "accept") {
-            setDecisionValue(true);
-        } else {
-            setDecisionValue(false);
-        }
-
-
-    }
 
     return (
         <Accordion>
@@ -200,12 +198,12 @@ const Dashboard = () => {
                                                 <ButtonGroup gap='4'>
                                                     <Button
                                                         colorScheme='teal'
-                                                        onClick={() => handleAdoptionRequest(req.id, "accept")}>
+                                                        onClick={() => handleAdoptionRequest(req.id, true)}>
                                                         Прийняти
                                                     </Button>
                                                     <Button
                                                         colorScheme='red'
-                                                        onClick={() => handleAdoptionRequest(req.id, "deny")}>
+                                                        onClick={() => handleAdoptionRequest(req.id, false)}>
                                                         Відхилити
                                                     </Button>
                                                 </ButtonGroup>

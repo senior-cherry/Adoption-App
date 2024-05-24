@@ -47,3 +47,4 @@ model Adoption {
   isAccepted Boolean  @default(false)
   createdAt  DateTime @default(now())
 }
+

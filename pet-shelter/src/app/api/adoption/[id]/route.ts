@@ -18,3 +18,4 @@ export const PATCH = async (req: NextRequest, { params }: Params) => {
         return new NextResponse(JSON.stringify({ message: "Something went wrong!" }), { status: 500 })
     }
 }
+
