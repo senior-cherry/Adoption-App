@@ -3,13 +3,9 @@ import {prisma} from "@/utils/connect";
 
 export const GET = async () => {
     try {
-        const adoptions = await prisma.adoption.findMany({
-            where: {
-                approval: "inProcess"
-            }
-        });
+        const posts = await prisma.post.findMany();
         return new NextResponse(
-            JSON.stringify(adoptions),
+            JSON.stringify(posts),
             { status: 200 }
         )
     } catch (err) {
@@ -23,10 +19,10 @@ export const GET = async () => {
 export const POST = async (req: NextRequest) => {
     try {
         const body = await req.json();
-        const adoption = await prisma.adoption.create({
+        const post = await prisma.post.create({
             data: body
         });
-        return new NextResponse(JSON.stringify(adoption), { status: 201 })
+        return new NextResponse(JSON.stringify(post), { status: 201 })
     } catch (err) {
         return new NextResponse(JSON.stringify({ message: "Something went wrong!" }), { status: 500 })
     }

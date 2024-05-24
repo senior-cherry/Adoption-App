@@ -17,6 +17,14 @@ export type PetType = {
     catSlug: string
 };
 
+export type PostType = {
+    id: string,
+    name: string,
+    description: string,
+    imageUrl: string,
+    createdAt: number | Date
+}[];
+
 export type AdoptionType = {
     id: string,
     pet: string,

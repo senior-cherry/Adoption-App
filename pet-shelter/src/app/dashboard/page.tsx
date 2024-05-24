@@ -9,7 +9,7 @@ import {
     AccordionPanel,
     AccordionIcon, Box, TableContainer, Table, TableCaption, Thead, Tr, Th, Tbody, Td, Tfoot, Image, ButtonGroup, Button
 } from '@chakra-ui/react';
-import {AdoptionType, PetType} from "@/types/types";
+import {AdoptionType, PetType, PostType} from "@/types/types";
 import {useEffect, useState} from "react";
 import Link from "next/link";
 import DeleteButton from "@/app/components/DeleteButton";
@@ -26,7 +26,7 @@ const getData = async (collection: String) => {
     return res.json();
 }
 
-const handleAdoptionRequest = async (id: String, decision: Boolean) => {
+const handleAdoptionRequest = async (id: String, decision: string) => {
     const res = await fetch(`http://localhost:3000/api/adoption/${id}`, {
         method: 'PATCH',
         body: JSON.stringify(decision)
@@ -44,6 +44,7 @@ const Dashboard = () => {
     const {isLoaded, user}  = useUser();
     const userRole = checkUserRole(session);
     const [pets, setPets] = useState<PetType[]>([]);
+    const [posts, setPosts] = useState<PostType[]>([]);
     const [adoptionReqs, setAdoptionReqs] = useState<AdoptionType[]>([]);
 
     useEffect(() => {
@@ -51,6 +52,8 @@ const Dashboard = () => {
             try {
                 const petsData = await getData("pets");
                 setPets(petsData);
+                const postData = await getData("post");
+                setPosts(postData)
                 const adoptionData = await getData("adoption");
                 setAdoptionReqs(adoptionData)
             } catch (error) {
@@ -150,10 +153,45 @@ const Dashboard = () => {
                     </AccordionButton>
                 </h2>
                 <AccordionPanel pb={4}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                    veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                    commodo consequat.
+                    <TableContainer>
+                        <Table variant='simple'>
+                            <TableCaption>База блогу</TableCaption>
+                            <Thead>
+                                <Tr>
+                                    <Th>Фото</Th>
+                                    <Th>Ім'я</Th>
+                                    <Th>Опис</Th>
+                                    <Th>Дії</Th>
+                                </Tr>
+                            </Thead>
+                            <Tbody>
+                                {posts.map((post) => {
+                                    return (
+                                        <Tr>
+                                            <Td>
+                                                <Image
+                                                    borderRadius='full'
+                                                    boxSize='40px'
+                                                    src={`/uploads/${post.imageUrl}`}
+                                                    alt={post.name}
+                                                />
+                                            </Td>
+                                            <Td>{post.name}</Td>
+                                            <Td>{post.description}</Td>
+                                            <Td>
+                                                <ButtonGroup gap='4'>
+                                                    <Link href={`/blog/update/${post.id}`}>
+                                                        <Button colorScheme='orange'>Оновити</Button>
+                                                    </Link>
+                                                    <DeleteButton id={post.id} />
+                                                </ButtonGroup>
+                                            </Td>
+                                        </Tr>
+                                    );
+                                })}
+                            </Tbody>
+                        </Table>
+                    </TableContainer>
                 </AccordionPanel>
             </AccordionItem>
 
@@ -198,12 +236,12 @@ const Dashboard = () => {
                                                 <ButtonGroup gap='4'>
                                                     <Button
                                                         colorScheme='teal'
-                                                        onClick={() => handleAdoptionRequest(req.id, true)}>
+                                                        onClick={() => handleAdoptionRequest(req.id, "approve")}>
                                                         Прийняти
                                                     </Button>
                                                     <Button
                                                         colorScheme='red'
-                                                        onClick={() => handleAdoptionRequest(req.id, false)}>
+                                                        onClick={() => handleAdoptionRequest(req.id, "deny")}>
                                                         Відхилити
                                                     </Button>
                                                 </ButtonGroup>
