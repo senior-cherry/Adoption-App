@@ -84,7 +84,7 @@ const AddPage = () => {
     };
 
     return (
-        <div>
+        <div className="form">
             <form onSubmit={handleSubmit} className="flex flex-wrap gap-6">
                     <div className="w-full flex flex-col gap-2 ">
                         <label
@@ -151,12 +151,12 @@ const AddPage = () => {
                         onChange={handleChange}
                     />
                 </div>
-                <button
-                    type="submit"
-                    className="bg-orange-500 p-4 text-white w-48 rounded-md relative h-14 flex items-center justify-center"
-                >
-                    Submit
-                </button>
+                    <button
+                        type="submit"
+                        className="bg-orange-500 p-4 text-white w-48 rounded-md relative h-14 flex items-center justify-center"
+                    >
+                        Submit
+                    </button>
             </form>
         </div>
     );

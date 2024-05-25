@@ -13,6 +13,7 @@ import {AdoptionType, PetType, PostType} from "@/types/types";
 import {useEffect, useState} from "react";
 import Link from "next/link";
 import DeleteButton from "@/app/components/DeleteButton";
+import {AddIcon} from "@chakra-ui/icons";
 
 const getData = async (collection: String) => {
     const res = await fetch(`http://localhost:3000/api/${collection}`, {
@@ -52,7 +53,7 @@ const Dashboard = () => {
             try {
                 const petsData = await getData("pets");
                 setPets(petsData);
-                const postData = await getData("post");
+                const postData = await getData("blog");
                 setPosts(postData)
                 const adoptionData = await getData("adoption");
                 setAdoptionReqs(adoptionData)
@@ -82,7 +83,11 @@ const Dashboard = () => {
                 <AccordionPanel pb={4}>
                     <TableContainer>
                         <Table variant='simple'>
-                            <TableCaption>База тварин у притулку</TableCaption>
+                            <TableCaption>
+                                <Link href="/pets/create">
+                                    <Button colorScheme='teal'>Додати</Button>
+                                </Link>
+                            </TableCaption>
                             <Thead>
                                 <Tr>
                                     <Th>Фото</Th>
@@ -114,7 +119,7 @@ const Dashboard = () => {
                                                     <Link href={`/pets/update/${pet.id}`}>
                                                         <Button colorScheme='orange'>Оновити</Button>
                                                     </Link>
-                                                    <DeleteButton id={pet.id} />
+                                                    <DeleteButton id={pet.id} collection={"pets"} />
                                                 </ButtonGroup>
                                             </Td>
                                         </Tr>
@@ -183,7 +188,7 @@ const Dashboard = () => {
                                                     <Link href={`/blog/update/${post.id}`}>
                                                         <Button colorScheme='orange'>Оновити</Button>
                                                     </Link>
-                                                    <DeleteButton id={post.id} />
+                                                    <DeleteButton id={post.id} collection={"blog"} />
                                                 </ButtonGroup>
                                             </Td>
                                         </Tr>

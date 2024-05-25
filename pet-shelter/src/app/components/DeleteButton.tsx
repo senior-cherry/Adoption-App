@@ -4,7 +4,7 @@ import {useSession, useUser} from "@clerk/nextjs";
 import {checkUserRole} from "@/utils/userUtils";
 import {Button, useToast} from "@chakra-ui/react";
 
-const DeleteButton = ({ id }: { id: string }) => {
+const DeleteButton = ({ id, collection }: { id: string, collection: string }) => {
     const {session} = useSession();
     const {isLoaded, user}  = useUser();
     const userRole = checkUserRole(session);
@@ -23,7 +23,7 @@ const DeleteButton = ({ id }: { id: string }) => {
     }
 
     const handleDelete = async () => {
-        const res = await fetch(`http://localhost:3000/api/pets/${id}`, {
+        const res = await fetch(`http://localhost:3000/api/${collection}/${id}`, {
             method: "DELETE",
         });
 

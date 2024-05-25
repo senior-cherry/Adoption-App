@@ -161,6 +161,14 @@ body {
   }
 }
 
+.form {
+  margin: 15px;
+}
+
+.banner img {
+
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
