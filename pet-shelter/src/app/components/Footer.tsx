@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const Footer = () => {
     return (
-        <footer className="flex flex-col items-center justify-center py-8 bg-gray-800 text-gray-100 sticky bottom-0">
+        <footer className="flex flex-col items-center justify-center py-8 bg-gray-800 text-gray-100 bottom-0">
             <div className="flex flex-col space-y-4">
                 <h1 className="text-xl text-center font-bold">Знайдіть свого компаньйона</h1>
                 <p className="text-center text-gray-400">Відвідайте наш притулок або знайдіть друга на сайті</p>

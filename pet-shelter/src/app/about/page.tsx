@@ -2,24 +2,48 @@ import {Image} from "@chakra-ui/react";
 
 const About = () => {
     return (
-        <main className="about bg-gray-100 py-12">
-                <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div className="image-container">
-                         <Image src="/uploads/krista-mangulsone-9gz3wfHr65U-unsplash.jpg" alt="Image 1" className="rounded-lg shadow-md" />
-                    </div>
-                    <div className="text-container">
-                        <p className="text-xl leading-relaxed mb-8">
-                            (Company Description Here)
-                        </p>
-                        <p className="text-gray-700 mb-4">
-                            (Additional details about your company or mission)
-                        </p>
-                        <a href="#"
-                           className="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-bold rounded-md hover:bg-blue-700">Learn
-                            More</a>
-                    </div>
+        <div id="about" className="container">
+            <div className="about-row">
+                <div className="left-col">
+                    <Image src="/uploads/philip-veater-jyASQAXhmGk-unsplash.jpg" alt="image 1" />
                 </div>
-        </main>
+                <div className="right-col">
+                    <h1>Наша <span>історія</span></h1>
+                    <p>Ласкаво просимо до магазину Serenity Books, де кожна сторінка наповнена чарами та пригодами!
+                        Наша історія почалася з великої любові до літератури та бажання дарувати читачам радість та
+                        незабутні емоції.
+                        З моменту нашого заснування, ми віддані меті подарувати світ казки та навчання через захоплюючі
+                        книги.</p>
+                </div>
+            </div>
+
+            <div className="about-row">
+                <div className="left-col">
+                    <h1>Реалізація <span>мрії</span></h1>
+                    <p>Наш інтернет-магазин - це втілення мрії про те, щоб кожна людина мала доступ до чудових історій
+                        та навчальних матеріалів.
+                        Ми віримо в силу слова та вплив читання на розвиток уяви, творчості та важливих навичок.
+                        Тут кожен зможе знайти книжку, яка відкриє новий світ для кожного читача.</p>
+                </div>
+                <div className="right-col">
+                    <Image src="/uploads/tran-mau-tri-tam-7QjU_u2vGDs-unsplash.jpg" alt="image 2" />
+                </div>
+            </div>
+
+            <div className="about-row">
+                <div className="left-col">
+                    <Image src="/uploads/jametlene-reskp-fliwkBbS7oM-unsplash.jpg" alt="image 3" />
+                </div>
+                <div className="right-col">
+                    <h1>Перші <span>кроки</span></h1>
+                    <p>Наші перші кроки були невеликими, але наповненими ентузіазмом та любов'ю до книг.
+                        З моменту відкриття магазину, ми працюємо над тим, щоб кожен відвідувач знайшов у нас не лише
+                        книгу, але й особливий момент для себе.
+                        Ми вдячні за підтримку наших клієнтів та обіцяємо продовжувати творити чарівництво кожен
+                        день.</p>
+                </div>
+            </div>
+        </div>
     );
 }
 
