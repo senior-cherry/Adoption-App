@@ -258,7 +258,7 @@ body {
   border-radius: 5px;
 }
 
-.pet-container {
+.pet-container, .post-container {
   margin: 1rem 0;
   padding: 2rem 0;
   display: grid;
@@ -267,30 +267,30 @@ body {
   column-gap: 10px;
 }
 
-.pet-container-left {
+.pet-container-left, .post-container-left {
   padding: 20px;
 }
 
-.pet-container-right {
+.pet-container-right, .post-container-right {
   padding: 20px;
   line-height: 1.6;
 }
 
-.pet-container-right span {
+.pet-container-right span, .post-container-right span {
   font-size: 20px;
 }
 
 .img-container img {
-  width: 500px;
+  width: 400px;
   height: 430px;
   margin: 0 auto;
 }
 
-.pet-container-right span {
+.pet-container-right span, .post-container-right span {
   display: block;
 }
 
-.pet-title {
+.pet-title, .post-title {
   font-size: 26px;
   margin-bottom: 22px;
   font-weight: 700;
@@ -298,7 +298,7 @@ body {
   opacity: 0.9;
 }
 
-.pet-description {
+.pet-description, .post-description {
   line-height: 1.6;
   font-weight: 300;
   opacity: 0.9;

@@ -3,7 +3,7 @@ export type CategoryType = {
     name: string,
     description: string,
     pets: PetType[]
-}[];
+};
 
 export type PetType = {
     id: string,
@@ -24,7 +24,7 @@ export type PostType = {
     description: string,
     imageUrl: string,
     createdAt: number | Date
-}[];
+};
 
 export type AdoptionType = {
     id: string,

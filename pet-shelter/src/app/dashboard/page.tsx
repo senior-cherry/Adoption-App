@@ -1,7 +1,7 @@
 "use client";
 import {useSession, useUser} from "@clerk/nextjs";
 import {checkUserRole} from "@/utils/userUtils";
-import {redirect, useRouter} from "next/navigation";
+import {redirect} from "next/navigation";
 import {
     Accordion,
     AccordionItem,
@@ -9,11 +9,10 @@ import {
     AccordionPanel,
     AccordionIcon, Box, TableContainer, Table, TableCaption, Thead, Tr, Th, Tbody, Td, Tfoot, Image, ButtonGroup, Button
 } from '@chakra-ui/react';
-import {AdoptionType, PetType, PostType} from "@/types/types";
+import {AdoptionType, CategoryType, PetType, PostType} from "@/types/types";
 import {useEffect, useState} from "react";
 import Link from "next/link";
 import DeleteButton from "@/app/components/DeleteButton";
-import {AddIcon} from "@chakra-ui/icons";
 
 const getData = async (collection: String) => {
     const res = await fetch(`http://localhost:3000/api/${collection}`, {
@@ -45,6 +44,7 @@ const Dashboard = () => {
     const {isLoaded, user}  = useUser();
     const userRole = checkUserRole(session);
     const [pets, setPets] = useState<PetType[]>([]);
+    const [categories, setCategories] = useState<CategoryType[]>([]);
     const [posts, setPosts] = useState<PostType[]>([]);
     const [adoptionReqs, setAdoptionReqs] = useState<AdoptionType[]>([]);
 
@@ -53,6 +53,8 @@ const Dashboard = () => {
             try {
                 const petsData = await getData("pets");
                 setPets(petsData);
+                const categoriesData = await getData("categories");
+                setCategories(categoriesData);
                 const postData = await getData("blog");
                 setPosts(postData)
                 const adoptionData = await getData("adoption");
@@ -141,10 +143,41 @@ const Dashboard = () => {
                     </AccordionButton>
                 </h2>
                 <AccordionPanel pb={4}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                    veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                    commodo consequat.
+                    <TableContainer>
+                        <Table variant='simple'>
+                            <TableCaption>
+                                <Link href="/categories/create">
+                                    <Button colorScheme='teal'>Додати</Button>
+                                </Link>
+                            </TableCaption>
+                            <Thead>
+                                <Tr>
+                                    <Th>Назва</Th>
+                                    <Th>Опис</Th>
+                                    <Th>Дії</Th>
+                                </Tr>
+                            </Thead>
+                            <Tbody>
+                                {categories.map((category) => {
+                                    return (
+                                        <Tr>
+                                            <Td>{category.name}</Td>
+                                            <Td>{category.description}</Td>
+
+                                            <Td>
+                                                <ButtonGroup gap='4'>
+                                                    <Link href={`/categories/update/${category.id}`}>
+                                                        <Button colorScheme='orange'>Оновити</Button>
+                                                    </Link>
+                                                    <DeleteButton id={category.id} collection={"categories"} />
+                                                </ButtonGroup>
+                                            </Td>
+                                        </Tr>
+                                    );
+                                })}
+                            </Tbody>
+                        </Table>
+                    </TableContainer>
                 </AccordionPanel>
             </AccordionItem>
 
@@ -160,7 +193,11 @@ const Dashboard = () => {
                 <AccordionPanel pb={4}>
                     <TableContainer>
                         <Table variant='simple'>
-                            <TableCaption>База блогу</TableCaption>
+                            <TableCaption>
+                                <Link href="/blog/create">
+                                    <Button colorScheme='teal'>Додати</Button>
+                                </Link>
+                            </TableCaption>
                             <Thead>
                                 <Tr>
                                     <Th>Фото</Th>

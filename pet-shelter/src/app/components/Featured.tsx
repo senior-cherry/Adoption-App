@@ -37,7 +37,7 @@ const Featured = async () => {
                                     width="100%"
                                 />
                                 <Stack mt='6' spacing='3'>
-                                    <Link href={`/pets/${pet.id}`} className="hover:text-orange-500">
+                                    <Link href={`/pets/pet/${pet.id}`} className="hover:text-orange-500">
                                         <Heading size='md'>{pet.name}</Heading>
                                     </Link>
                                     <Text>
@@ -55,7 +55,7 @@ const Featured = async () => {
                             <CardFooter>
                                 <ButtonGroup spacing='2'>
                                     <AdoptButtonGroup pet={pet.name} imageUrl={pet.imageUrl} />
-                                    <Link href={`/pets/${pet.id}`}>
+                                    <Link href={`/pets/pet/${pet.id}`}>
                                         <Button variant='ghost' colorScheme='blue'>
                                             Дізнатись більше
                                         </Button>

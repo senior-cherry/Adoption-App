@@ -81,7 +81,7 @@ const UpdatePage = ({ params }: Params) => {
             const data = await res.json();
             console.log(data);
 
-            router.push(`/pets/${data.id}`);
+            router.push(`/pets/pet/${data.id}`);
         } catch (err) {
             console.log(err);
         }

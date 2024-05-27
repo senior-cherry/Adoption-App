@@ -1,5 +1,7 @@
 import {PetType} from "@/types/types";
-import {Image} from "@chakra-ui/react";
+import {Button, ButtonGroup, Image} from "@chakra-ui/react";
+import AdoptButtonGroup from "@/app/components/AdoptButtonGroup";
+import Link from "next/link";
 
 const getData = async (id: string) => {
     const res = await fetch(`http://localhost:3000/api/pets/${id}`, {
@@ -47,6 +49,14 @@ const SinglePet = async ({params}: Props) => {
                     <p className="pet-description">
                         {pet.desc}
                     </p>
+                    <ButtonGroup spacing='2' className="mt-5">
+                        <AdoptButtonGroup pet={pet.name} imageUrl={pet.imageUrl} />
+                        <Link href="/pets">
+                            <Button variant='ghost' colorScheme='blue'>
+                                Назад
+                            </Button>
+                        </Link>
+                    </ButtonGroup>
                 </div>
             </div>
         </div>

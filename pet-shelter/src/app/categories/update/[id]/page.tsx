@@ -3,6 +3,7 @@ import {redirect, useRouter} from "next/navigation";
 import React, {useState} from "react";
 import {useSession, useUser} from "@clerk/nextjs";
 import {checkUserRole} from "@/utils/userUtils";
+import {Params} from "next/dist/shared/lib/router/utils/route-matcher";
 
 type Inputs = {
     name: string;
@@ -10,7 +11,7 @@ type Inputs = {
     slug: string;
 };
 
-const AddCategoryPage = () => {
+const UpdateCategoryPage = ({params}: Params) => {
     const {session} = useSession();
     const {isLoaded, user}  = useUser();
     const userRole = checkUserRole(session);
@@ -41,8 +42,8 @@ const AddCategoryPage = () => {
         e.preventDefault();
 
         try {
-            const res = await fetch("http://localhost:3000/api/categories", {
-                method: "POST",
+            const res = await fetch(`http://localhost:3000/api/categories/${params.id}`, {
+                method: "PATCH",
                 body: JSON.stringify({
                     ...inputs,
                 }),
@@ -101,4 +102,4 @@ const AddCategoryPage = () => {
     );
 };
 
-export default AddCategoryPage;
+export default UpdateCategoryPage;
