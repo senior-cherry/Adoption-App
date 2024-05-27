@@ -3,6 +3,7 @@ import PetLayout from "@/app/layouts/PetLayout";
 import {Card, CardBody, CardFooter} from "@chakra-ui/card";
 import {Button, ButtonGroup, Divider, Grid, Heading, Image, Stack, Text} from "@chakra-ui/react";
 import Link from "next/link";
+import AdoptButtonGroup from "@/app/components/AdoptButtonGroup";
 
 const getData = async (category: string) => {
     const res = await fetch(`http://localhost:3000/api/pets?cat=${category}`, {
@@ -51,12 +52,12 @@ const PetsByCategory = async ({params}: Props) => {
                                 <Divider />
                                 <CardFooter>
                                     <ButtonGroup spacing='2'>
-                                        <Button variant='solid' colorScheme='blue'>
-                                            Adopt now
-                                        </Button>
-                                        <Button variant='ghost' colorScheme='blue'>
-                                            Add to favorites
-                                        </Button>
+                                        <AdoptButtonGroup pet={pet.name} imageUrl={pet.imageUrl} />
+                                        <Link href={`/pets/${pet.id}`}>
+                                            <Button variant='ghost' colorScheme='blue'>
+                                                Дізнатись більше
+                                            </Button>
+                                        </Link>
                                     </ButtonGroup>
                                 </CardFooter>
                             </Card>

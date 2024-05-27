@@ -12,10 +12,6 @@ const DeleteButton = ({ id, collection }: { id: string, collection: string }) =>
     const router = useRouter();
     const toast = useToast()
 
-    if (status === "loading") {
-        return <p>Loading...</p>;
-    }
-
     if (isLoaded) {
         if (userRole !== "org:admin") {
             redirect("/")
@@ -28,10 +24,9 @@ const DeleteButton = ({ id, collection }: { id: string, collection: string }) =>
         });
 
         if (res.status === 200) {
-            router.push("/dashboard");
             toast({
                 title: 'Успіх',
-                description: "Запис успішно виконано",
+                description: "Запит успішно виконано",
                 status: 'success',
                 duration: 5000,
                 isClosable: true,

@@ -12,6 +12,8 @@ type Inputs = {
     name: string;
     species: string;
     age: string;
+    gender: string;
+    desc: string;
     catSlug: string;
     isFeatured: boolean
 };
@@ -25,6 +27,8 @@ const UpdatePage = ({ params }: Params) => {
         name: "",
         species: "",
         age: "",
+        gender: "",
+        desc: "",
         catSlug: "",
         isFeatured: true
     });
@@ -128,6 +132,26 @@ const UpdatePage = ({ params }: Params) => {
                         type="text"
                         placeholder="Age"
                         name="age"
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="w-full flex flex-col gap-2 ">
+                    <label className="text-sm">Gender</label>
+                    <input
+                        className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
+                        type="text"
+                        placeholder="Gender"
+                        name="gender"
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="w-full flex flex-col gap-2 ">
+                    <label className="text-sm">Description</label>
+                    <input
+                        className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
+                        type="text"
+                        placeholder="Description"
+                        name="desc"
                         onChange={handleChange}
                     />
                 </div>

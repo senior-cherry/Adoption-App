@@ -10,6 +10,7 @@ export type PetType = {
     name: string,
     species: string,
     age: string,
+    gender: string,
     desc: string,
     imageUrl: string,
     isFeatured: boolean,

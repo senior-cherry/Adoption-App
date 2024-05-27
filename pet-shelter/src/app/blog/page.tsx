@@ -36,7 +36,7 @@ const Blog = async () => {
                                     </h1>
                                 </Link>
                             <p className="blog-post-text">
-                                {post.description}
+                                {post.description.substring(0, 50) + "..."}
                             </p>
                         </div>
                 </div>

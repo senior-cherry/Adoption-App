@@ -43,6 +43,9 @@ const Featured = async () => {
                                     <Text>
                                         {pet.species}
                                     </Text>
+                                    <Text>
+                                        {pet.gender}
+                                    </Text>
                                     <Text color='blue.600' fontSize='2xl'>
                                         {pet.age}
                                     </Text>

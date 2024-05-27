@@ -1,11 +1,13 @@
 import {NextRequest, NextResponse} from "next/server";
 import {prisma} from "@/utils/connect";
 import {Params} from "next/dist/shared/lib/router/utils/route-matcher";
-export const GET = async (req: NextRequest, {params}: Params) => {
+export const GET = async (req: NextRequest, { params }: Params) => {
     const id = params.id;
 
     try {
-        const pet = await prisma.pet.findUnique({where: {id}});
+        const pet = await prisma.pet.findUnique({
+            where: {id}
+        });
         return new NextResponse(
             JSON.stringify(pet),
             { status: 200 }

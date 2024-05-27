@@ -182,7 +182,7 @@ const Dashboard = () => {
                                                 />
                                             </Td>
                                             <Td>{post.name}</Td>
-                                            <Td>{post.description}</Td>
+                                            <Td>{post.description.substring(0, 20) + "..."}</Td>
                                             <Td>
                                                 <ButtonGroup gap='4'>
                                                     <Link href={`/blog/update/${post.id}`}>
