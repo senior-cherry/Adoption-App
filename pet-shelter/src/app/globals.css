@@ -345,6 +345,15 @@ body {
   grid-template-columns: repeat(5, 1fr);
 }
 
+.main-grid_tb {
+  display: none;
+}
+
+.main-grid_tb_content {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
 @media screen and (max-width: 1024px) {
   .pet-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -359,7 +368,17 @@ body {
     display: block;
   }
 
+  .main-grid-container {
+    display: none;
+  }
 
+  .main-grid_tb {
+    display: block;
+  }
+
+  .main-grid_tb_content {
+    display: grid;
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -370,6 +389,11 @@ body {
 
   .pet-grid .details_link {
     display: none;
+  }
+
+  .main-grid_tb_content {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
   }
 }
 
