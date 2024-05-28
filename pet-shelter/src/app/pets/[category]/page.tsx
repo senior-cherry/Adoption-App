@@ -26,7 +26,7 @@ const PetsByCategory = async ({params}: Props) => {
     return (
         <PetLayout>
             <main className="mt-12">
-                <Grid templateColumns='repeat(5, 1fr)' gap={6}>
+                <Grid className="pet-grid" gap={6}>
                     {pets.map((pet) => {
                         return (
                             <Card maxW='sm'>
@@ -53,7 +53,7 @@ const PetsByCategory = async ({params}: Props) => {
                                 <CardFooter>
                                     <ButtonGroup spacing='2'>
                                         <AdoptButtonGroup pet={pet.name} imageUrl={pet.imageUrl} />
-                                        <Link href={`/pets/${pet.id}`}>
+                                        <Link href={`/pets/${pet.id}`} className="details_link">
                                             <Button variant='ghost' colorScheme='blue'>
                                                 Дізнатись більше
                                             </Button>

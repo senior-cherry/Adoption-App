@@ -1,6 +1,7 @@
 import Link from "next/link";
 import {CategoryType} from "@/types/types";
 import { headers } from 'next/headers';
+import {Button, Menu, MenuButton, MenuItem, MenuList} from "@chakra-ui/react";
 
 const getCategories = async () => {
     const res = await fetch("http://localhost:3000/api/categories", {
@@ -22,18 +23,42 @@ const Filter = async () => {
 
     return (
         <div className="m-6">
-        <Link href='/pets' className={`w-full h-1/3 bg-cover p-8 md:h-1/2 ${url === '/pets' ? 'active' : ''}`}>All</Link>
-        {categories.map((category: CategoryType) => {
-            return (
-                <Link
-                    href={`/pets/${category.name}`}
-                    key={category.id}
-                    className={`w-full h-1/3 bg-cover p-8 md:h-1/2 ${url === `/pets/${category.name}`
-                        ? 'active' : ''}`}>
-                    {category.name}
-                </Link>
-            );
-        })}
+            <div className="filter_menu">
+                <Link href='/pets' className={`w-full h-1/3 bg-cover p-8 md:h-1/2 ${url === '/pets' ? 'active' : ''}`}>Всі</Link>
+                {categories.map((category: CategoryType) => {
+                    return (
+                        <Link
+                            href={`/pets/${category.name}`}
+                            key={category.id}
+                            className={`w-full h-1/3 bg-cover p-8 md:h-1/2 ${url === `/pets/${category.name}`
+                                ? 'active' : ''}`}>
+                            {category.name}
+                        </Link>
+                    );
+                })}
+            </div>
+            <div className="filter_menu_mb_tb">
+                <Menu>
+                    <MenuButton as={Button} colorScheme={"teal"}>
+                        Категорія
+                    </MenuButton>
+                    <MenuList>
+                        <Link href='/pets'>
+                            <MenuItem>Всі</MenuItem>
+                        </Link>
+                        {categories.map((category: CategoryType) => {
+                            return (
+                                <Link
+                                    href={`/pets/${category.name}`}
+                                    key={category.id}
+                                >
+                                    <MenuItem>{category.name}</MenuItem>
+                                </Link>
+                            );
+                        })}
+                    </MenuList>
+                </Menu>
+            </div>
         </div>
     );
 }

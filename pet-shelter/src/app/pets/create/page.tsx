@@ -104,61 +104,61 @@ const AddPage = () => {
                         />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
-                    <label className="text-sm">Name</label>
+                    <label className="text-sm">Ім'я</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
-                        placeholder="Name"
+                        placeholder="Ім'я"
                         name="name"
                         onChange={handleChange}
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
-                    <label className="text-sm">Species</label>
+                    <label className="text-sm">Вид</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
-                        placeholder="Species"
+                        placeholder="Вид"
                         name="species"
                         onChange={handleChange}
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
-                    <label className="text-sm">Age</label>
+                    <label className="text-sm">Вік</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
-                        placeholder="Age"
+                        placeholder="Вік"
                         name="age"
                         onChange={handleChange}
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
-                    <label className="text-sm">Gender</label>
+                    <label className="text-sm">Стать</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
-                        placeholder="Gender"
+                        placeholder="Стать"
                         name="gender"
                         onChange={handleChange}
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
-                    <label className="text-sm">Description</label>
+                    <label className="text-sm">Опис</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
-                        placeholder="Description"
+                        placeholder="Опис"
                         name="desc"
                         onChange={handleChange}
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
-                    <label className="text-sm">Category</label>
+                    <label className="text-sm">Категорія</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
-                        placeholder="Dogs, Cats, etc."
+                        placeholder="Собаки, Коти, Рептилії..."
                         name="catSlug"
                         onChange={handleChange}
                     />
@@ -167,7 +167,7 @@ const AddPage = () => {
                         type="submit"
                         className="bg-orange-500 p-4 text-white w-48 rounded-md relative h-14 flex items-center justify-center"
                     >
-                        Submit
+                        Підтвердити
                     </button>
             </form>
         </div>

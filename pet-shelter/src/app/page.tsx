@@ -6,10 +6,8 @@ export default function Home() {
       <main>
       <Grid
           h='820px'
-          templateRows='repeat(2, 1fr)'
-          templateColumns='repeat(5, 1fr)'
           gap={4}
-          className="m-1 mt-3"
+          className="m-1 mt-3 main-grid"
       >
           <GridItem rowSpan={2} colSpan={1} bg='white' className="-z-10">
               <Image src={"/uploads/philip-veater-qOt9-QPYmSA-unsplash.jpg"} alt={"img 1"} width="400" height="400" />

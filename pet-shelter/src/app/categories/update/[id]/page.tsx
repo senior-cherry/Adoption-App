@@ -62,31 +62,31 @@ const UpdateCategoryPage = ({params}: Params) => {
         <div className="form">
             <form onSubmit={handleSubmit} className="flex flex-wrap gap-6">
                 <div className="w-full flex flex-col gap-2 ">
-                    <label className="text-sm">Name</label>
+                    <label className="text-sm">Назва</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
-                        placeholder="Name"
+                        placeholder="Назва"
                         name="name"
                         onChange={handleChange}
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
-                    <label className="text-sm">Description</label>
+                    <label className="text-sm">Опис</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
-                        placeholder="Description"
+                        placeholder="Опис"
                         name="description"
                         onChange={handleChange}
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
-                    <label className="text-sm">Slug</label>
+                    <label className="text-sm">Категорія</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
-                        placeholder="Slug"
+                        placeholder="Категорія"
                         name="slug"
                         onChange={handleChange}
                     />
@@ -95,7 +95,7 @@ const UpdateCategoryPage = ({params}: Params) => {
                     type="submit"
                     className="bg-orange-500 p-4 text-white w-48 rounded-md relative h-14 flex items-center justify-center"
                 >
-                    Submit
+                    Підтвердити
                 </button>
             </form>
         </div>
