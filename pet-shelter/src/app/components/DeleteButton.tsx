@@ -31,6 +31,9 @@ const DeleteButton = ({ id, collection }: { id: string, collection: string }) =>
                 duration: 5000,
                 isClosable: true,
             })
+            setTimeout(() => {
+                window.location.reload();
+            }, 5000)
         } else {
             const data = await res.json();
             toast({
