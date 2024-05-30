@@ -395,6 +395,14 @@ body {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
   }
+
+  .pet-container {
+    display: block;
+  }
+
+  .post-container {
+    display: block;
+  }
 }
 
 @layer utilities {

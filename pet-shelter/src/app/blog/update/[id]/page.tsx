@@ -70,7 +70,7 @@ const UpdatePostPage = ({ params }: Params) => {
             const data = await res.json();
             console.log(data);
 
-            router.push(`/blog/${data.id}`);
+            router.push(`/blog/post/${data.id}`);
         } catch (err) {
             console.log(err);
         }

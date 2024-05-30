@@ -30,7 +30,7 @@ const Blog = async () => {
                                 <div className="blog-post-date">
                                     <span>{post.createdAt.toString().substring(0, 10)}</span>
                                 </div>
-                                <Link href={`/blog/${post.id}`}>
+                                <Link href={`/blog/post/${post.id}`}>
                                     <h1 className="blog-post-title">
                                         {post.name}
                                     </h1>
