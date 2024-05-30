@@ -37,27 +37,29 @@ const Filter = async () => {
                     );
                 })}
             </div>
-            <div className="filter_menu_mb_tb">
-                <Menu>
-                    <MenuButton as={Button} colorScheme={"teal"}>
-                        Категорія
-                    </MenuButton>
-                    <MenuList>
-                        <Link href='/pets'>
-                            <MenuItem>Всі</MenuItem>
-                        </Link>
-                        {categories.map((category: CategoryType) => {
-                            return (
-                                <Link
-                                    href={`/pets/${category.name}`}
-                                    key={category.id}
-                                >
-                                    <MenuItem>{category.name}</MenuItem>
-                                </Link>
-                            );
-                        })}
-                    </MenuList>
-                </Menu>
+            <div>
+                <div className="filter_menu_mb_tb">
+                    <Menu>
+                        <MenuButton as={Button} colorScheme={"teal"}>
+                            Категорія
+                        </MenuButton>
+                        <MenuList>
+                            <Link href='/pets'>
+                                <MenuItem>Всі</MenuItem>
+                            </Link>
+                            {categories.map((category: CategoryType) => {
+                                return (
+                                    <Link
+                                        href={`/pets/${category.name}`}
+                                        key={category.id}
+                                    >
+                                        <MenuItem>{category.name}</MenuItem>
+                                    </Link>
+                                );
+                            })}
+                        </MenuList>
+                    </Menu>
+                </div>
             </div>
         </div>
     );

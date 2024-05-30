@@ -36,13 +36,17 @@ const PetsByCategory = async ({params}: Props) => {
                                         alt={pet.imageUrl}
                                         borderRadius='lg'
                                         height="400"
+                                        width="100%"
                                     />
                                     <Stack mt='6' spacing='3'>
-                                        <Link href={`/pets/${pet.id}`} className="hover:text-orange-500">
+                                        <Link href={`/pets/pet/${pet.id}`} className="hover:text-orange-500">
                                             <Heading size='md'>{pet.name}</Heading>
                                         </Link>
                                         <Text>
                                             {pet.species}
+                                        </Text>
+                                        <Text>
+                                            {pet.gender}
                                         </Text>
                                         <Text color='blue.600' fontSize='2xl'>
                                             {pet.age}
@@ -53,7 +57,7 @@ const PetsByCategory = async ({params}: Props) => {
                                 <CardFooter>
                                     <ButtonGroup spacing='2'>
                                         <AdoptButtonGroup pet={pet.name} imageUrl={pet.imageUrl} />
-                                        <Link href={`/pets/${pet.id}`} className="details_link">
+                                        <Link href={`/pets/pet/${pet.id}`} className="details_link">
                                             <Button variant='ghost' colorScheme='blue'>
                                                 Дізнатись більше
                                             </Button>

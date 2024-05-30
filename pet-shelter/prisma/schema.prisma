@@ -16,7 +16,7 @@ model Pet {
   gender     String    @default("Невідомо")
   desc       String
   imageUrl   String?
-  isFeatured Boolean   @default(false)
+  isFeatured Boolean   @default(true)
   category   Category? @relation(fields: [catSlug], references: [slug])
   catSlug    String?
   createdAt  DateTime  @default(now())
