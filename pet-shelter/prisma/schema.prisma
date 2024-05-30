@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model Pet {
+  id         String    @id @default(cuid())
+  name       String
+  species    String
+  age        String
+  gender     String    @default("Невідомо")
+  desc       String
+  imageUrl   String?
+  isFeatured Boolean   @default(true)
+  category   Category? @relation(fields: [catSlug], references: [slug])
+  catSlug    String?
+  createdAt  DateTime  @default(now())
+}
+
+model Category {
+  id          String @id @default(cuid())
+  name        String
+  description String
+  pets        Pet[]
+  slug        String @unique
+}
+
+model Post {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  imageUrl    String
+  createdAt   DateTime @default(now())
+}
+
+model Adoption {
+  id        String   @id @default(cuid())
+  pet       String
+  imageUrl  String
+  user      String
+  email     String
+  approval  String   @default("inProcess")
+  createdAt DateTime @default(now())
+}
