@@ -2,7 +2,7 @@ import { PostType } from "@/types/types";
 import { Image } from "@chakra-ui/react";
 import Link from "next/link";
 
-const getData = async (): Promise<PostType[]> => {
+const getData = async () => {
     const res = await fetch("http://localhost:3000/api/blog", {
         cache: "no-store",
     });
@@ -16,14 +16,12 @@ const getData = async (): Promise<PostType[]> => {
 
 const Blog = async () => {
     try {
-        const posts: PostType[] = await getData();
+        const posts: PostType = await getData();
 
         return (
             <main className="mt-12">
                 <div className="blog">
-                    {
-                        posts.length > 0 ? (
-                            posts.forEach((post: PostType) => (
+                    {posts.map((post) => (
                                 <div className="blog-post" key={post.id}>
                                     <div className="blog-post-img">
                                         <Image src={`/uploads/${post.imageUrl}`} alt={post.imageUrl}/>
@@ -40,11 +38,7 @@ const Blog = async () => {
                                         </p>
                                     </div>
                                 </div>
-                            ))
-                        ) : (
-                            <Fragment />
-                        )
-                    }
+                   ))}
                 </div>
             </main>
         );
