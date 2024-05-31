@@ -29,7 +29,7 @@ yarn-error.log*
 .env
 
 # idea
-.idea
+.idea/
 
 # vercel
 .vercel
