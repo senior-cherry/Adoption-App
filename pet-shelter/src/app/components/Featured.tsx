@@ -26,7 +26,7 @@ const Featured = async () => {
             <Grid gap={6} className="pet-grid">
                 {featuredPets.map((pet) => {
                     return (
-                        <Card width="80%">
+                        <Card width="80%" key={pet.id}>
                             <CardBody>
                                 <Image
                                     src={`/uploads/${pet.imageUrl}`}

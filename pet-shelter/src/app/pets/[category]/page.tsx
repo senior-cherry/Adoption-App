@@ -29,7 +29,7 @@ const PetsByCategory = async ({params}: Props) => {
                 <Grid className="pet-grid" gap={6}>
                     {pets.map((pet) => {
                         return (
-                            <Card maxW='sm'>
+                            <Card maxW='sm' key={pet.id}>
                                 <CardBody>
                                     <Image
                                         src={`/uploads/${pet.imageUrl}`}

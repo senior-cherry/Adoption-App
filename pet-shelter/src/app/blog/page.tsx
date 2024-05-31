@@ -22,7 +22,7 @@ const Blog = async () => {
             <div className="blog">
                 {posts.map((post) => {
                     return (
-                        <div className="blog-post">
+                        <div className="blog-post" key={post.id}>
                             <div className="blog-post-img">
                                 <Image src={`/uploads/${post.imageUrl}`} alt={post.imageUrl} />
                             </div>
