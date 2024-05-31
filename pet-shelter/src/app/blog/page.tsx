@@ -42,7 +42,7 @@ const Blog = async () => {
                                 </div>
                             ))
                         ) : (
-                            <p>No posts found.</p>
+                            <Fragment />
                         )
                     }
                 </div>
