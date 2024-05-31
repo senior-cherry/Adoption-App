@@ -4,12 +4,15 @@ import {redirect, useRouter} from "next/navigation";
 import React, {useState} from "react";
 import {useUser, useSession} from "@clerk/nextjs";
 import {checkUserRole} from "@/utils/userUtils";
-import {Params} from "next/dist/shared/lib/router/utils/route-matcher";
 
 type Inputs = {
     name: string;
     description: string;
 };
+
+type Params = {
+    params: {id: string}
+}
 
 const UpdatePostPage = ({ params }: Params) => {
     const {session} = useSession();
