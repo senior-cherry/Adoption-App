@@ -104,7 +104,7 @@ const AddPage = () => {
                         />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
-                    <label className="text-sm">Ім'я</label>
+                    <label className="text-sm">Ім&apos;я</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"

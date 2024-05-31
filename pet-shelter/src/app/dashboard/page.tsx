@@ -93,7 +93,7 @@ const Dashboard = () => {
                             <Thead>
                                 <Tr>
                                     <Th>Фото</Th>
-                                    <Th>Ім'я</Th>
+                                    <Th>Ім&apos;я</Th>
                                     <Th>Вид</Th>
                                     <Th>Вік</Th>
                                     <Th>Категорія</Th>
@@ -103,7 +103,7 @@ const Dashboard = () => {
                             <Tbody>
                                 {pets.map((pet) => {
                                     return (
-                                        <Tr>
+                                        <Tr key={pet.id}>
                                             <Td>
                                                 <Image
                                                     borderRadius='full'
@@ -160,7 +160,7 @@ const Dashboard = () => {
                             <Tbody>
                                 {categories.map((category) => {
                                     return (
-                                        <Tr>
+                                        <Tr key={category.id}>
                                             <Td>{category.name}</Td>
                                             <Td>{category.description}</Td>
 
@@ -201,7 +201,7 @@ const Dashboard = () => {
                             <Thead>
                                 <Tr>
                                     <Th>Фото</Th>
-                                    <Th>Ім'я</Th>
+                                    <Th>Ім&apos;я</Th>
                                     <Th>Опис</Th>
                                     <Th>Дії</Th>
                                 </Tr>
@@ -209,7 +209,7 @@ const Dashboard = () => {
                             <Tbody>
                                 {posts.map((post) => {
                                     return (
-                                        <Tr>
+                                        <Tr key={post.id}>
                                             <Td>
                                                 <Image
                                                     borderRadius='full'
@@ -253,7 +253,7 @@ const Dashboard = () => {
                             <Thead>
                                 <Tr>
                                     <Th>Фото</Th>
-                                    <Th>Ім'я</Th>
+                                    <Th>Ім&apos;я</Th>
                                     <Th>Користувач</Th>
                                     <Th>Електронна пошта</Th>
                                     <Th>Дії</Th>
@@ -262,7 +262,7 @@ const Dashboard = () => {
                             <Tbody>
                                 {adoptionReqs.map((req) => {
                                     return (
-                                        <Tr>
+                                        <Tr key={req.id}>
                                             <Td>
                                                 <Image
                                                     borderRadius='full'
