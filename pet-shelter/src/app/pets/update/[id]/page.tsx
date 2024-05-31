@@ -1,8 +1,7 @@
 "use client";
 
 import {redirect, useRouter} from "next/navigation";
-import React, {useEffect, useState} from "react";
-import {Params} from "next/dist/shared/lib/router/utils/route-matcher";
+import React, {useState} from "react";
 import Image from "next/image";
 import {useUser, useSession} from "@clerk/nextjs";
 import {checkUserRole} from "@/utils/userUtils";
@@ -17,6 +16,10 @@ type Inputs = {
     catSlug: string;
     isFeatured: boolean
 };
+
+type Params = {
+    params: {id: string}
+}
 
 const UpdatePage = ({ params }: Params) => {
     const {session} = useSession();
