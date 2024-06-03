@@ -16,7 +16,7 @@ const getData = async () => {
 
 const Blog = async () => {
     try {
-        const posts: PostType = await getData();
+        const posts: PostType[] = await getData();
 
         return (
             <main className="mt-12">
