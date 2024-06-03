@@ -15,7 +15,7 @@ import Link from "next/link";
 import DeleteButton from "@/app/components/DeleteButton";
 
 const getData = async (collection: String) => {
-    const res = await fetch(`/api/${collection}`, {
+    const res = await fetch(`${process.env.PRODUCTION_URL}/api/${collection}`, {
         cache: "no-store"
     })
 
@@ -27,7 +27,7 @@ const getData = async (collection: String) => {
 }
 
 const handleAdoptionRequest = async (id: String, decision: string) => {
-    const res = await fetch(`/api/adoption/${id}`, {
+    const res = await fetch(`${process.env.PRODUCTION_URL}/api/adoption/${id}`, {
         method: 'PATCH',
         body: JSON.stringify(decision)
     })

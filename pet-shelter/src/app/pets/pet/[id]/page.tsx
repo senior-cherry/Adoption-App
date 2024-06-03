@@ -4,7 +4,7 @@ import AdoptButtonGroup from "@/app/components/AdoptButtonGroup";
 import Link from "next/link";
 
 const getData = async (id: string) => {
-    const res = await fetch(`/api/pets/${id}`, {
+    const res = await fetch(`${process.env.PRODUCTION_URL}/api/pets/${id}`, {
         cache: "no-store"
     })
 

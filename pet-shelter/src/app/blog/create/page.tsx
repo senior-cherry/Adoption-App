@@ -48,7 +48,7 @@ const AddPostPage = () => {
             const formData = new FormData();
             formData.append('file', file);
 
-            const res = await fetch('/api/upload', {
+            const res = await fetch(`${process.env.PRODUCTION_URL}/api/upload`, {
                 method: 'POST',
                 body: formData
             })
@@ -58,7 +58,7 @@ const AddPostPage = () => {
         }
 
         try {
-            const res = await fetch("/api/blog", {
+            const res = await fetch(`${process.env.PRODUCTION_URL}/api/blog`, {
                 method: "POST",
                 body: JSON.stringify({
                     imageUrl: file?.name,

@@ -3,7 +3,7 @@ import { Image } from "@chakra-ui/react";
 import Link from "next/link";
 
 const getData = async () => {
-    const res = await fetch("/api/blog", {
+    const res = await fetch(`${process.env.PRODUCTION_URL}/api/blog`, {
         cache: "no-store",
     });
 

@@ -18,7 +18,7 @@ const AdoptButtonGroup = ({ pet, imageUrl }) => {
 
         console.log(adoptionData)
 
-        const res = await fetch("/api/adoption", {
+        const res = await fetch(`${process.env.PRODUCTION_URL}/api/adoption`, {
             method: 'POST',
             body: JSON.stringify(adoptionData)
         })

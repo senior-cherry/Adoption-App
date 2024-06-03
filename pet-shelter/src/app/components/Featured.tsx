@@ -7,7 +7,7 @@ import AdoptButtonGroup from "@/app/components/AdoptButtonGroup";
 
 
 const getData = async () => {
-    const res = await fetch("/api/pets", {
+    const res = await fetch(`${process.env.PRODUCTION_URL}/api/pets`, {
         cache: "no-store"
     })
 
