@@ -73,7 +73,7 @@ const UpdatePage = ({ params }: Params) => {
         }
 
         try {
-            const res = await fetch(`http://localhost:3000/api/pets/${params.id}`, {
+            const res = await fetch(`/api/pets/${params.id}`, {
                 method: "PATCH",
                 body: JSON.stringify({
                     imageUrl: file?.name,

@@ -4,7 +4,7 @@ import { headers } from 'next/headers';
 import {Button, Menu, MenuButton, MenuItem, MenuList} from "@chakra-ui/react";
 
 const getCategories = async () => {
-    const res = await fetch("http://localhost:3000/api/categories", {
+    const res = await fetch("/api/categories", {
         cache: "no-store"
     })
 

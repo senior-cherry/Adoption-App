@@ -41,7 +41,7 @@ const AddCategoryPage = () => {
         e.preventDefault();
 
         try {
-            const res = await fetch("http://localhost:3000/api/categories", {
+            const res = await fetch("/api/categories", {
                 method: "POST",
                 body: JSON.stringify({
                     ...inputs,

@@ -19,7 +19,7 @@ const DeleteButton = ({ id, collection }: { id: string, collection: string }) =>
     }
 
     const handleDelete = async () => {
-        const res = await fetch(`http://localhost:3000/api/${collection}/${id}`, {
+        const res = await fetch(`/api/${collection}/${id}`, {
             method: "DELETE",
         });
 

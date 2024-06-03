@@ -62,7 +62,7 @@ const UpdatePostPage = ({ params }: Params) => {
         }
 
         try {
-            const res = await fetch(`http://localhost:3000/api/blog/${params.id}`, {
+            const res = await fetch(`/api/blog/${params.id}`, {
                 method: "PATCH",
                 body: JSON.stringify({
                     imageUrl: file?.name,

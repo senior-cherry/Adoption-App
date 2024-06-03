@@ -45,7 +45,7 @@ const UpdateCategoryPage = ({params}: Params) => {
         e.preventDefault();
 
         try {
-            const res = await fetch(`http://localhost:3000/api/categories/${params.id}`, {
+            const res = await fetch(`/api/categories/${params.id}`, {
                 method: "PATCH",
                 body: JSON.stringify({
                     ...inputs,
