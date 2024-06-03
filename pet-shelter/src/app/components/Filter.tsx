@@ -16,7 +16,7 @@ const getCategories = async () => {
 }
 
 const Filter = async () => {
-    const categories: CategoryType = await getCategories();
+    const categories: CategoryType[] = await getCategories();
     const headersList = headers();
 
     let url = headersList.get('next-url');

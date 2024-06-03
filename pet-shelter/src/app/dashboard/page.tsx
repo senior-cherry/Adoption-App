@@ -51,13 +51,13 @@ const Dashboard = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const petsData = await getData("pets");
+                const petsData: PetType[] = await getData("pets");
                 setPets(petsData);
-                const categoriesData = await getData("categories");
+                const categoriesData: CategoryType[] = await getData("categories");
                 setCategories(categoriesData);
-                const postData = await getData("blog");
+                const postData: PostType[] = await getData("blog");
                 setPosts(postData)
-                const adoptionData = await getData("adoption");
+                const adoptionData: AdoptionType[] = await getData("adoption");
                 setAdoptionReqs(adoptionData)
             } catch (error) {
                 console.error("Error fetching pets:", error);
