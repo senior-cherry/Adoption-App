@@ -19,7 +19,7 @@ const getData = async () => {
 }
 
 const Featured = async () => {
-    const featuredPets: PetType = await getData();
+    const featuredPets: PetType[] = await getData();
 
     return (
         <main className="mt-12">
