@@ -15,26 +15,18 @@ import Link from "next/link";
 import DeleteButton from "@/app/components/DeleteButton";
 
 const getData = async (collection: String) => {
-    const res = await fetch(`${process.env.PRODUCTION_URL}/api/${collection}`, {
+    const res = await fetch(`/api/${collection}`, {
         cache: "no-store"
     })
-
-    if (!res.ok) {
-        throw new Error("Failed");
-    }
 
     return res.json();
 }
 
 const handleAdoptionRequest = async (id: String, decision: string) => {
-    const res = await fetch(`${process.env.PRODUCTION_URL}/api/adoption/${id}`, {
+    const res = await fetch(`/api/adoption/${id}`, {
         method: 'PATCH',
         body: JSON.stringify(decision)
     })
-
-    if (!res.ok) {
-        throw new Error("Failed");
-    }
 
     return res.json();
 }
@@ -74,14 +66,12 @@ const Dashboard = () => {
     return (
         <Accordion>
             <AccordionItem>
-                <h2>
                     <AccordionButton>
                         <Box as='span' flex='1' textAlign='left'>
                             Домашні улюбленці
                         </Box>
                         <AccordionIcon />
                     </AccordionButton>
-                </h2>
                 <AccordionPanel pb={4}>
                     <TableContainer>
                         <Table variant='simple'>
@@ -134,14 +124,12 @@ const Dashboard = () => {
             </AccordionItem>
 
             <AccordionItem>
-                <h2>
                     <AccordionButton>
                         <Box as='span' flex='1' textAlign='left'>
                             Категорії
                         </Box>
                         <AccordionIcon />
                     </AccordionButton>
-                </h2>
                 <AccordionPanel pb={4}>
                     <TableContainer>
                         <Table variant='simple'>
@@ -182,14 +170,12 @@ const Dashboard = () => {
             </AccordionItem>
 
             <AccordionItem>
-                <h2>
                     <AccordionButton>
                         <Box as='span' flex='1' textAlign='left'>
                             Статті
                         </Box>
                         <AccordionIcon />
                     </AccordionButton>
-                </h2>
                 <AccordionPanel pb={4}>
                     <TableContainer>
                         <Table variant='simple'>
@@ -238,14 +224,12 @@ const Dashboard = () => {
             </AccordionItem>
 
             <AccordionItem>
-                <h2>
                     <AccordionButton>
                         <Box as='span' flex='1' textAlign='left'>
                             Заявки на адопцію
                         </Box>
                         <AccordionIcon />
                     </AccordionButton>
-                </h2>
                 <AccordionPanel pb={4}>
                     <TableContainer>
                         <Table variant='simple'>
