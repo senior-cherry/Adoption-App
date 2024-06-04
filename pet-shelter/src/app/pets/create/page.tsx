@@ -62,7 +62,6 @@ const AddPage = () => {
                 method: 'POST',
                 body: formData
             })
-            if (!res.ok) throw new Error(await res.text())
         } catch (err) {
             console.log(err)
         }
