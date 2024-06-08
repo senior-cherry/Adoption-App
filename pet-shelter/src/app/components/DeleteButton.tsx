@@ -19,7 +19,7 @@ const DeleteButton = ({ id, collection }: { id: string, collection: string }) =>
     }
 
     const handleDelete = async () => {
-        const res = await fetch(`${process.env.PRODUCTION_URL}/api/${collection}/${id}`, {
+        const res = await fetch(`/api/${collection}/${id}`, {
             method: "DELETE",
         });
 
@@ -28,19 +28,19 @@ const DeleteButton = ({ id, collection }: { id: string, collection: string }) =>
                 title: 'Успіх',
                 description: "Запит успішно виконано",
                 status: 'success',
-                duration: 5000,
+                duration: 3000,
                 isClosable: true,
             })
             setTimeout(() => {
                 window.location.reload();
-            }, 5000)
+            }, 3000)
         } else {
             const data = await res.json();
             toast({
                 title: 'Помилка',
                 description: data.message,
                 status: 'error',
-                duration: 5000,
+                duration: 3000,
                 isClosable: true,
             })
         }

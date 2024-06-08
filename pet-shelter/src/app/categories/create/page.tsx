@@ -41,7 +41,7 @@ const AddCategoryPage = () => {
         e.preventDefault();
 
         try {
-            const res = await fetch(`${process.env.PRODUCTION_URL}/api/categories`, {
+            const res = await fetch(`/api/categories`, {
                 method: "POST",
                 body: JSON.stringify({
                     ...inputs,

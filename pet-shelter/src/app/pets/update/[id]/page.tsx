@@ -63,7 +63,7 @@ const UpdatePage = ({ params }: Params) => {
             const formData = new FormData();
             formData.append('file', file);
 
-            const res = await fetch(`${process.env.PRODUCTION_URL}/api/upload`, {
+            const res = await fetch(`/api/upload`, {
                 method: 'POST',
                 body: formData
             })
@@ -73,7 +73,7 @@ const UpdatePage = ({ params }: Params) => {
         }
 
         try {
-            const res = await fetch(`${process.env.PRODUCTION_URL}/api/pets/${params.id}`, {
+            const res = await fetch(`/api/pets/${params.id}`, {
                 method: "PATCH",
                 body: JSON.stringify({
                     imageUrl: file?.name,

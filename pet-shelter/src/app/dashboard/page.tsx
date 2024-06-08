@@ -28,6 +28,10 @@ const handleAdoptionRequest = async (id: String, decision: string) => {
         body: JSON.stringify(decision)
     })
 
+    setTimeout(() => {
+        window.location.reload();
+    }, 3000);
+
     return res.json();
 }
 
