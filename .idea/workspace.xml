@@ -1,30 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="4289e8a6-b7e2-4eb2-b832-22e029562b46" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/pet-shelter/src/app/actions/handleNewChat.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pet-shelter/src/app/actions/handleNewMessage.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pet-shelter/src/app/api/chat/route.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pet-shelter/src/app/api/messages/[userId]/route.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pet-shelter/src/app/api/messages/route.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pet-shelter/src/app/chat/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pet-shelter/src/app/components/Chat.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pet-shelter/src/app/components/ChatForm.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pet-shelter/src/app/components/ChatList.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pet-shelter/src/app/components/Sidebar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pet-shelter/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/pet-shelter/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pet-shelter/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/pet-shelter/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pet-shelter/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/pet-shelter/prisma/schema.prisma" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2f3t7m2aG9zY5zvBO1eICrFQcPf" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;E:\\Next\\NextJS-Coursework\\pet-shelter\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\Next\NextJS-Coursework\pet-shelter\src\app\api\messages\[userId]" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -34,6 +73,13 @@
       <option name="presentableId" value="Default" />
       <updated>1713041424660</updated>
       <workItem from="1713041426028" duration="27000" />
+      <workItem from="1717096876587" duration="745000" />
+      <workItem from="1717097751889" duration="229000" />
+      <workItem from="1717170232324" duration="639000" />
+      <workItem from="1717172532211" duration="781000" />
+      <workItem from="1719386407355" duration="23000" />
+      <workItem from="1721998822404" duration="6682000" />
+      <workItem from="1722079336630" duration="8577000" />
     </task>
     <servers />
   </component>

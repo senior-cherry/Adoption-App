@@ -47,3 +47,19 @@ model Adoption {
   approval  String   @default("inProcess")
   createdAt DateTime @default(now())
 }
+
+model Message {
+  id        String   @id @default(cuid())
+  chat_id   String
+  user_id   String
+  content   String
+  role      String
+  createdAt DateTime @default(now())
+}
+
+model Chat {
+  id         String   @id @default(uuid())
+  name       String
+  user_id    String
+  created_at DateTime @default(now())
+}
