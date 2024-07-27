@@ -1,7 +1,7 @@
 'use server';
 
 import OpenAI from "openai";
-import {auth, getAuth} from "@clerk/nextjs/server";
+import {auth} from "@clerk/nextjs/server";
 import { v4 as uuidv4 } from "uuid";
 import { revalidatePath } from "next/cache";
 
@@ -13,7 +13,7 @@ interface Message {
     user_id?: string;
     content: string;
     role: 'user' | 'assistant';
-    created_at: string;
+    createdAt: string;
 }
 
 export const handleNewMessage = async (formData: FormData) => {
@@ -36,7 +36,7 @@ export const handleNewMessage = async (formData: FormData) => {
         user_id: userId.userId || undefined,
         content: newMessage,
         role: 'user',
-        created_at: new Date().toISOString()
+        createdAt: new Date().toISOString()
     };
 
     try {
@@ -52,7 +52,7 @@ export const handleNewMessage = async (formData: FormData) => {
                 user_id: userId.userId,
             },
             orderBy: {
-                created_at: 'asc',
+                createdAt: 'asc',
             },
             select: {
                 role: true,
@@ -72,9 +72,10 @@ export const handleNewMessage = async (formData: FormData) => {
         const botMessage: Message = {
             id: uuidv4(),
             chat_id: chatId,
+            user_id: userId.userId,
             content: response.choices[0].message.content || "No response from bot",
             role: "assistant",
-            created_at: new Date().toISOString(),
+            createdAt: new Date().toISOString(),
         };
 
         await prisma.message.create({
@@ -88,3 +89,4 @@ export const handleNewMessage = async (formData: FormData) => {
         await prisma.$disconnect();
     }
 };
+

@@ -1,5 +1,5 @@
 import React from "react";
-import {auth, getAuth} from "@clerk/nextjs/server";
+import {auth} from "@clerk/nextjs/server";
 import { handleNewMessage } from "@/app/actions/handleNewMessage";
 
 interface ChatProps {
@@ -16,7 +16,7 @@ const Chat: React.FC<ChatProps> = async ({ chatId }) => {
             user_id: userId.userId,
         },
         orderBy: {
-            created_at: 'asc',
+            createdAt: 'asc',
         },
     });
 

@@ -27,11 +27,19 @@ const ChatList: React.FC<ChatListProps> = ({chats}) => {
     return (
         <ul className="flex-1 overflow-auto">
             {
-                chats.map((chat) => (
-                    <li key={chat.id} onClick={() => handleChatClick(chat.id)} className="p-4 hover:bg-[#3e3e3e] cursor-pointer">
-                        {chat.name}
-                    </li>
-                ))
+                Array.isArray(chats) ? (
+                    chats.map((chat) => {
+                        return (
+                            <li key={chat.id} onClick={() => handleChatClick(chat.id)}
+                                className="p-4 hover:bg-[#3e3e3e] cursor-pointer">
+                                {chat.name}
+                            </li>
+                        );
+                    }
+                    )
+                ) : (
+                    <li>No chats available</li>
+                )
             }
         </ul>
     );

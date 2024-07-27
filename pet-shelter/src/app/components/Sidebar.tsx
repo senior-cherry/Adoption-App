@@ -1,31 +1,23 @@
 import React from "react";
-import {auth, getAuth} from "@clerk/nextjs/server";
 import ChatList from "@/app/components/ChatList";
-import { GetServerSideProps } from "next";
 import ChatForm from "@/app/components/ChatForm";
+import {auth} from "@clerk/nextjs/server";
 
-import {prisma} from "@/utils/connect";
-
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+const getData = async () => {
     const userId = auth();
-    const {chats} = await prisma.chat.findMany({
-        where: { user_id: userId.userId },
-        orderBy: { created_at: 'desc' },
-        select: { id: true, name: true },
-    });
+    const res = await fetch(`http://localhost:3000/api/chat/${userId.userId}`, {
+        cache: "no-store"
+    })
 
-    return {
-        props: {
-            chats,
-        },
-    };
-};
+    if (!res.ok) {
+        throw new Error("Failed");
+    }
 
-interface SidebarProps {
-    chats: { id: string, name: string }[];
+    return res.json();
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ chats }) => {
+const Sidebar = async () => {
+    const chats = await getData()
     return (
         <div className="w-82 h-full bg-[#1e1e1e] text-[#eaeaea] flex flex-col">
             <div className="p-4 border-b border-[#2e2e2e]">
