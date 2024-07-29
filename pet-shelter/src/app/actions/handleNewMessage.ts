@@ -21,7 +21,17 @@ export const handleNewMessage = async (formData: FormData) => {
         apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY
     });
 
-    const newMessage = formData.get("newMessage");
+    // const newMessage = formData.get("newMessage");
+    const income = formData.get("income");
+    const space = formData.get("space");
+    const freeTime = formData.get("freeTime");
+    const experience = formData.get("experience");
+    const reason = formData.get("reason");
+
+    const newMessage = "Give me the best pet to adopt based on this information:\n" +
+        `Monthly income: ${income}, Free space: ${space}, Free time: ${freeTime}, Pet ownership experience: ${experience}, 
+        Reason to adopt a pet: ${reason}`;
+
     const chatId = formData.get("chatId");
 
     if (!newMessage || typeof newMessage !== 'string') return;

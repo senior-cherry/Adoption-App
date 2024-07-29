@@ -5,13 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4289e8a6-b7e2-4eb2-b832-22e029562b46" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/pet-shelter/src/app/api/chat/[userId]/route.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/actions/handleNewMessage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pet-shelter/src/app/actions/handleNewMessage.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/api/chat/route.ts" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/components/Chat.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pet-shelter/src/app/components/Chat.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/components/ChatList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pet-shelter/src/app/components/ChatList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/components/Sidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pet-shelter/src/app/components/Sidebar.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,6 +71,8 @@
       <workItem from="1721998822404" duration="6682000" />
       <workItem from="1722079336630" duration="8577000" />
       <workItem from="1722115519439" duration="4411000" />
+      <workItem from="1722199031489" duration="1995000" />
+      <workItem from="1722237085562" duration="1970000" />
     </task>
     <servers />
   </component>
