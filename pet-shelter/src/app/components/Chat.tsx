@@ -1,6 +1,13 @@
 import React from "react";
 import {auth} from "@clerk/nextjs/server";
 import { handleNewMessage } from "@/app/actions/handleNewMessage";
+import {
+    Accordion,
+    AccordionItem,
+    AccordionButton,
+    AccordionPanel,
+    AccordionIcon, Box,
+} from '@chakra-ui/react'
 
 interface ChatProps {
     chatId: string;
@@ -38,49 +45,119 @@ const Chat: React.FC<ChatProps> = async ({ chatId }) => {
             </div>
             <form action={handleNewMessage} className="flex flex-col items-center mt-4">
                 <input type="hidden" name="chatId" value={chatId} />
-                <span className="text-center">Type your own message</span>
-                <input
-                type="text"
-                name="newMessage"
-                placeholder="Type your message..."
-                className="flex-1 w-full p-2 text-black rounded-l bg-[#f5f5f5] placeholder-gray-500 focus:outline-none"
-                /><br/>
-                <span className="text-center">Or fill this form and assistant will help you choose the best option</span>
-                <input
-                    type="text"
-                    name="income"
-                    placeholder="Your monthly income..."
-                    className="flex-1 w-full p-2 text-black rounded-l bg-[#f5f5f5] placeholder-gray-500 focus:outline-none"
-                /><br/>
-                <input
-                    type="text"
-                    name="space"
-                    placeholder="Your apt space..."
-                    className="flex-1 w-full p-2 text-black rounded-l bg-[#f5f5f5] placeholder-gray-500 focus:outline-none"
-                /><br/>
-                <input
-                    type="text"
-                    name="freeTime"
-                    placeholder="Your free time..."
-                    className="flex-1 w-full p-2 text-black rounded-l bg-[#f5f5f5] placeholder-gray-500 focus:outline-none"
-                /><br/>
-                <input
-                    type="text"
-                    name="experience"
-                    placeholder="Your pet ownership experience..."
-                    className="flex-1 w-full p-2 text-black rounded-l bg-[#f5f5f5] placeholder-gray-500 focus:outline-none"
-                /><br/>
-                <input
-                    type="text"
-                    name="reason"
-                    placeholder="Your reason to adopt a pet..."
-                    className="flex-1 w-full p-2 text-black rounded-l bg-[#f5f5f5] placeholder-gray-500 focus:outline-none"
-                /><br/>
+                <Accordion>
+                    <AccordionItem>
+                        <h2>
+                            <AccordionButton>
+                                <Box as='span' flex='1' textAlign='left'>
+                                    Type your own message
+                                </Box>
+                                <AccordionIcon />
+                            </AccordionButton>
+                        </h2>
+                        <AccordionPanel pb={4}>
+                            <input
+                                type="text"
+                                name="newMessage"
+                                placeholder="Type your message..."
+                                className="flex-1 w-full p-2 text-black rounded-l bg-[#f5f5f5] placeholder-gray-500 focus:outline-none"
+                            /><br/>
+                        </AccordionPanel>
+                    </AccordionItem>
+
+                    <AccordionItem>
+                        <h2>
+                            <AccordionButton>
+                                <Box as='span' flex='1' textAlign='left'>
+                                    Or fill this form and assistant will help you choose the best option
+                                </Box>
+                                <AccordionIcon />
+                            </AccordionButton>
+                        </h2>
+                        <AccordionPanel pb={4}>
+                            <input
+                                type="text"
+                                name="income"
+                                placeholder="Your monthly income..."
+                                className="flex-1 w-full p-2 mt-1 mb-1 text-black rounded-l bg-[#f5f5f5] placeholder-gray-500 focus:outline-none"
+                            /><br/>
+                            <input
+                                type="text"
+                                name="space"
+                                placeholder="Your apt space..."
+                                className="flex-1 w-full p-2 mt-1 mb-1 text-black rounded-l bg-[#f5f5f5] placeholder-gray-500 focus:outline-none"
+                            /><br/>
+                            <input
+                                type="text"
+                                name="freeTime"
+                                placeholder="Your free time..."
+                                className="flex-1 w-full p-2 mt-1 mb-1 text-black rounded-l bg-[#f5f5f5] placeholder-gray-500 focus:outline-none"
+                            /><br/>
+                            <input
+                                type="text"
+                                name="experience"
+                                placeholder="Your pet ownership experience..."
+                                className="flex-1 w-full p-2 mt-1 mb-1 text-black rounded-l bg-[#f5f5f5] placeholder-gray-500 focus:outline-none"
+                            /><br/>
+                            <input
+                                type="text"
+                                name="reason"
+                                placeholder="Your reason to adopt a pet..."
+                                className="flex-1 w-full p-2 mt-1 mb-1 text-black rounded-l bg-[#f5f5f5] placeholder-gray-500 focus:outline-none"
+                            /><br/>
+                        </AccordionPanel>
+                    </AccordionItem>
+                </Accordion>
+                {/*<span className="text-center mb-2">Type your own message</span>*/}
+                {/*<input*/}
+                {/*type="text"*/}
+                {/*name="newMessage"*/}
+                {/*placeholder="Type your message..."*/}
+                {/*className="flex-1 w-full p-2 text-black rounded-l bg-[#f5f5f5] placeholder-gray-500 focus:outline-none"*/}
+                {/*/><br/>*/}
+                {/*<span className="text-center mb-2">Or fill this form and assistant will help you choose the best option</span>*/}
+                {/*<input*/}
+                {/*    type="text"*/}
+                {/*    name="income"*/}
+                {/*    placeholder="Your monthly income..."*/}
+                {/*    className="flex-1 w-full p-2 text-black rounded-l bg-[#f5f5f5] placeholder-gray-500 focus:outline-none"*/}
+                {/*/><br/>*/}
+                {/*<input*/}
+                {/*    type="text"*/}
+                {/*    name="space"*/}
+                {/*    placeholder="Your apt space..."*/}
+                {/*    className="flex-1 w-full p-2 text-black rounded-l bg-[#f5f5f5] placeholder-gray-500 focus:outline-none"*/}
+                {/*/><br/>*/}
+                {/*<input*/}
+                {/*    type="text"*/}
+                {/*    name="freeTime"*/}
+                {/*    placeholder="Your free time..."*/}
+                {/*    className="flex-1 w-full p-2 text-black rounded-l bg-[#f5f5f5] placeholder-gray-500 focus:outline-none"*/}
+                {/*/><br/>*/}
+                {/*<input*/}
+                {/*    type="text"*/}
+                {/*    name="experience"*/}
+                {/*    placeholder="Your pet ownership experience..."*/}
+                {/*    className="flex-1 w-full p-2 text-black rounded-l bg-[#f5f5f5] placeholder-gray-500 focus:outline-none"*/}
+                {/*/><br/>*/}
+                {/*<input*/}
+                {/*    type="text"*/}
+                {/*    name="reason"*/}
+                {/*    placeholder="Your reason to adopt a pet..."*/}
+                {/*    className="flex-1 w-full p-2 text-black rounded-l bg-[#f5f5f5] placeholder-gray-500 focus:outline-none"*/}
+                {/*/><br/>*/}
                 <button
                     type="submit"
-                    className="ml-2 text-sm bg-[#3e3e3e] hover:bg-[#575757] p-2 rounded-r text-white"
+                    className="ml-2 text-sm bg-[#3e3e3e] hover:bg-[#575757] p-2 mt-2 text-white"
+                    name="sendBtn"
                 >
                     Send
+                </button>
+                <button
+                    type="reset"
+                    className="ml-2 text-sm bg-[#3e3e3e] hover:bg-[#575757] p-2 mt-2 text-white"
+                >
+                    Reset
                 </button>
             </form>
         </div>
