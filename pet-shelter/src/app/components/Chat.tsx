@@ -1,22 +1,15 @@
-import React, {Suspense} from "react";
-import {auth} from "@clerk/nextjs/server";
+import React, { Suspense } from "react";
+import { auth } from "@clerk/nextjs/server";
 import { handleNewMessage } from "@/app/actions/handleNewMessage";
-import {
-    Accordion,
-    AccordionItem,
-    AccordionButton,
-    AccordionPanel,
-    AccordionIcon, Box
-} from '@chakra-ui/react';
+import { Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Box } from "@chakra-ui/react";
+import { prisma } from "@/utils/connect";
+import Loading from "@/app/components/Loading";
 
 interface ChatProps {
     chatId: string;
 }
 
-import {prisma} from "@/utils/connect";
-import Loading from "@/app/components/Loading";
-
-const Chat: React.FC<ChatProps> = async ({ chatId }) => {
+const Chat = async ({ chatId }: ChatProps) => {
     const userId = auth();
     const messages = await prisma.message.findMany({
         where: {
@@ -24,107 +17,93 @@ const Chat: React.FC<ChatProps> = async ({ chatId }) => {
             user_id: userId.userId,
         },
         orderBy: {
-            createdAt: 'asc',
+            createdAt: "asc",
         },
     });
 
+    const formFields = [
+        { name: "income", placeholder: "Your monthly income" },
+        { name: "space", placeholder: "Your apartment space (e.g., sq ft)" },
+        { name: "freeTime", placeholder: "Your free time (hours per week)" },
+        { name: "experience", placeholder: "Your experience with pets" },
+        { name: "reason", placeholder: "Why you want a pet" },
+    ];
+
     return (
-        <div className="flex flex-col h-full p-4 bg-[#1e1e1e] text-[#eaeaea]">
-            <div className="flex-1 overflow-y-auto">
-                {messages.map((message) => (
-                    <Suspense fallback={<Loading />}>
-                    <div
-                        key={message.id}
-                        className={`p-2 my-2 rounded ${
-                            message.role === 'user'
-                                ? 'bg-blue-500 text-white self-end'
-                                : 'bg-gray-500 text-black self-start'
-                        }`}
-                    >
-                        {message.content}
-                    </div>
-                    </Suspense>
-                ))}
-            </div>
-            <form action={handleNewMessage} className="flex flex-col items-center mt-4">
+        <div className="flex flex-col h-full p-6 bg-gray-900 text-gray-100">
+            <form action={handleNewMessage} className="mb-6">
                 <input type="hidden" name="chatId" value={chatId} />
-                <Accordion>
+
+                <Accordion allowToggle>
                     <AccordionItem>
-                        <h2>
-                            <AccordionButton>
-                                <Box as='span' flex='1' textAlign='left'>
-                                    Type your own message
-                                </Box>
-                                <AccordionIcon />
-                            </AccordionButton>
-                        </h2>
-                        <AccordionPanel pb={4}>
+                        <AccordionButton>
+                            <Box as="span" flex="1" textAlign="left" className="text-lg font-semibold">
+                                Type your own message
+                            </Box>
+                            <AccordionIcon />
+                        </AccordionButton>
+                        <AccordionPanel>
                             <input
                                 type="text"
                                 name="newMessage"
                                 placeholder="Type your message..."
-                                className="flex-1 w-full p-2 text-black rounded-l bg-[#f5f5f5] placeholder-gray-500 focus:outline-none"
-                            /><br/>
+                                className="w-full p-3 mt-2 text-gray-800 rounded bg-gray-200 placeholder-gray-500 focus:outline-none"
+                            />
                         </AccordionPanel>
                     </AccordionItem>
 
                     <AccordionItem>
-                        <h2>
-                            <AccordionButton>
-                                <Box as='span' flex='1' textAlign='left'>
-                                    Or fill this form and assistant will help you choose the best option
-                                </Box>
-                                <AccordionIcon />
-                            </AccordionButton>
-                        </h2>
-                        <AccordionPanel pb={4}>
-                            <input
-                                type="text"
-                                name="income"
-                                placeholder="Your monthly income..."
-                                className="flex-1 w-full p-2 mt-1 mb-1 text-black rounded-l bg-[#f5f5f5] placeholder-gray-500 focus:outline-none"
-                            /><br/>
-                            <input
-                                type="text"
-                                name="space"
-                                placeholder="Your apt space..."
-                                className="flex-1 w-full p-2 mt-1 mb-1 text-black rounded-l bg-[#f5f5f5] placeholder-gray-500 focus:outline-none"
-                            /><br/>
-                            <input
-                                type="text"
-                                name="freeTime"
-                                placeholder="Your free time..."
-                                className="flex-1 w-full p-2 mt-1 mb-1 text-black rounded-l bg-[#f5f5f5] placeholder-gray-500 focus:outline-none"
-                            /><br/>
-                            <input
-                                type="text"
-                                name="experience"
-                                placeholder="Your pet ownership experience..."
-                                className="flex-1 w-full p-2 mt-1 mb-1 text-black rounded-l bg-[#f5f5f5] placeholder-gray-500 focus:outline-none"
-                            /><br/>
-                            <input
-                                type="text"
-                                name="reason"
-                                placeholder="Your reason to adopt a pet..."
-                                className="flex-1 w-full p-2 mt-1 mb-1 text-black rounded-l bg-[#f5f5f5] placeholder-gray-500 focus:outline-none"
-                            /><br/>
+                        <AccordionButton>
+                            <Box as="span" flex="1" textAlign="left" className="text-lg font-semibold">
+                                Fill out this form to get pet advice
+                            </Box>
+                            <AccordionIcon />
+                        </AccordionButton>
+                        <AccordionPanel>
+                            {formFields.map((field, index) => (
+                                <div key={index} className="mt-3">
+                                    <label className="block text-sm font-medium">{field.placeholder}</label>
+                                    <input
+                                        type="text"
+                                        name={field.name}
+                                        placeholder={field.placeholder}
+                                        className="w-full p-3 mt-1 text-gray-800 rounded bg-gray-200 placeholder-gray-500 focus:outline-none"
+                                    />
+                                </div>
+                            ))}
                         </AccordionPanel>
                     </AccordionItem>
                 </Accordion>
-                <button
-                    type="submit"
-                    className="ml-2 text-sm bg-[#3e3e3e] hover:bg-[#575757] p-2 mt-2 text-white"
-                    name="sendBtn"
-                >
-                    Send
-                </button>
-                <button
-                    type="reset"
-                    className="ml-2 text-sm bg-[#3e3e3e] hover:bg-[#575757] p-2 mt-2 text-white"
-                >
-                    Reset
-                </button>
+
+                <div className="flex gap-4 mt-6">
+                    <button
+                        type="submit"
+                        className="flex-1 p-3 text-sm font-medium text-white bg-teal-600 rounded-lg hover:bg-teal-700"
+                        name="sendBtn"
+                    >
+                        Send
+                    </button>
+                    <button
+                        type="reset"
+                        className="flex-1 p-3 text-sm font-medium text-white bg-gray-600 rounded-lg hover:bg-gray-700"
+                    >
+                        Reset
+                    </button>
+                </div>
             </form>
+
+            <div className="flex-1 overflow-y-auto space-y-4">
+                {messages.map((message) => (
+                    <Suspense key={message.id} fallback={<Loading />}>
+                        <div
+                            className={`p-3 rounded-lg text-sm ${message.role === "user" ? "bg-teal-700 text-white self-end" : "bg-gray-700 text-white self-start"
+                                }`}
+                        >
+                            {message.content}
+                        </div>
+                    </Suspense>
+                ))}
+            </div>
         </div>
     );
 };

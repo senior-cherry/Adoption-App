@@ -19,7 +19,7 @@ const ChatForm = () => {
                 type="text"
                 name="chatName"
                 placeholder="Add new chat name"
-                className="flex-1 p-2 text-black rounded-l bg-[#f5f5f5] placeholder-gray-500 focus:outline-none"
+                className="flex-1 p-2 text-black rounded bg-[#f5f5f5] placeholder-gray-500 focus:outline-none"
             />
             <button
                 type="submit"

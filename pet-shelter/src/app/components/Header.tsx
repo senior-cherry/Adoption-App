@@ -1,13 +1,15 @@
 "use client";
 
-import {Image, Flex, Button, HStack, Box, Menu, MenuButton, IconButton, MenuList, MenuItem} from '@chakra-ui/react';
+import { Image, Flex, Button, HStack, Box, Menu, MenuButton, IconButton, MenuList, MenuItem } from '@chakra-ui/react';
 import Link from "next/link";
-import {SignedIn, SignedOut, SignInButton, UserButton} from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import {
     CalendarIcon,
     HamburgerIcon,
     InfoIcon,
-    SearchIcon, SettingsIcon
+    SearchIcon,
+    SettingsIcon,
+    ChatIcon
 } from "@chakra-ui/icons";
 
 
@@ -34,36 +36,44 @@ const Header = () => {
                         <MenuList>
                             <Link href="/about">
                                 <MenuItem icon={<InfoIcon />} color={"black"}>
-                                        Про нас
+                                    Про нас
                                 </MenuItem>
                             </Link>
                             <Link href="/pets">
                                 <MenuItem icon={<SearchIcon />} color={"black"}>
-                                        Улюбленці
+                                    Улюбленці
                                 </MenuItem>
                             </Link>
                             <Link href="/blog">
                                 <MenuItem icon={<CalendarIcon />} color={"black"}>
-                                        Блог
+                                    Блог
+                                </MenuItem>
+                            </Link>
+                            <Link href="/chat">
+                                <MenuItem icon={<ChatIcon />} color={"black"}>
+                                    Чат
                                 </MenuItem>
                             </Link>
                             <Link href="/dashboard">
                                 <MenuItem icon={<SettingsIcon />} color={"black"}>
-                                        Адміністративна панель
+                                    Адміністративна панель
                                 </MenuItem>
                             </Link>
                         </MenuList>
                     </Menu>
                 </div>
                 <HStack as="nav" spacing="5" fontSize={32} letterSpacing={2} className="menu">
-                        <Link href="/about">
-                            <Button variant="nav">Про нас</Button>
-                        </Link>
+                    <Link href="/about">
+                        <Button variant="nav">Про нас</Button>
+                    </Link>
                     <Link href="/pets">
                         <Button variant="nav">Улюбленці</Button>
                     </Link>
                     <Link href="/blog">
                         <Button variant="nav">Блог</Button>
+                    </Link>
+                    <Link href="/chat">
+                        <Button variant="nav">Чат</Button>
                     </Link>
                     <Link href="/dashboard">
                         <Button variant="nav">Адміністративна панель</Button>

@@ -1,16 +1,20 @@
 'use client';
 
-import React, {useCallback} from "react";
-import {usePathname, useSearchParams, useRouter} from "next/navigation";
+import React, { useCallback } from "react";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
+import { useToast } from "@chakra-ui/react";
+import DeleteButton from "./DeleteButton";
 
 interface ChatListProps {
-    chats: { id: string, name: string}[];
+    chats: { id: string, name: string }[];
 }
 
-const ChatList: React.FC<ChatListProps> = ({chats}) => {
+const ChatList = ({ chats }: ChatListProps) => {
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
+
+    const toast = useToast();
 
     const createQueryString = useCallback(
         (name: string, value: string) => {

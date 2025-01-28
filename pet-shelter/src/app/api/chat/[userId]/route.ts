@@ -1,8 +1,8 @@
-import {NextRequest, NextResponse} from "next/server";
-import {prisma} from "@/utils/connect";
-import {Params} from "next/dist/shared/lib/router/utils/route-matcher";
+import { NextRequest, NextResponse } from "next/server";
+import { prisma } from "@/utils/connect";
+import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 
-export const GET = async (req: NextRequest, {params}: Params) => {
+export const GET = async (req: NextRequest, { params }: Params) => {
     try {
         const chats = await prisma.chat.findMany({
             where: { user_id: params.userId },
