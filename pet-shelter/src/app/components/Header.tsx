@@ -11,6 +11,7 @@ import {
     SettingsIcon,
     ChatIcon
 } from "@chakra-ui/icons";
+import LanguageSwitcher from "@/app/components/LanguageSwitcher";
 
 
 const Header = () => {
@@ -78,6 +79,9 @@ const Header = () => {
                     <Link href="/dashboard">
                         <Button variant="nav">Адміністративна панель</Button>
                     </Link>
+                </HStack>
+                <HStack>
+                    <LanguageSwitcher />
                 </HStack>
                 <HStack>
                     <SignedOut>

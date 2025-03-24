@@ -8,8 +8,9 @@ interface ChatProps {
     }
 }
 
-const ChatPage: React.FC<ChatProps> = ({searchParams}) => {
+const ChatPage = ({ searchParams }: ChatProps) => {
     const chatId = searchParams.chatId;
+
     return (
         <div className="flex h-screen bg-[#121212] text-[#eaeaea]">
             <Sidebar />

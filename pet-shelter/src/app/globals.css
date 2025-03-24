@@ -332,7 +332,6 @@ body {
 .pet-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  margin-left: 24px;
 }
 
 .filter_menu_mb_tb {

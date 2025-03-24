@@ -5,11 +5,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4289e8a6-b7e2-4eb2-b832-22e029562b46" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/pet-shelter/src/app/components/Loading.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pet-shelter/messages/en.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pet-shelter/messages/uk.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pet-shelter/next.config.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pet-shelter/src/app/adoption/create/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pet-shelter/src/app/components/LanguageSwitcher.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pet-shelter/src/i18n/request.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pet-shelter/src/utils/userUtils.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pet-shelter/next.config.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/pet-shelter/next.config.mjs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pet-shelter/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/pet-shelter/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pet-shelter/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/pet-shelter/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/components/Chat.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pet-shelter/src/app/components/Chat.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pet-shelter/prisma/migrations/20240515145451_added_pet_desc/migration.sql" beforeDir="false" afterPath="$PROJECT_DIR$/pet-shelter/prisma/migrations/20240515145451_added_pet_desc/migration.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pet-shelter/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/pet-shelter/prisma/schema.prisma" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/actions/handleNewMessage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pet-shelter/src/app/actions/handleNewMessage.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/api/adoption/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pet-shelter/src/app/api/adoption/route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/chat/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pet-shelter/src/app/chat/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/components/AdoptButtonGroup.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pet-shelter/src/app/components/AdoptButtonGroup.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/components/DeleteButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pet-shelter/src/app/components/DeleteButton.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/components/Featured.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pet-shelter/src/app/components/Featured.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/components/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pet-shelter/src/app/components/Header.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/dashboard/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pet-shelter/src/app/dashboard/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/pet-shelter/src/app/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pet-shelter/src/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pet-shelter/src/app/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pet-shelter/src/middleware.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pet-shelter/src/middleware.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pet-shelter/src/utils/userUtils.ts" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,8 +40,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript File" />
         <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -46,12 +67,13 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;E:\\Next\\NextJS-Coursework\\pet-shelter\\node_modules\\typescript\\lib&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\NextJs-Labs\\NextJS-Coursework\\pet-shelter\\node_modules\\typescript\\lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\NextJs-Labs\NextJS-Coursework\pet-shelter" />
       <recent name="E:\Next\NextJS-Coursework\pet-shelter\src\app\api\chat\[userId]" />
       <recent name="E:\Next\NextJS-Coursework\pet-shelter\src\app\api\messages\[userId]" />
     </key>
@@ -77,10 +99,44 @@
       <workItem from="1722237085562" duration="1970000" />
       <workItem from="1722546769123" duration="3941000" />
       <workItem from="1722679299154" duration="5687000" />
+      <workItem from="1739708499416" duration="8294000" />
+      <workItem from="1739861784290" duration="1184000" />
+      <workItem from="1739863280057" duration="15000" />
+      <workItem from="1739912459839" duration="414000" />
+      <workItem from="1739946235645" duration="3923000" />
+      <workItem from="1739991242086" duration="107000" />
+      <workItem from="1739991372765" duration="34000" />
+      <workItem from="1739991600069" duration="2615000" />
+      <workItem from="1740738297066" duration="3764000" />
+      <workItem from="1741250547955" duration="7395000" />
+      <workItem from="1741345206710" duration="602000" />
+      <workItem from="1741594842260" duration="15170000" />
+      <workItem from="1741683994813" duration="2814000" />
+      <workItem from="1741766083342" duration="13547000" />
+      <workItem from="1741945098678" duration="3969000" />
+      <workItem from="1741969629160" duration="18460000" />
+      <workItem from="1742220723436" duration="14385000" />
+      <workItem from="1742804207338" duration="1652000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+    <option name="exactExcludedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/pet-shelter/next.config.mjs" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

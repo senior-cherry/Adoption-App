@@ -1,5 +1,6 @@
 import Image from "next/image";
 import {Grid, GridItem} from "@chakra-ui/react";
+import { useTranslations } from "next-intl";
 
 export default function Home() {
   return (

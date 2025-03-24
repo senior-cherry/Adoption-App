@@ -1,0 +1,38 @@
+"use client";
+
+import { Button, ButtonGroup } from "@chakra-ui/react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+
+const LanguageSwitcher = () => {
+    const router = useRouter();
+    const [locale, setLocale] = useState("en");
+
+    useEffect(() => {
+        const savedLocale = document.cookie
+            .split("; ")
+            .find(row => row.startsWith("locale="))
+            ?.split("=")[1];
+
+        if (savedLocale) setLocale(savedLocale);
+    }, []);
+
+    const onSelectChange = (nextLocale: string) => {
+        document.cookie = `locale=${nextLocale}; path=/; max-age=31536000`;
+        setLocale(nextLocale);
+        router.refresh();
+    };
+
+    return (
+        <ButtonGroup isAttached variant="outline">
+            <Button onClick={() => onSelectChange("en")} colorScheme={locale === "en" ? "blue" : "gray"}>
+                English
+            </Button>
+            <Button onClick={() => onSelectChange("uk")} colorScheme={locale === "uk" ? "blue" : "gray"}>
+                Українська
+            </Button>
+        </ButtonGroup>
+    );
+};
+
+export default LanguageSwitcher;

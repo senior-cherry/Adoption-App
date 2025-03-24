@@ -1,6 +1,6 @@
 import {PetType} from "@/types/types";
 import {Card, CardBody, CardFooter} from "@chakra-ui/card";
-import {Button, ButtonGroup, Divider, Heading, Stack, Text, Image, useToast} from "@chakra-ui/react";
+import {Button, ButtonGroup, Divider, Heading, Stack, Text, Image} from "@chakra-ui/react";
 import { Grid } from "@chakra-ui/react"
 import Link from "next/link";
 import AdoptButtonGroup from "@/app/components/AdoptButtonGroup";
@@ -26,7 +26,7 @@ const Featured = async () => {
             <Grid gap={6} className="pet-grid">
                 {featuredPets.map((pet) => {
                     return (
-                        <Card width="80%">
+                        <Card maxW="80%">
                             <CardBody>
                                 <Image
                                     src={`/uploads/${pet.imageUrl}`}
@@ -53,7 +53,7 @@ const Featured = async () => {
                             <Divider />
                             <CardFooter>
                                 <ButtonGroup spacing='2'>
-                                    <AdoptButtonGroup pet={pet.name} imageUrl={pet.imageUrl} />
+                                    <AdoptButtonGroup pet={pet.name} imageUrl={pet.imageUrl} species={pet.species} />
                                     <Link href={`/pets/pet/${pet.id}`} className="details_link">
                                         <Button variant='ghost' colorScheme='blue'>
                                             Дізнатись більше

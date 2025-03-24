@@ -12,3 +12,10 @@ ADD COLUMN     "desc" TEXT NOT NULL;
 
 -- DropTable
 DROP TABLE "User";
+
+ALTER TABLE "Adoption" DROP COLUMN "criminalRecord"
+ALTER TABLE "Adoption" DROP COLUMN "employmentStatus"
+ALTER TABLE "Adoption" DROP COLUMN "housing"
+ALTER TABLE "Adoption" DROP COLUMN "mentalHealthIssues"
+ALTER TABLE "Adoption" DROP COLUMN "reason"
+ADD COLUMN "species" TEXT NOT NULL

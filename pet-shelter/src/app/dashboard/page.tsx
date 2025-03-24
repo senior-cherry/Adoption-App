@@ -1,21 +1,22 @@
 "use client";
 import {useSession, useUser} from "@clerk/nextjs";
 import {checkUserRole} from "@/utils/userUtils";
-import {redirect} from "next/navigation";
+import { Protect } from '@clerk/nextjs'
 import {
     Accordion,
     AccordionItem,
     AccordionButton,
     AccordionPanel,
-    AccordionIcon, Box, TableContainer, Table, TableCaption, Thead, Tr, Th, Tbody, Td, Tfoot, Image, ButtonGroup, Button
+    AccordionIcon, Box, TableContainer, Table, TableCaption, Thead, Tr, Th, Tbody, Td, Image, ButtonGroup, Button
 } from '@chakra-ui/react';
 import {AdoptionType, CategoryType, PetType, PostType} from "@/types/types";
 import {useEffect, useState} from "react";
 import Link from "next/link";
 import DeleteButton from "@/app/components/DeleteButton";
+import {useRouter} from "next/navigation";
 
 const getData = async (collection: String) => {
-    const res = await fetch(`http://localhost:3000/api/${collection}`, {
+    const res = await fetch(`/api/${collection}`, {
         cache: "no-store"
     })
 
@@ -27,7 +28,7 @@ const getData = async (collection: String) => {
 }
 
 const handleAdoptionRequest = async (id: String, decision: string) => {
-    const res = await fetch(`http://localhost:3000/api/adoption/${id}`, {
+    const res = await fetch(`/api/adoption/${id}`, {
         method: 'PATCH',
         body: JSON.stringify(decision)
     })
@@ -40,13 +41,20 @@ const handleAdoptionRequest = async (id: String, decision: string) => {
 }
 
 const Dashboard = () => {
+    const router = useRouter();
     const {session} = useSession();
-    const {isLoaded, user}  = useUser();
+    const {isLoaded}  = useUser();
     const userRole = checkUserRole(session);
     const [pets, setPets] = useState<PetType[]>([]);
     const [categories, setCategories] = useState<CategoryType[]>([]);
     const [posts, setPosts] = useState<PostType[]>([]);
     const [adoptionReqs, setAdoptionReqs] = useState<AdoptionType[]>([]);
+    const [loadedSections, setLoadedSections] = useState<{ [key: string]: boolean }>({
+        pets: false,
+        categories: false,
+        blog: false,
+        adoption: false
+    });
 
     useEffect(() => {
         const fetchData = async () => {
@@ -63,19 +71,51 @@ const Dashboard = () => {
                 console.error("Error fetching pets:", error);
             }
         };
-
-        if (isLoaded && userRole !== "org:admin") {
-            redirect("/");
-        } else {
             fetchData();
-        }
     }, [isLoaded, userRole])
 
+    const fetchData = async (section: string) => {
+        if (loadedSections[section]) return;
+
+        try {
+            let data;
+            switch (section) {
+                case "pets":
+                    data = await getData("pets");
+                    setPets(data);
+                    break;
+                case "categories":
+                    data = await getData("categories");
+                    setCategories(data);
+                    break;
+                case "blog":
+                    data = await getData("blog");
+                    setPosts(data);
+                    break;
+                case "adoption":
+                    data = await getData("adoption");
+                    setAdoptionReqs(data);
+                    break;
+            }
+            setLoadedSections((prev) => ({ ...prev, [section]: true }));
+        } catch (error) {
+            console.error(`Error fetching ${section}:`, error);
+        }
+    };
+
+
     return (
+        <Protect
+            condition={() => (isLoaded && userRole === "org:admin")}
+            fallback={() => {
+                router.push("/pets");
+                return null;
+            }}
+        >
         <Accordion>
             <AccordionItem>
                 <h2>
-                    <AccordionButton>
+                    <AccordionButton onClick={() => fetchData("pets")}>
                         <Box as='span' flex='1' textAlign='left'>
                             Домашні улюбленці
                         </Box>
@@ -103,7 +143,7 @@ const Dashboard = () => {
                             <Tbody>
                                 {pets.map((pet) => {
                                     return (
-                                        <Tr>
+                                        <Tr key={pet.id}>
                                             <Td>
                                                 <Image
                                                     borderRadius='full'
@@ -135,7 +175,7 @@ const Dashboard = () => {
 
             <AccordionItem>
                 <h2>
-                    <AccordionButton>
+                    <AccordionButton onClick={() => fetchData("categories")}>
                         <Box as='span' flex='1' textAlign='left'>
                             Категорії
                         </Box>
@@ -160,7 +200,7 @@ const Dashboard = () => {
                             <Tbody>
                                 {categories.map((category) => {
                                     return (
-                                        <Tr>
+                                        <Tr key={category.id}>
                                             <Td>{category.name}</Td>
                                             <Td>{category.description}</Td>
 
@@ -183,7 +223,7 @@ const Dashboard = () => {
 
             <AccordionItem>
                 <h2>
-                    <AccordionButton>
+                    <AccordionButton onClick={() => fetchData("blog")}>
                         <Box as='span' flex='1' textAlign='left'>
                             Статті
                         </Box>
@@ -209,7 +249,7 @@ const Dashboard = () => {
                             <Tbody>
                                 {posts.map((post) => {
                                     return (
-                                        <Tr>
+                                        <Tr key={post.id}>
                                             <Td>
                                                 <Image
                                                     borderRadius='full'
@@ -239,7 +279,7 @@ const Dashboard = () => {
 
             <AccordionItem>
                 <h2>
-                    <AccordionButton>
+                    <AccordionButton onClick={() => fetchData("adoption")}>
                         <Box as='span' flex='1' textAlign='left'>
                             Заявки на адопцію
                         </Box>
@@ -256,13 +296,15 @@ const Dashboard = () => {
                                     <Th>Ім'я</Th>
                                     <Th>Користувач</Th>
                                     <Th>Електронна пошта</Th>
+                                    <Th>Адреса</Th>
+                                    <Th>Висновок ШІ</Th>
                                     <Th>Дії</Th>
                                 </Tr>
                             </Thead>
                             <Tbody>
                                 {adoptionReqs.map((req) => {
                                     return (
-                                        <Tr>
+                                        <Tr key={req.id}>
                                             <Td>
                                                 <Image
                                                     borderRadius='full'
@@ -274,6 +316,8 @@ const Dashboard = () => {
                                             <Td>{req.pet}</Td>
                                             <Td>{req.user}</Td>
                                             <Td>{req.email}</Td>
+                                            <Td>{req.address}</Td>
+                                            <Td>{req.aiConclusion}</Td>
                                             <Td>
                                                 <ButtonGroup gap='4'>
                                                     <Button
@@ -297,7 +341,10 @@ const Dashboard = () => {
                 </AccordionPanel>
             </AccordionItem>
         </Accordion>
+        </Protect>
     );
 }
 
 export default Dashboard;
+
+

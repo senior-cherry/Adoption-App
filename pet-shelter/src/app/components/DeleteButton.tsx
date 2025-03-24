@@ -1,15 +1,14 @@
 "use client";
-import {redirect, useRouter} from "next/navigation";
+import {redirect} from "next/navigation";
 import {useSession, useUser} from "@clerk/nextjs";
 import {checkUserRole} from "@/utils/userUtils";
 import {Button, useToast} from "@chakra-ui/react";
 
 const DeleteButton = ({ id, collection }: { id: string, collection: string }) => {
     const {session} = useSession();
-    const {isLoaded, user}  = useUser();
+    const {isLoaded}  = useUser();
     const userRole = checkUserRole(session);
 
-    const router = useRouter();
     const toast = useToast()
 
     if (isLoaded) {
@@ -19,7 +18,7 @@ const DeleteButton = ({ id, collection }: { id: string, collection: string }) =>
     }
 
     const handleDelete = async () => {
-        const res = await fetch(`http://localhost:3000/api/${collection}/${id}`, {
+        const res = await fetch(`/api/${collection}/${id}`, {
             method: "DELETE",
         });
 
