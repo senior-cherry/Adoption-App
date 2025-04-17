@@ -18,10 +18,9 @@ const getData = async () => {
 export default async function Pets() {
     const featuredPets: PetType = await getData();
     return (
-        <main>
             <PetLayout>
                 <Center>
-                <Grid gap={8} className="pet-grid">
+                <Grid gap={10} className="pet-grid">
                     {featuredPets.map((pet) => {
                         return (
                             <CardComponent pet={pet} />
@@ -30,7 +29,6 @@ export default async function Pets() {
                 </Grid>
                 </Center>
             </PetLayout>
-        </main>
     );
 }
 

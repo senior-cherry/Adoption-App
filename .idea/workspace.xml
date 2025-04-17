@@ -5,141 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4289e8a6-b7e2-4eb2-b832-22e029562b46" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/adoption-app/src/app/components/CardComponent.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/adoption-app/src/app/components/CategoryLink.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/adoption-app/public/uploads/pexels-andreas-l-2004808-3626111.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/adoption-app/public/uploads/pexels-cottonbro-4921291.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/adoption-app/public/uploads/pexels-jerseypics-674318.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/adoption-app/public/uploads/pexels-pinamon-31422622.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/adoption-app/public/uploads/pexels-pinamon-31518652.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/adoption-app/public/uploads/pexels-pixabay-104827.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/adoption-app/public/uploads/pexels-pixabay-62289.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/adoption-app/public/uploads/pexels-valeriya-1805164.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/adoption-app/src/app/components/Gallery.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/.eslintrc.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/lib/prisma.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/messages/en.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/messages/uk.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/next.config.mjs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/next.config.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/postcss.config.mjs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/prisma/migrations/20240419205110_init/migration.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/prisma/migrations/20240515145451_added_pet_desc/migration.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/prisma/migrations/migration_lock.toml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/prisma/schema.prisma" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/prisma/seed.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/download.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/next.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/2148366839.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/2148366865.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/2148366902.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/2148366938.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/2149192351.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/2149322990.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/alex-williams-CxayZniisNA-unsplash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/alex_rainer-052hzhzi5_E-unsplash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/alvan-nee-ZCHj_2lJP00-unsplash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/andrew-s-ouo1hbizWwo-unsplash (1).jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/andrew-s-ouo1hbizWwo-unsplash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/banner1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/banner2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/christopher-alvarenga-3osGqRRtQBE-unsplash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/daniel-frank-VL2Vec7fHLU-unsplash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/david-cadenas-VFTq3si9YVw-unsplash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/david-clode-AEajGdFf7ws-unsplash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/david-clode-Ws6Tb1cI0co-unsplash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/denis-bayer-4KC4hUWCtJI-unsplash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/erin-testone-NSBC81u-TKA-unsplash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/erin-testone-QCyVCPeScnk-unsplash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/fatty-corgi-Zn5chZcnFRA-unsplash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/flouffy-g2FtlFrc164-unsplash (1).jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/flouffy-g2FtlFrc164-unsplash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/guillaume-coue-ysmfCF48x3A-unsplash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/gustavo-zambelli-mwwRDU_ekjw-unsplash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/jae-park-7GX5aICb5i4-unsplash (2).jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/jae-park-7GX5aICb5i4-unsplash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/jametlene-reskp-fliwkBbS7oM-unsplash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/jeffrey-hamilton-RiwD4u3HzcI-unsplash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/kieran-white-NKN25UfGfkQ-unsplash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/krista-mangulsone-9gz3wfHr65U-unsplash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/logo_w_bg-removebg-preview.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/luban-tvaroh-GtbNrUVZOnE-unsplash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/maksym-sirman-MRpMpHFz6eQ-unsplash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/marcus-dietachmair-4JUscQ_9UrA-unsplash (1).jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/marcus-dietachmair-4JUscQ_9UrA-unsplash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/marcus-dietachmair-KMZakCDuneg-unsplash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/michael-dziedzic-si06cFB0g1s-unsplash (1).jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/michael-dziedzic-si06cFB0g1s-unsplash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/michael-held-g_Kde88IlvE-unsplash (1).jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/michael-held-g_Kde88IlvE-unsplash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/mikhail-vasilyev-IFxjDdqK_0U-unsplash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/mysti-jones-taXgNp89ffk-unsplash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/onur-binay-E18nZ_OHh04-unsplash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/pexels-helmy-zairy-16953244.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/philip-veater-jyASQAXhmGk-unsplash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/philip-veater-qOt9-QPYmSA-unsplash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/raoul-droog-yMSecCHsIBc-unsplash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/ricky-kharawala-adK3Vu70DEQ-unsplash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/sergey-semin-vMNr5gbeeTk-unsplash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/tran-mau-tri-tam--81lVsfM4gQ-unsplash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/tran-mau-tri-tam-7QjU_u2vGDs-unsplash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/veronika-jorjobert-27w3ULIIJfI-unsplash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/victor-grabarczyk-tH4NbUG35co-unsplash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/uploads/zdenek-machacek-U7pickyudCw-unsplash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/public/vercel.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/about/page.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/actions/handleNewChat.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/actions/handleNewMessage.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/adoption/create/page.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/api/adoption/[id]/route.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/api/adoption/route.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/api/blog/[id]/route.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/api/blog/route.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/api/categories/[id]/route.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/api/categories/route.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/api/chat/[userId]/route.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/api/messages/[userId]/route.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/api/messages/route.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/api/pets/[id]/route.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/api/pets/route.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/api/upload/route.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/blog/create/page.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/blog/page.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/blog/post/[id]/page.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/blog/update/[id]/page.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/categories/create/page.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/categories/update/[id]/page.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/chat/page.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/components/AIHelper.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/components/AdoptButtonGroup.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/components/Chat.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/components/ChatForm.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/components/ChatList.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/components/DeleteButton.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/components/Featured.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/components/Filter.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/components/Footer.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/components/Header.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/components/LanguageSwitcher.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/components/Loading.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/components/Sidebar.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/dashboard/page.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/globals.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/layout.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/layouts/PetLayout.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/loading.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/page.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/pets/[category]/page.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/pets/create/page.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/pets/page.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/pets/pet/[id]/page.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/pets/update/[id]/page.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/app/providers.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/i18n/request.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/middleware.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/types/types.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/utils/connect.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/utils/file-handler.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/src/utils/userUtils.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/tailwind.config.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pet-shelter/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/adoption-app/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/adoption-app/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/adoption-app/src/app/components/Filter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/adoption-app/src/app/components/Filter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/adoption-app/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/adoption-app/src/app/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/adoption-app/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/adoption-app/src/app/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/adoption-app/src/app/pets/[category]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/adoption-app/src/app/pets/[category]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/adoption-app/src/app/pets/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/adoption-app/src/app/pets/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/adoption-app/tailwind.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/adoption-app/tailwind.config.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -182,6 +64,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\BachelorProject\Adoption-App\adoption-app\public\uploads" />
       <recent name="D:\NextJs-Labs\NextJS-Coursework\pet-shelter" />
       <recent name="E:\Next\NextJS-Coursework\pet-shelter\src\app\api\chat\[userId]" />
       <recent name="E:\Next\NextJS-Coursework\pet-shelter\src\app\api\messages\[userId]" />
@@ -228,7 +111,10 @@
       <workItem from="1742804207338" duration="3256000" />
       <workItem from="1742828738322" duration="291000" />
       <workItem from="1743576513164" duration="5829000" />
-      <workItem from="1743667775826" duration="10565000" />
+      <workItem from="1743667775826" duration="10949000" />
+      <workItem from="1743884667160" duration="15000000" />
+      <workItem from="1744140504294" duration="3557000" />
+      <workItem from="1744916462821" duration="685000" />
     </task>
     <servers />
   </component>
