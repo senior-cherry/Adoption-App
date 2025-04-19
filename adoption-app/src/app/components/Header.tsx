@@ -25,7 +25,15 @@ const Header = () => {
                 justify="space-between"
             >
                 <Link href="/">
-                    <Image src='/uploads/logo_w_bg-removebg-preview.png' alt='Paw in Paw' width="150" height="75" />
+                    <Box w="280px" h="75px">
+                        <Image
+                            src="/uploads/logo_w_bg-removebg-preview.png"
+                            alt="Paw in Paw"
+                            width="100%"
+                            height="100%"
+                            objectFit="cover"
+                        />
+                    </Box>
                 </Link>
                 <div className="mobile-menu">
                     <Menu>

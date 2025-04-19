@@ -24,11 +24,11 @@ const LanguageSwitcher = () => {
     };
 
     return (
-        <ButtonGroup isAttached variant="outline">
-            <Button onClick={() => onSelectChange("en")} colorScheme={locale === "en" ? "blue" : "gray"}>
+        <ButtonGroup isAttached variant="solid">
+            <Button onClick={() => onSelectChange("en")} colorScheme={locale === "en" ? "orange" : "gray"}>
                 English
             </Button>
-            <Button onClick={() => onSelectChange("uk")} colorScheme={locale === "uk" ? "blue" : "gray"}>
+            <Button onClick={() => onSelectChange("uk")} colorScheme={locale === "uk" ? "orange" : "gray"}>
                 Українська
             </Button>
         </ButtonGroup>
