@@ -5,23 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4289e8a6-b7e2-4eb2-b832-22e029562b46" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/adoption-app/public/uploads/pexels-andreas-l-2004808-3626111.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/adoption-app/public/uploads/pexels-cottonbro-4921291.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/adoption-app/public/uploads/pexels-jerseypics-674318.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/adoption-app/public/uploads/pexels-pinamon-31422622.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/adoption-app/public/uploads/pexels-pinamon-31518652.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/adoption-app/public/uploads/pexels-pixabay-104827.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/adoption-app/public/uploads/pexels-pixabay-62289.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/adoption-app/public/uploads/pexels-valeriya-1805164.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/adoption-app/src/app/components/Gallery.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adoption-app/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/adoption-app/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adoption-app/src/app/components/Filter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/adoption-app/src/app/components/Filter.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adoption-app/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/adoption-app/src/app/globals.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adoption-app/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/adoption-app/src/app/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adoption-app/src/app/pets/[category]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/adoption-app/src/app/pets/[category]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adoption-app/src/app/pets/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/adoption-app/src/app/pets/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adoption-app/tailwind.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/adoption-app/tailwind.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/adoption-app/src/app/components/Gallery.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/adoption-app/src/app/components/Gallery.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,7 +99,8 @@
       <workItem from="1743667775826" duration="10949000" />
       <workItem from="1743884667160" duration="15000000" />
       <workItem from="1744140504294" duration="3557000" />
-      <workItem from="1744916462821" duration="685000" />
+      <workItem from="1744916462821" duration="1347000" />
+      <workItem from="1745051084723" duration="825000" />
     </task>
     <servers />
   </component>
