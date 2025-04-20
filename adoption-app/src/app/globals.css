@@ -424,6 +424,12 @@ body {
   }
 }
 
+@media screen and (min-width: 1280px) and (max-width: 1440px) {
+  .menu .chakra-button.css-18n18r6 {
+    font-size: 14px;
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
