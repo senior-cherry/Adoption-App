@@ -19,6 +19,7 @@ model Pet {
   isFeatured Boolean   @default(true)
   category   Category? @relation(fields: [catSlug], references: [slug])
   catSlug    String?
+  adoptions  Adoption[] @relation("PetAdoptions")
   createdAt  DateTime  @default(now())
 }
 
@@ -40,7 +41,8 @@ model Post {
 
 model Adoption {
   id                String   @id @default(cuid())
-  pet              String
+  pet_id             String?
+  pet            Pet?     @relation("PetAdoptions", fields: [pet_id], references: [id])
   species           String?  @default("")
   imageUrl         String
   user             String
@@ -51,10 +53,10 @@ model Adoption {
   createdAt        DateTime @default(now())
 }
 
-
 model Message {
   id        String   @id @default(cuid())
   chat_id   String
+  chat      Chat?     @relation(fields: [chat_id], references: [id], onDelete: Cascade)
   user_id   String
   content   String
   role      String
@@ -65,5 +67,6 @@ model Chat {
   id         String   @id @default(uuid())
   name       String
   user_id    String
+  messages   Message[]
   created_at DateTime @default(now())
 }

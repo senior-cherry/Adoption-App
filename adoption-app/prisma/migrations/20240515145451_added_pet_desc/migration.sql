@@ -18,4 +18,6 @@ ALTER TABLE "Adoption" DROP COLUMN "employmentStatus"
 ALTER TABLE "Adoption" DROP COLUMN "housing"
 ALTER TABLE "Adoption" DROP COLUMN "mentalHealthIssues"
 ALTER TABLE "Adoption" DROP COLUMN "reason"
-ADD COLUMN "species" TEXT NOT NULL
+ALTER TABLE "Adoption" ADD COLUMN "species" TEXT NOT NULL
+ALTER TABLE "Adoption" DROP COLUMN "pet"
+ALTER TABLE "Adoption" ADD COLUMN "pet_id" TEXT NOT NULL
