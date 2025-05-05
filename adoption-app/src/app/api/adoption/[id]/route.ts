@@ -10,7 +10,8 @@ export const PATCH = async (req: NextRequest, { params }: Params) => {
         const adoptionRequest = await prisma.adoption.update({
             where: {id},
             data: {
-                approval: body
+                approval: body,
+                archivedAt: new Date()
             }
         });
         return new NextResponse(JSON.stringify(adoptionRequest), { status: 201 })

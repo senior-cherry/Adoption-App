@@ -51,6 +51,7 @@ model Adoption {
   aiConclusion     String?   @default("AI denies adoption process")
   approval         String   @default("inProcess")
   createdAt        DateTime @default(now())
+  archivedAt        DateTime?
 }
 
 model Message {
