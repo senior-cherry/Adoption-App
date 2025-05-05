@@ -1,6 +1,6 @@
 import React from "react";
-import ChatList from "@/app/components/ChatList";
-import ChatForm from "@/app/components/ChatForm";
+import ChatList from "@/components/ChatList";
+import ChatForm from "@/components/ChatForm";
 import {auth} from "@clerk/nextjs/server";
 
 const getData = async () => {

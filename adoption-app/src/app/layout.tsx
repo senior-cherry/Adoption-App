@@ -2,10 +2,10 @@ import { Providers } from './providers'
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Header from "@/app/components/Header";
+import Header from "@/components/Header";
 import {ClerkProvider} from "@clerk/nextjs";
-import Footer from "@/app/components/Footer";
-import AIHelper from './components/AIHelper';
+import Footer from "@/components/Footer";
+import AIHelper from '../components/AIHelper';
 import {NextIntlClientProvider} from 'next-intl';
 import {getLocale, getMessages} from 'next-intl/server';
 

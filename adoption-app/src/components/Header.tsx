@@ -23,7 +23,7 @@ import {
     SettingsIcon,
     ChatIcon
 } from "@chakra-ui/icons";
-import LanguageSwitcher from "@/app/components/LanguageSwitcher";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 const Header = () => {
     return (

@@ -1,6 +1,6 @@
 import {Card, CardBody, CardFooter} from "@chakra-ui/card";
 import {Button, ButtonGroup, Divider, Heading, Image, Stack, Text} from "@chakra-ui/react";
-import AdoptButtonGroup from "@/app/components/AdoptButtonGroup";
+import AdoptButtonGroup from "@/components/AdoptButtonGroup";
 import Link from "next/link";
 
 type CardProps = {

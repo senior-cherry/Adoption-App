@@ -1,7 +1,7 @@
 import {PetType} from "@/types/types";
 import PetLayout from "@/app/layouts/PetLayout";
 import {Center, Grid} from "@chakra-ui/react";
-import CardComponent from "@/app/components/CardComponent";
+import CardComponent from "@/components/CardComponent";
 
 const getData = async (category: string) => {
     const res = await fetch(`${process.env.BASE_URL}/api/pets?cat=${category}`, {

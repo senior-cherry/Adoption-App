@@ -12,8 +12,9 @@ import {
 import {AdoptionType, CategoryType, PetType, PostType} from "@/types/types";
 import {useEffect, useState} from "react";
 import Link from "next/link";
-import DeleteButton from "@/app/components/DeleteButton";
+import DeleteButton from "@/components/DeleteButton";
 import {useRouter} from "next/navigation";
+import {redirect} from "next/navigation";
 
 const getData = async (collection: String) => {
     const res = await fetch(`/api/${collection}`, {
@@ -71,7 +72,11 @@ const Dashboard = () => {
                 console.error("Error fetching pets:", error);
             }
         };
+        if (isLoaded && userRole !== "org:admin") {
+            redirect("/");
+        } else {
             fetchData();
+        }
     }, [isLoaded, userRole])
 
     const fetchData = async (section: string) => {
@@ -105,13 +110,6 @@ const Dashboard = () => {
 
 
     return (
-        <Protect
-            condition={() => (isLoaded && userRole === "org:admin")}
-            fallback={() => {
-                router.push("/pets");
-                return null;
-            }}
-        >
         <Accordion>
             <AccordionItem>
                 <h2>
@@ -341,7 +339,6 @@ const Dashboard = () => {
                 </AccordionPanel>
             </AccordionItem>
         </Accordion>
-        </Protect>
     );
 }
 

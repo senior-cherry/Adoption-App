@@ -113,7 +113,7 @@ const AdoptionForm = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const res = await fetch(`${process.env.BASE_URL}/api/adoption`, {
+            const res = await fetch(`http://localhost:3000/api/adoption`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

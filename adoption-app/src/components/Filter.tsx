@@ -1,6 +1,6 @@
 import { CategoryType } from "@/types/types";
 import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
-import CategoryLink from "@/app/components/CategoryLink";
+import CategoryLink from "@/components/CategoryLink";
 import Link from "next/link";
 
 const getCategories = async (): Promise<CategoryType[]> => {

@@ -1,4 +1,4 @@
-import Filter from "@/app/components/Filter";
+import Filter from "@/components/Filter";
 
 const PetLayout = ({ children }: any) => {
     return (

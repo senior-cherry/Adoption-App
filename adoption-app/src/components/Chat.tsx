@@ -3,7 +3,7 @@ import { auth } from "@clerk/nextjs/server";
 import { handleNewMessage } from "@/app/actions/handleNewMessage";
 import { Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Box } from "@chakra-ui/react";
 import { prisma } from "@/utils/connect";
-import Loading from "@/app/components/Loading";
+import Loading from "@/components/Loading";
 
 interface ChatProps {
     chatId: string;

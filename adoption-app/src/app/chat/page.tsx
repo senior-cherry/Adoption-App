@@ -1,6 +1,6 @@
-import Sidebar from "@/app/components/Sidebar";
+import Sidebar from "@/components/Sidebar";
 import React from "react";
-import Chat from "@/app/components/Chat";
+import Chat from "@/components/Chat";
 
 interface ChatProps {
     searchParams: {
