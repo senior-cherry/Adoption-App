@@ -43,7 +43,7 @@ const CardComponent = ({pet}: CardProps) => {
             <Divider />
             <CardFooter>
                 <ButtonGroup spacing='2'>
-                    <AdoptButtonGroup pet={pet.name} imageUrl={pet.imageUrl} species={pet.species} />
+                    <AdoptButtonGroup pet_id={pet.id} imageUrl={pet.imageUrl} species={pet.species} />
                     <Link href={`/pets/pet/${pet.id}`} className="details_link">
                         <Button variant='ghost' colorScheme='blue'>
                             Дізнатись більше

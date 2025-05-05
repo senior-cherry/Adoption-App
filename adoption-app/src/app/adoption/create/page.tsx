@@ -1,5 +1,5 @@
 "use client";
-import {redirect, useSearchParams} from "next/navigation";
+import {useSearchParams, useRouter} from "next/navigation";
 import React, {useEffect, useState} from "react";
 import {useUser} from "@clerk/nextjs";
 import {useTranslations} from "next-intl";
@@ -44,14 +44,15 @@ const AdoptionForm = () => {
     const toast = useToast()
     const q = useTranslations("adoptionFormQuestions");
     const o = useTranslations("adoptionFormOptions");
+    const router = useRouter();
     const {isLoaded, user}  = useUser();
     const searchParams = useSearchParams();
-    const pet = searchParams.get("pet") || "";
+    const pet_id = searchParams.get("id") || "";
     const imageUrl = searchParams.get("imageUrl") || "";
     const species = searchParams.get("species") || "";
 
     const [inputs, setInputs] = useState<Inputs>({
-        pet,
+        pet_id,
         imageUrl,
         species,
         user: user?.fullName || "",
@@ -113,7 +114,7 @@ const AdoptionForm = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const res = await fetch(`http://localhost:3000/api/adoption`, {
+            const res = await fetch(`/api/adoption`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -122,7 +123,7 @@ const AdoptionForm = () => {
             });
 
             if (res.ok) {
-                redirect("/pets");
+                router.push('/pets');
                 toast({
                 title: 'Успіх',
                 description: "Запит успішно виконано",

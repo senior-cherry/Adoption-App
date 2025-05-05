@@ -1,4 +1,4 @@
-import PetLayout from "@/app/layouts/PetLayout";
+import PetLayout from "@/layouts/PetLayout";
 import {PetType} from "@/types/types";
 import { Grid, Center } from "@chakra-ui/react"
 import CardComponent from "@/components/CardComponent";

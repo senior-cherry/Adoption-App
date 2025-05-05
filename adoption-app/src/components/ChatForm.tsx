@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
-import { handleNewChat } from "@/app/actions/handleNewChat";
+import { handleNewChat } from "@/actions/handleNewChat";
 
 const ChatForm = () => {
     const router = useRouter();

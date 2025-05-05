@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useSession, useUser } from "@clerk/nextjs";
-import { handleNewMessage } from "@/app/actions/handleNewMessage";
+import { handleNewMessage } from "@/actions/handleNewMessage";
 import { checkUserRole } from "@/utils/userUtils";
 import {usePathname} from "next/navigation";
 

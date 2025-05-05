@@ -72,14 +72,15 @@ export const POST = async (req: NextRequest) => {
         });
 
         const aiConclusion = aiResponse.choices[0].message.content?.trim() || "inProcess";
-        const { pet, imageUrl, user, email, address, species } = body;
+        const { pet_id, imageUrl, user, email, address, species } = body;
 
         const adoption = await prisma.adoption.create({
-            data: { pet, imageUrl, user, email, address, species, aiConclusion }
+            data: { pet_id, imageUrl, user, email, address, species, aiConclusion }
         });
 
         return new NextResponse(JSON.stringify(adoption), { status: 201 });
     } catch (err) {
-        return new NextResponse(JSON.stringify({ message: r("error") }), { status: 500 });
+        console.error("Adoption creation error:", err);
+        return new NextResponse(JSON.stringify({ message: "Internal Server Error" }), { status: 500 });
     }
 };
