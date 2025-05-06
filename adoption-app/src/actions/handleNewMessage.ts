@@ -5,6 +5,7 @@ import { auth } from "@clerk/nextjs/server";
 import { v4 as uuidv4 } from "uuid";
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/utils/connect";
+import {getTranslations} from "next-intl/server";
 
 interface Message {
     id: string;
@@ -16,6 +17,8 @@ interface Message {
 }
 
 export const handleNewMessage = async (formData: FormData) => {
+    const t = getTranslations("ai-helper");
+
     const openai = new OpenAI({
         apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
     });
@@ -28,11 +31,10 @@ export const handleNewMessage = async (formData: FormData) => {
 
     if (!newMessage || newMessage.trim() === "") return;
 
-    const systemMessage = `You are an AI assistant for a pet adoption center.
-    Your job is to provide helpful guidance based on the user's current page and role.
-    User role: ${userRole}.
-    Current page: ${pageContext}.
-    Respond with short and actionable advice.`;
+    const systemMessage = `${(await t)("systemMessage")}
+    ${(await t)("role")}: ${userRole}.
+    ${(await t)("page")}: ${pageContext}.
+    ${(await t)("task")}`;
 
     if (chatId === "ai-helper") {
         try {

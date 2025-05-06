@@ -4,11 +4,13 @@ import { useSession, useUser } from "@clerk/nextjs";
 import { handleNewMessage } from "@/actions/handleNewMessage";
 import { checkUserRole } from "@/utils/userUtils";
 import {usePathname} from "next/navigation";
+import {useTranslations} from "next-intl";
 
 export default function AIHelper() {
     const { session } = useSession();
     const { isLoaded } = useUser();
     const [message, setMessage] = useState("");
+    const t = useTranslations("ai-helper");
     const path = usePathname();
 
     const userRole = !isLoaded ? "guest" : checkUserRole(session) || "guest";
@@ -17,7 +19,7 @@ export default function AIHelper() {
         const fetchHint = async () => {
             const formData = new FormData();
             formData.append("chatId", "ai-helper");
-            formData.append("newMessage", "Give me a hint.");
+            formData.append("newMessage", t("message"));
             formData.append("pageContext", path);
             formData.append("userRole", userRole);
 

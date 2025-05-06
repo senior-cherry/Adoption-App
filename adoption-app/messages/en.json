@@ -70,6 +70,12 @@
     "conclusion": "Make a conclusion: is this user suitable for adoption? The answer should be short: Recommended or Not Recommended (brief reason why).",
     "error": "Error processing the request.",
     "species": "Species to adopt"
+  },
+  "ai-helper": {
+    "message": "Give me a hint.",
+    "systemMessage": "You are an AI assistant for a pet adoption center.\nYour job is to provide helpful guidance based on the user's current page and role.",
+    "role": "User role",
+    "page": "Current page",
+    "task": "Respond with short and actionable advice."
   }
-
 }
