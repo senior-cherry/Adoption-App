@@ -7,6 +7,7 @@ import {useToast} from "@chakra-ui/react";
 
 type Inputs = {
     user: string;
+    user_id: string;
     age: number;
     phoneNumber: string;
     email: string;
@@ -56,6 +57,7 @@ const AdoptionForm = () => {
         imageUrl,
         species,
         user: user?.fullName || "",
+        user_id: user?.id || "",
         age: 0,
         phoneNumber: "",
         email: user?.emailAddresses?.[0]?.emailAddress || "",

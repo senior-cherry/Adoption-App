@@ -46,6 +46,8 @@ model Adoption {
   species           String?  @default("")
   imageUrl         String
   user             String
+  user_id           String
+  phoneNumber       String?
   email            String
   address           String? @default("")
   aiConclusion     String?   @default("AI denies adoption process")

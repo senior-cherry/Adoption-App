@@ -291,9 +291,10 @@ const Dashboard = () => {
                             <Thead>
                                 <Tr>
                                     <Th>Фото</Th>
-                                    <Th>Ім'я</Th>
+                                    <Th>Вид</Th>
                                     <Th>Користувач</Th>
                                     <Th>Електронна пошта</Th>
+                                    <Th>Номер телефону</Th>
                                     <Th>Адреса</Th>
                                     <Th>Висновок ШІ</Th>
                                     <Th>Дії</Th>
@@ -308,12 +309,13 @@ const Dashboard = () => {
                                                     borderRadius='full'
                                                     boxSize='40px'
                                                     src={`/uploads/${req.imageUrl}`}
-                                                    alt={req.pet}
+                                                    alt={req.species}
                                                 />
                                             </Td>
-                                            <Td>{req.pet}</Td>
+                                            <Td>{req.species}</Td>
                                             <Td>{req.user}</Td>
                                             <Td>{req.email}</Td>
+                                            <Td>{req.phoneNumber}</Td>
                                             <Td>{req.address}</Td>
                                             <Td>{req.aiConclusion}</Td>
                                             <Td>

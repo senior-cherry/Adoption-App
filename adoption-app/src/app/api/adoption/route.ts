@@ -72,10 +72,10 @@ export const POST = async (req: NextRequest) => {
         });
 
         const aiConclusion = aiResponse.choices[0].message.content?.trim() || "inProcess";
-        const { pet_id, imageUrl, user, email, address, species } = body;
+        const { pet_id, imageUrl, user, user_id, phoneNumber, email, address, species } = body;
 
         const adoption = await prisma.adoption.create({
-            data: { pet_id, imageUrl, user, email, address, species, aiConclusion }
+            data: { pet_id, imageUrl, user, user_id, phoneNumber, email, address, species, aiConclusion }
         });
 
         return new NextResponse(JSON.stringify(adoption), { status: 201 });
