@@ -13,7 +13,6 @@ const AdoptButtonGroup = ({ pet_id, imageUrl, species }) => {
     const [hasPendingRequest, setHasPendingRequest] = useState(false);
 
     useEffect(() => {
-        console.log(user.id)
         const checkRequest = async () => {
             if (user && isLoaded) {
                 const res = await fetch(`/api/adoption/check?userId=${user.id}&petId=${pet_id}`);

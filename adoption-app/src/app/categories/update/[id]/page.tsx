@@ -1,6 +1,6 @@
 "use client";
 import {redirect, useRouter} from "next/navigation";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useSession, useUser} from "@clerk/nextjs";
 import {checkUserRole} from "@/utils/userUtils";
 import {Params} from "next/dist/shared/lib/router/utils/route-matcher";
@@ -13,7 +13,7 @@ type Inputs = {
 
 const UpdateCategoryPage = ({params}: Params) => {
     const {session} = useSession();
-    const {isLoaded, user}  = useUser();
+    const {isLoaded}  = useUser();
     const userRole = checkUserRole(session);
 
     const [inputs, setInputs] = useState<Inputs>({
@@ -24,11 +24,30 @@ const UpdateCategoryPage = ({params}: Params) => {
 
     const router = useRouter();
 
-    if (isLoaded) {
-        if (userRole !== "org:admin") {
-            redirect("/")
-        }
-    }
+    useEffect(() => {
+        const initialize = async () => {
+            if (!isLoaded) return;
+
+            if (userRole !== "org:admin") {
+                redirect("/");
+                return;
+            }
+
+            try {
+                const res = await fetch(`/api/categories/${params.id}`);
+                const data = await res.json();
+                setInputs({
+                    name: data.name,
+                    description: data.description,
+                    slug: data.slug,
+                });
+            } catch (error) {
+                console.error("Error fetching category:", error);
+            }
+        };
+
+        initialize();
+    }, [isLoaded, userRole, params.id]);
 
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -42,7 +61,7 @@ const UpdateCategoryPage = ({params}: Params) => {
         e.preventDefault();
 
         try {
-            const res = await fetch(`${process.env.BASE_URL}/api/categories/${params.id}`, {
+            const res = await fetch(`/api/categories/${params.id}`, {
                 method: "PATCH",
                 body: JSON.stringify({
                     ...inputs,
@@ -50,7 +69,6 @@ const UpdateCategoryPage = ({params}: Params) => {
             });
 
             const data = await res.json();
-            console.log(data);
 
             router.push(`/pets/${data.slug}`);
         } catch (err) {
@@ -68,6 +86,7 @@ const UpdateCategoryPage = ({params}: Params) => {
                         type="text"
                         placeholder="Назва"
                         name="name"
+                        value={inputs.name}
                         onChange={handleChange}
                     />
                 </div>
@@ -78,6 +97,7 @@ const UpdateCategoryPage = ({params}: Params) => {
                         type="text"
                         placeholder="Опис"
                         name="description"
+                        value={inputs.description}
                         onChange={handleChange}
                     />
                 </div>
@@ -88,6 +108,7 @@ const UpdateCategoryPage = ({params}: Params) => {
                         type="text"
                         placeholder="Категорія"
                         name="slug"
+                        value={inputs.slug}
                         onChange={handleChange}
                     />
                 </div>

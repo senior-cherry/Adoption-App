@@ -20,7 +20,7 @@ type Inputs = {
 
 const UpdatePage = ({ params }: Params) => {
     const {session} = useSession();
-    const {isLoaded, user}  = useUser();
+    const {isLoaded}  = useUser();
     const userRole = checkUserRole(session);
 
     const [inputs, setInputs] = useState<Inputs>({
@@ -30,18 +30,43 @@ const UpdatePage = ({ params }: Params) => {
         gender: "",
         desc: "",
         catSlug: "",
-        isFeatured: true
+        isFeatured: true,
+        imageUrl: ""
     });
 
     const [file, setFile] = useState<File>();
 
     const router = useRouter();
 
-    if (isLoaded) {
-        if (userRole !== "org:admin") {
-            redirect("/")
-        }
-    }
+    useEffect(() => {
+        const initialize = async () => {
+            if (!isLoaded) return;
+
+            if (userRole !== "org:admin") {
+                redirect("/");
+                return;
+            }
+
+            try {
+                const res = await fetch(`/api/pets/${params.id}`);
+                const data = await res.json();
+                setInputs({
+                    name: data.name,
+                    species: data.species,
+                    age: data.age,
+                    gender: data.gender,
+                    desc: data.desc,
+                    catSlug: data.catSlug,
+                    imageUrl: data.imageUrl,
+                    isFeatured: true
+                });
+            } catch (error) {
+                console.error("Error fetching pet:", error);
+            }
+        };
+
+        initialize();
+    }, [isLoaded, userRole, params.id]);
 
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -54,36 +79,47 @@ const UpdatePage = ({ params }: Params) => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (!file) return
+        let uploadedImageName = inputs.imageUrl;
 
-        try {
-            const formData = new FormData();
-            formData.append('file', file);
+        if (file) {
+            try {
+                const formData = new FormData();
+                formData.append("file", file);
 
-            const res = await fetch('/api/upload', {
-                method: 'POST',
-                body: formData
-            })
-            if (!res.ok) throw new Error(await res.text())
-        } catch (err) {
-            console.log(err)
+                const res = await fetch("/api/upload", {
+                    method: "POST",
+                    body: formData,
+                });
+
+                if (!res.ok) {
+                    throw new Error(await res.text());
+                }
+
+                const result = await res.json();
+                uploadedImageName = result.filename || file.name;
+            } catch (err) {
+                console.error("Upload error:", err);
+                return;
+            }
         }
 
         try {
-            const res = await fetch(`${process.env.BASE_URL}/api/pets/${params.id}`, {
+            const res = await fetch(`/api/pets/${params.id}`, {
                 method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
                 body: JSON.stringify({
-                    imageUrl: file?.name,
+                    imageUrl: uploadedImageName,
                     ...inputs,
                 }),
             });
 
             const data = await res.json();
-            console.log(data);
 
             router.push(`/pets/pet/${data.id}`);
         } catch (err) {
-            console.log(err);
+            console.error("Update error:", err);
         }
     };
 
@@ -104,6 +140,15 @@ const UpdatePage = ({ params }: Params) => {
                         id="file"
                         className="hidden"
                     />
+                    {inputs.imageUrl && (
+                        <Image
+                            src={`/uploads/${inputs.imageUrl}`}
+                            alt="Current"
+                            width={100}
+                            height={100}
+                            className="mt-2"
+                        />
+                    )}
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
                     <label className="text-sm">Ім'я</label>
@@ -112,6 +157,7 @@ const UpdatePage = ({ params }: Params) => {
                         type="text"
                         placeholder="Ім'я"
                         name="name"
+                        value={inputs.name}
                         onChange={handleChange}
                     />
                 </div>
@@ -122,6 +168,7 @@ const UpdatePage = ({ params }: Params) => {
                         type="text"
                         placeholder="Вид"
                         name="species"
+                        value={inputs.species}
                         onChange={handleChange}
                     />
                 </div>
@@ -132,6 +179,7 @@ const UpdatePage = ({ params }: Params) => {
                         type="text"
                         placeholder="Вік"
                         name="age"
+                        value={inputs.age}
                         onChange={handleChange}
                     />
                 </div>
@@ -142,6 +190,7 @@ const UpdatePage = ({ params }: Params) => {
                         type="text"
                         placeholder="Стать"
                         name="gender"
+                        value={inputs.gender}
                         onChange={handleChange}
                     />
                 </div>
@@ -152,6 +201,7 @@ const UpdatePage = ({ params }: Params) => {
                         type="text"
                         placeholder="Опис"
                         name="desc"
+                        value={inputs.desc}
                         onChange={handleChange}
                     />
                 </div>
@@ -162,6 +212,7 @@ const UpdatePage = ({ params }: Params) => {
                         type="text"
                         placeholder="Собаки, Коти, Рептилії..."
                         name="catSlug"
+                        value={inputs.catSlug}
                         onChange={handleChange}
                     />
                 </div>

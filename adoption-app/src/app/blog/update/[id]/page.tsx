@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import {redirect, useRouter} from "next/navigation";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useUser, useSession} from "@clerk/nextjs";
 import {checkUserRole} from "@/utils/userUtils";
 import {Params} from "next/dist/shared/lib/router/utils/route-matcher";
@@ -13,23 +13,44 @@ type Inputs = {
 
 const UpdatePostPage = ({ params }: Params) => {
     const {session} = useSession();
-    const {isLoaded, user}  = useUser();
+    const {isLoaded}  = useUser();
     const userRole = checkUserRole(session);
 
     const [inputs, setInputs] = useState<Inputs>({
         name: "",
         description: "",
+        imageUrl: ""
     });
 
     const [file, setFile] = useState<File>();
 
     const router = useRouter();
 
-    if (isLoaded) {
-        if (userRole !== "org:admin") {
-            redirect("/")
-        }
-    }
+    useEffect(() => {
+        const initialize = async () => {
+            if (!isLoaded) return;
+
+            if (userRole !== "org:admin") {
+                redirect("/");
+                return;
+            }
+
+            try {
+                const res = await fetch(`/api/blog/${params.id}`);
+                const data = await res.json();
+                setInputs({
+                    name: data.name,
+                    description: data.description,
+                    imageUrl: data.imageUrl,
+                });
+            } catch (error) {
+                console.error("Error fetching post:", error);
+            }
+        };
+
+        initialize();
+    }, [isLoaded, userRole, params.id]);
+
 
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -43,38 +64,50 @@ const UpdatePostPage = ({ params }: Params) => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (!file) return
+        let uploadedImageName = inputs.imageUrl;
 
-        try {
-            const formData = new FormData();
-            formData.append('file', file);
+        if (file) {
+            try {
+                const formData = new FormData();
+                formData.append("file", file);
 
-            const res = await fetch('/api/upload', {
-                method: 'POST',
-                body: formData
-            })
-            if (!res.ok) throw new Error(await res.text())
-        } catch (err) {
-            console.log(err)
+                const res = await fetch("/api/upload", {
+                    method: "POST",
+                    body: formData,
+                });
+
+                if (!res.ok) {
+                    throw new Error(await res.text());
+                }
+
+                const result = await res.json();
+                uploadedImageName = result.filename || file.name;
+            } catch (err) {
+                console.error("Upload error:", err);
+                return;
+            }
         }
 
         try {
-            const res = await fetch(`${process.env.BASE_URL}/api/blog/${params.id}`, {
+            const res = await fetch(`/api/blog/${params.id}`, {
                 method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
                 body: JSON.stringify({
-                    imageUrl: file?.name,
-                    ...inputs
+                    imageUrl: uploadedImageName,
+                    ...inputs,
                 }),
             });
 
             const data = await res.json();
-            console.log(data);
 
             router.push(`/blog/post/${data.id}`);
         } catch (err) {
-            console.log(err);
+            console.error("Update error:", err);
         }
     };
+
 
     return (
         <div className="form">
@@ -93,6 +126,15 @@ const UpdatePostPage = ({ params }: Params) => {
                         id="file"
                         className="hidden"
                     />
+                    {inputs.imageUrl && (
+                        <Image
+                            src={`/uploads/${inputs.imageUrl}`}
+                            alt="Current"
+                            width={100}
+                            height={100}
+                            className="mt-2"
+                        />
+                    )}
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
                     <label className="text-sm">Назва</label>
@@ -101,6 +143,7 @@ const UpdatePostPage = ({ params }: Params) => {
                         type="text"
                         placeholder="Назва"
                         name="name"
+                        value={inputs.name}
                         onChange={handleChange}
                     />
                 </div>
@@ -111,6 +154,7 @@ const UpdatePostPage = ({ params }: Params) => {
                         type="text"
                         placeholder="Опис"
                         name="description"
+                        value={inputs.description}
                         onChange={handleChange}
                     />
                 </div>

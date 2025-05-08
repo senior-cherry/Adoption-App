@@ -50,9 +50,7 @@ const SinglePet = async ({params}: Props) => {
                         {pet.desc}
                     </p>
                         <ButtonGroup spacing='2' className="mt-5">
-                            <div>
-                                <AdoptButtonGroup pet={pet.name} imageUrl={pet.imageUrl} />
-                            </div>
+                            <AdoptButtonGroup pet_id={pet.id} imageUrl={pet.imageUrl} species={pet.species} />
                             <Link href="/pets">
                                 <Button variant='ghost' colorScheme='blue'>
                                     Назад

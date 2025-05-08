@@ -1,6 +1,3 @@
-'use client';
-
-import { useEffect } from 'react';
 import Image from 'next/image';
 
 const images = [
@@ -24,33 +21,6 @@ const images = [
 ];
 
 export default function Gallery() {
-    const revealImage = (img: HTMLElement) => {
-        const rect = img.getBoundingClientRect();
-        const vh = window.innerHeight;
-        if (rect.top < vh) {
-            img.classList.add('opacity-100', 'translate-y-0');
-            img.classList.remove('opacity-0', 'translate-y-5');
-        }
-    };
-
-    useEffect(() => {
-        const imgs = document.querySelectorAll('.gallery-img') as NodeListOf<HTMLElement>;
-
-        const handleScroll = () => {
-            imgs.forEach(revealImage);
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        handleScroll();
-
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-
-    const handleImageLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
-        const img = e.currentTarget;
-        revealImage(img);
-    };
-
     return (
         <section className="px-6 py-8 columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
             {images.map((src, index) => (
@@ -60,8 +30,7 @@ export default function Gallery() {
                     alt={`gallery image ${index + 1}`}
                     width={400}
                     height={300}
-                    onLoad={handleImageLoad}
-                    className="gallery-img w-full rounded-lg opacity-0 translate-y-5 transition-all duration-700 ease-out hover:opacity-90"
+                    className="w-full rounded-lg"
                 />
             ))}
         </section>

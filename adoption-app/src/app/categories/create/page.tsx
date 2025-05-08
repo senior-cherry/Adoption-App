@@ -1,6 +1,6 @@
 "use client";
 import {redirect, useRouter} from "next/navigation";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useSession, useUser} from "@clerk/nextjs";
 import {checkUserRole} from "@/utils/userUtils";
 
@@ -12,7 +12,7 @@ type Inputs = {
 
 const AddCategoryPage = () => {
     const {session} = useSession();
-    const {isLoaded, user}  = useUser();
+    const {isLoaded}  = useUser();
     const userRole = checkUserRole(session);
 
     const [inputs, setInputs] = useState<Inputs>({
@@ -23,11 +23,13 @@ const AddCategoryPage = () => {
 
     const router = useRouter();
 
-    if (isLoaded) {
-        if (userRole !== "org:admin") {
-            redirect("/")
+    useEffect(() => {
+        if (isLoaded) {
+            if (userRole !== "org:admin") {
+                redirect("/")
+            }
         }
-    }
+    }, [isLoaded, userRole]);
 
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>

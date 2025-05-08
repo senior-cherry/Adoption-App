@@ -1,6 +1,5 @@
 import {PostType} from "@/types/types";
-import {Button, ButtonGroup, Image} from "@chakra-ui/react";
-import AdoptButtonGroup from "@/components/AdoptButtonGroup";
+import {Button, Image} from "@chakra-ui/react";
 import Link from "next/link";
 
 const getData = async (id: string) => {
