@@ -1,7 +1,6 @@
 "use client";
 import {useSession, useUser} from "@clerk/nextjs";
 import {checkUserRole} from "@/utils/userUtils";
-import { Protect } from '@clerk/nextjs'
 import {
     Accordion,
     AccordionItem,
@@ -13,8 +12,8 @@ import {AdoptionType, CategoryType, PetType, PostType} from "@/types/types";
 import {useEffect, useState} from "react";
 import Link from "next/link";
 import DeleteButton from "@/components/DeleteButton";
-import {useRouter} from "next/navigation";
 import {redirect} from "next/navigation";
+import {sendEmail} from "@/actions/sendEmailMessage";
 
 const getData = async (collection: String) => {
     const res = await fetch(`/api/${collection}`, {
@@ -28,7 +27,7 @@ const getData = async (collection: String) => {
     return res.json();
 }
 
-const handleAdoptionRequest = async (id: String, decision: string) => {
+const handleAdoptionRequest = async (id: String, decision: string, email: string) => {
     const res = await fetch(`/api/adoption/${id}`, {
         method: 'PATCH',
         body: JSON.stringify(decision)
@@ -38,11 +37,10 @@ const handleAdoptionRequest = async (id: String, decision: string) => {
         throw new Error("Failed");
     }
 
-    return res.json();
+    await sendEmail(email, decision);
 }
 
 const Dashboard = () => {
-    const router = useRouter();
     const {session} = useSession();
     const {isLoaded}  = useUser();
     const userRole = checkUserRole(session);
@@ -322,12 +320,12 @@ const Dashboard = () => {
                                                 <ButtonGroup gap='4'>
                                                     <Button
                                                         colorScheme='teal'
-                                                        onClick={() => handleAdoptionRequest(req.id, "approve")}>
+                                                        onClick={() => handleAdoptionRequest(req.id, "approve", req.email)}>
                                                         Прийняти
                                                     </Button>
                                                     <Button
                                                         colorScheme='red'
-                                                        onClick={() => handleAdoptionRequest(req.id, "deny")}>
+                                                        onClick={() => handleAdoptionRequest(req.id, "deny", req.email)}>
                                                         Відхилити
                                                     </Button>
                                                 </ButtonGroup>

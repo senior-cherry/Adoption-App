@@ -77,5 +77,10 @@
     "role": "User role",
     "page": "Current page",
     "task": "Respond with short and actionable advice."
+  },
+  "email": {
+    "header": "Decision on Your Pet Adoption Application",
+    "approve": "Congratulations! Your application to adopt a pet has been approved. Our team will contact you shortly with the next steps.",
+    "deny": "We appreciate your interest in adopting a pet. After careful consideration, your application was not approved. Feel free to apply again in the future."
   }
 }
