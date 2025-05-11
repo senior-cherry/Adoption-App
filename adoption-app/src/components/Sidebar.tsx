@@ -5,7 +5,7 @@ import {auth} from "@clerk/nextjs/server";
 
 const getData = async () => {
     const userId = auth();
-    const res = await fetch(`${process.env.BASE_URL}/api/chat/${userId.userId}`, {
+    const res = await fetch(`${process.env.BASE_URL}/api/chat/user/${userId.userId}`, {
         cache: "no-store"
     })
 

@@ -14,7 +14,7 @@ const ChatForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="flex">
+        <form onSubmit={handleSubmit} className="flex flex-col">
             <input
                 type="text"
                 name="chatName"
@@ -23,7 +23,7 @@ const ChatForm = () => {
             />
             <button
                 type="submit"
-                className="text-sm bg-[#3e3e3e] hover:bg-[#575757] p-2 m-2 text-white"
+                className="w-full text-sm bg-[#3e3e3e] rounded hover:bg-[#575757] p-2 mt-2 text-white"
             >
                 Add
             </button>

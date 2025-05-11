@@ -2,8 +2,7 @@
 
 import React, { useCallback } from "react";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
-import { useToast } from "@chakra-ui/react";
-import DeleteButton from "./DeleteButton";
+import ConfirmModal from "@/components/ConfirmModal";
 
 interface ChatListProps {
     chats: { id: string, name: string }[];
@@ -13,8 +12,6 @@ const ChatList = ({ chats }: ChatListProps) => {
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
-
-    const toast = useToast();
 
     const createQueryString = useCallback(
         (name: string, value: string) => {
@@ -34,10 +31,13 @@ const ChatList = ({ chats }: ChatListProps) => {
                 Array.isArray(chats) ? (
                     chats.map((chat) => {
                         return (
-                            <li key={chat.id} onClick={() => handleChatClick(chat.id)}
-                                className="p-4 hover:bg-[#3e3e3e] cursor-pointer">
-                                {chat.name}
-                            </li>
+                            <div className="flex items-center gap-2" key={chat.id}>
+                                <li onClick={() => handleChatClick(chat.id)}
+                                    className="p-4 hover:bg-[#3e3e3e] cursor-pointer">
+                                    {chat.name}
+                                </li>
+                                    <ConfirmModal id={chat.id} collection={"chat"} />
+                            </div>
                         );
                     }
                     )
