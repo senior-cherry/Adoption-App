@@ -28,7 +28,13 @@ const AdoptButtonGroup = ({ pet_id, imageUrl, species }) => {
         router.push(`/adoption/create?id=${encodeURIComponent(pet_id)}&imageUrl=${encodeURIComponent(imageUrl)}&species=${encodeURIComponent(species)}`);
     };
 
-    if (!user || !isLoaded || isLoading) {
+    if (!user) {
+        return (
+            <Button isDisabled colorScheme="gray">Увійдіть щоб подати</Button>
+        );
+    }
+
+    if (!isLoaded || isLoading) {
         return (
             <ButtonGroup spacing="2">
                 <Button isLoading colorScheme="blue">Перевірка...</Button>

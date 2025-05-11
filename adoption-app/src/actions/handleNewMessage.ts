@@ -40,6 +40,8 @@ export const handleNewMessage = async (formData: FormData) => {
         try {
             const response = await openai.chat.completions.create({
                 model: "gpt-3.5-turbo",
+                temperature: 0.2,
+                max_tokens: 100,
                 messages: [
                     { role: "system", content: systemMessage },
                     { role: "user", content: newMessage },
