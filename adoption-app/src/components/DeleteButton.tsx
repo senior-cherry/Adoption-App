@@ -1,21 +1,10 @@
 "use client";
-import {redirect} from "next/navigation";
-import {useSession, useUser} from "@clerk/nextjs";
-import {checkUserRole} from "@/utils/userUtils";
+import {useRouter} from "next/navigation";
 import {Button, useToast} from "@chakra-ui/react";
 
 const DeleteButton = ({ id, collection }: { id: string, collection: string }) => {
-    const {session} = useSession();
-    const {isLoaded}  = useUser();
-    const userRole = checkUserRole(session);
-
-    const toast = useToast()
-
-    if (isLoaded) {
-        if (userRole !== "org:admin") {
-            redirect("/")
-        }
-    }
+    const router = useRouter();
+    const toast = useToast();
 
     const handleDelete = async () => {
         const res = await fetch(`/api/${collection}/${id}`, {
@@ -27,12 +16,17 @@ const DeleteButton = ({ id, collection }: { id: string, collection: string }) =>
                 title: 'Успіх',
                 description: "Запит успішно виконано",
                 status: 'success',
-                duration: 5000,
+                duration: 3000,
                 isClosable: true,
-            })
+            });
+
             setTimeout(() => {
-                window.location.reload();
-            }, 5000)
+                if (collection === "chat") {
+                    router.push("/chat");
+                } else {
+                    router.refresh();
+                }
+            }, 1000);
         } else {
             const data = await res.json();
             toast({

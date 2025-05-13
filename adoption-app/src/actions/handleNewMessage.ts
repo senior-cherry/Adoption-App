@@ -5,7 +5,7 @@ import { auth } from "@clerk/nextjs/server";
 import { v4 as uuidv4 } from "uuid";
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/utils/connect";
-import {getTranslations} from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 interface Message {
     id: string;
@@ -25,11 +25,42 @@ export const handleNewMessage = async (formData: FormData) => {
 
     const userId = auth().userId || "guest";
     const chatId = formData.get("chatId") as string;
-    const newMessage = formData.get("newMessage") as string;
+    const rawMessage = (formData.get("newMessage") as string)?.trim();
     const pageContext = formData.get("pageContext") as string;
     const userRole = formData.get("userRole") as string;
 
-    if (!newMessage || newMessage.trim() === "") return;
+    const formFields = {
+        income: formData.get("income"),
+        space: formData.get("space"),
+        freeTime: formData.get("freeTime"),
+        experience: formData.get("experience"),
+        kids: formData.get("kids"),
+        reason: formData.get("reason"),
+    };
+
+    const isFormFilled = Object.values(formFields).some((val) => val && val.toString().trim() !== "");
+
+    if (!rawMessage.trim() && !isFormFilled) return;
+
+    const formattedForm = isFormFilled ? `
+    - Income: ${formFields.income || "Not provided"}\n
+    - Living situation: ${formFields.space || "Not provided"}\n
+    - Free time: ${formFields.freeTime || "Not provided"}\n
+    - Pet experience: ${formFields.experience || "Not provided"}\n
+    - Children: ${formFields.kids || "Not provided"}\n
+    - Reason for adopting: ${formFields.reason || "Not provided"}.\n
+    `.trim() : "";
+
+    let userInput = "";
+
+    if (rawMessage) {
+        userInput = [formattedForm, rawMessage].filter(Boolean).join("\n\n");
+    } else if (formattedForm) {
+        userInput = `${formattedForm}\n\nBased on this information, what kind of pet would be most suitable for this person?`;
+    } else {
+        return;
+    }
+
 
     const systemMessage = `${(await t)("systemMessage")}
     ${(await t)("role")}: ${userRole}.
@@ -44,7 +75,7 @@ export const handleNewMessage = async (formData: FormData) => {
                 max_tokens: 100,
                 messages: [
                     { role: "system", content: systemMessage },
-                    { role: "user", content: newMessage },
+                    { role: "user", content: userInput },
                 ],
             });
 
@@ -59,7 +90,7 @@ export const handleNewMessage = async (formData: FormData) => {
         id: uuidv4(),
         chat_id: chatId,
         user_id: userId,
-        content: newMessage,
+        content: userInput,
         role: "user",
         createdAt: new Date().toISOString(),
     };
@@ -79,8 +110,8 @@ export const handleNewMessage = async (formData: FormData) => {
             messages: [
                 { role: "system", content: systemMessage },
                 ...existingMessages,
-                { role: "user", content: newMessage },
-            ] as { role: "system" | "user" | "assistant"; content: string }[],
+                { role: "user", content: userInput },
+            ],
         });
 
         const botMessage: Message = {
@@ -103,4 +134,3 @@ export const handleNewMessage = async (formData: FormData) => {
         await prisma.$disconnect();
     }
 };
-

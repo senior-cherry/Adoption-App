@@ -20,10 +20,10 @@ const Sidebar = async () => {
     const chats = await getData()
     return (
         <div className="w-82 h-full bg-[#1e1e1e] text-[#eaeaea] flex flex-col">
-            <div className="p-4 border-b border-[#2e2e2e]">
+            <div className="p-4">
                 <ChatForm />
             </div>
-            <h1 className="text-xl font-bold p-4">Chat History</h1>
+            <h1 className="text-xl font-bold p-4 border-b border-[#2e2e2e]">Chat History</h1>
             <ChatList chats={chats} />
         </div>
     );

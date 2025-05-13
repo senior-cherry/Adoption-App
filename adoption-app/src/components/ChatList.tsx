@@ -31,9 +31,9 @@ const ChatList = ({ chats }: ChatListProps) => {
                 Array.isArray(chats) ? (
                     chats.map((chat) => {
                         return (
-                            <div className="flex items-center gap-2" key={chat.id}>
+                            <div className="flex items-center gap-2 border-b border-[#2e2e2e] justify-between" key={chat.id}>
                                 <li onClick={() => handleChatClick(chat.id)}
-                                    className="p-4 hover:bg-[#3e3e3e] cursor-pointer">
+                                    className="p-4 cursor-pointer hover:text-teal-200">
                                     {chat.name}
                                 </li>
                                     <ConfirmModal id={chat.id} collection={"chat"} />

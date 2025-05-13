@@ -6,6 +6,7 @@ import { handleNewChat } from "@/actions/handleNewChat";
 
 const ChatForm = () => {
     const router = useRouter();
+
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);

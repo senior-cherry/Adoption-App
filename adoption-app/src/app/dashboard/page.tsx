@@ -9,10 +9,9 @@ import {
     AccordionIcon, Box, TableContainer, Table, TableCaption, Thead, Tr, Th, Tbody, Td, Image, ButtonGroup, Button
 } from '@chakra-ui/react';
 import {AdoptionType, CategoryType, PetType, PostType} from "@/types/types";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import Link from "next/link";
 import DeleteButton from "@/components/DeleteButton";
-import {redirect} from "next/navigation";
 import {sendEmail} from "@/actions/sendEmailMessage";
 
 const getData = async (collection: String) => {
@@ -54,6 +53,7 @@ const Dashboard = () => {
         blog: false,
         adoption: false
     });
+    const [isAllowed, setIsAllowed] = useState<boolean | null>(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -71,8 +71,9 @@ const Dashboard = () => {
             }
         };
         if (isLoaded && userRole !== "org:admin") {
-            redirect("/");
+            setIsAllowed(false);
         } else {
+            setIsAllowed(true);
             fetchData();
         }
     }, [isLoaded, userRole])
@@ -106,6 +107,13 @@ const Dashboard = () => {
         }
     };
 
+    if (isAllowed === false) {
+        return <div className="p-4">You must have admin rights to view this page.</div>;
+    }
+
+    if (isAllowed === null) {
+        return <div className="p-4">Loading...</div>;
+    }
 
     return (
         <Accordion>

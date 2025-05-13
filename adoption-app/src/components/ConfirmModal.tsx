@@ -22,7 +22,7 @@ const ConfirmModal = ({ id, collection }: ModalProps) => {
 
     return (
         <>
-            <DeleteIcon onClick={() => setIsOpen(true)} className="cursor-pointer" />
+            <DeleteIcon onClick={() => setIsOpen(true)} className="mr-4 cursor-pointer hover:text-red-400" />
             <AlertDialog
                 isOpen={isOpen}
                 leastDestructiveRef={cancelRef}

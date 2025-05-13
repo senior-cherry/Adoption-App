@@ -1,37 +1,7 @@
-// import Sidebar from "@/components/Sidebar";
-// import React from "react";
-// import Chat from "@/components/Chat";
-//
-// interface ChatProps {
-//     searchParams: {
-//         chatId?: string
-//     }
-// }
-//
-// const ChatPage = ({ searchParams }: ChatProps) => {
-//     const chatId = searchParams.chatId;
-//
-//     return (
-//         <div className="flex h-screen bg-[#121212] text-[#eaeaea]">
-//             <Sidebar />
-//             <div className="flex-1 p-4">
-//                 {
-//                     chatId ? (
-//                         <Chat chatId={chatId} />
-//                     ) : (
-//                         <p>Select a chat to start messaging</p>
-//                     )
-//                 }
-//             </div>
-//         </div>
-//     );
-// }
-//
-// export default ChatPage;
-
 import Sidebar from "@/components/Sidebar";
 import React from "react";
 import Chat from "@/components/Chat";
+import {auth} from "@clerk/nextjs/server";
 
 interface ChatProps {
     searchParams: {
@@ -40,6 +10,12 @@ interface ChatProps {
 }
 
 const ChatPage = ({ searchParams }: ChatProps) => {
+    const { userId } = auth();
+
+    if (!userId) {
+        return <div className="p-4">You must be signed in to view this page.</div>;
+    }
+
     const chatId = searchParams.chatId;
 
     return (
