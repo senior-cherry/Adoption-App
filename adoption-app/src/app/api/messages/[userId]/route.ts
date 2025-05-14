@@ -1,8 +1,11 @@
 import {NextRequest, NextResponse} from "next/server";
 import {prisma} from "@/utils/connect";
-import {Params} from "next/dist/shared/lib/router/utils/route-matcher";
-export const GET = async (req: NextRequest, {params}: Params) => {
 
+type Params = {
+    userId: string;
+}
+
+export const GET = async (req: NextRequest, {params}: Params) => {
     try {
         const messages = await prisma.messages.findMany({
             where: {
@@ -12,14 +15,8 @@ export const GET = async (req: NextRequest, {params}: Params) => {
                 createdAt: 'asc'
             }
         });
-        return new NextResponse(
-            JSON.stringify(messages),
-            { status: 200 }
-        )
+        return new NextResponse(JSON.stringify(messages), { status: 200 });
     } catch (err) {
-        return new NextResponse(
-            JSON.stringify({ message: "Something went wrong!" }),
-            { status: 500 }
-        )
+        return new NextResponse(JSON.stringify({ message: "Something went wrong!" }), { status: 500 });
     }
 }

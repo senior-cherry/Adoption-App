@@ -1,6 +1,9 @@
 import {NextRequest, NextResponse} from "next/server";
-import {Params} from "next/dist/shared/lib/router/utils/route-matcher";
 import {prisma} from "@/utils/connect";
+
+type Params = {
+    id: string;
+}
 
 export const PATCH = async (req: NextRequest, { params }: Params) => {
     const id = params.id;
@@ -14,9 +17,9 @@ export const PATCH = async (req: NextRequest, { params }: Params) => {
                 archivedAt: new Date()
             }
         });
-        return new NextResponse(JSON.stringify(adoptionRequest), { status: 201 })
+        return new NextResponse(JSON.stringify(adoptionRequest), { status: 201 });
     } catch (err) {
-        return new NextResponse(JSON.stringify({ message: "Something went wrong!" }), { status: 500 })
+        return new NextResponse(JSON.stringify({ message: "Something went wrong!" }), { status: 500 });
     }
 }
 

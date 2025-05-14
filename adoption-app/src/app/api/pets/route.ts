@@ -1,7 +1,7 @@
 import {NextRequest, NextResponse} from "next/server";
 import {prisma} from "@/utils/connect";
-export const GET = async (req: NextRequest) => {
 
+export const GET = async (req: NextRequest) => {
     const { searchParams } = new URL(req.url);
     const cat = searchParams.get("cat");
 
@@ -11,15 +11,9 @@ export const GET = async (req: NextRequest) => {
                 ...(cat ? {catSlug: cat} : {isFeatured: true})
             }
         });
-        return new NextResponse(
-            JSON.stringify(pets),
-            { status: 200 }
-        )
+        return new NextResponse(JSON.stringify(pets), { status: 200 });
     } catch (err) {
-        return new NextResponse(
-            JSON.stringify({ message: "Something went wrong!" }),
-            { status: 500 }
-        )
+        return new NextResponse(JSON.stringify({ message: "Something went wrong!" }), { status: 500 });
     }
 }
 
@@ -29,8 +23,8 @@ export const POST = async (req: NextRequest) => {
         const pet = await prisma.pet.create({
             data: body
         });
-        return new NextResponse(JSON.stringify(pet), { status: 201 })
+        return new NextResponse(JSON.stringify(pet), { status: 201 });
     } catch (err) {
-        return new NextResponse(JSON.stringify({ message: "Something went wrong!" }), { status: 500 })
+        return new NextResponse(JSON.stringify({ message: "Something went wrong!" }), { status: 500 });
     }
 }

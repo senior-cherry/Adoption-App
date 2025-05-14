@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/utils/connect";
-import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
+
+type Params = {
+    userId: string;
+}
 
 export const GET = async (req: NextRequest, { params }: Params) => {
     try {
@@ -9,14 +12,8 @@ export const GET = async (req: NextRequest, { params }: Params) => {
             orderBy: { created_at: 'desc' },
             select: { id: true, name: true },
         });
-        return new NextResponse(
-            JSON.stringify(chats),
-            { status: 200 }
-        )
+        return new NextResponse(JSON.stringify(chats), { status: 200 });
     } catch (err) {
-        return new NextResponse(
-            JSON.stringify({ message: "Something went wrong!" }),
-            { status: 500 }
-        )
+        return new NextResponse(JSON.stringify({ message: "Something went wrong!" }), { status: 500 });
     }
 }

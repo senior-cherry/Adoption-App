@@ -14,15 +14,9 @@ export const GET = async () => {
                 approval: "inProcess"
             }
         });
-        return new NextResponse(
-            JSON.stringify(adoptions),
-            { status: 200 }
-        )
+        return new NextResponse(JSON.stringify(adoptions), { status: 200 });
     } catch (err) {
-        return new NextResponse(
-            JSON.stringify({ message: "Something went wrong!" }),
-            { status: 500 }
-        )
+        return new NextResponse(JSON.stringify({ message: "Something went wrong!" }), { status: 500 });
     }
 }
 
