@@ -1,5 +1,4 @@
 "use server";
-
 import OpenAI from "openai";
 import { auth } from "@clerk/nextjs/server";
 import { v4 as uuidv4 } from "uuid";
@@ -53,10 +52,18 @@ export const handleNewMessage = async (formData: FormData) => {
 
     let userInput = "";
 
+    const availablePets = await prisma.pet.findMany({
+        select: {
+            name: true,
+            species: true
+        }
+    });
+
     if (rawMessage) {
         userInput = [formattedForm, rawMessage].filter(Boolean).join("\n\n");
     } else if (formattedForm) {
-        userInput = `${formattedForm}\n\nBased on this information, what kind of pet would be most suitable for this person?`;
+        userInput = `${formattedForm}\n\nBased on this information, what kind of pet would be most suitable for this person?\n
+        Recommend from available pets: ${JSON.stringify(availablePets)}`;
     } else {
         return;
     }
@@ -134,3 +141,5 @@ export const handleNewMessage = async (formData: FormData) => {
         await prisma.$disconnect();
     }
 };
+
+

@@ -1,4 +1,5 @@
 "use client";
+import React, {useEffect, useState} from "react";
 import {useSession, useUser} from "@clerk/nextjs";
 import {checkUserRole} from "@/utils/userUtils";
 import {
@@ -9,19 +10,14 @@ import {
     AccordionIcon, Box, TableContainer, Table, TableCaption, Thead, Tr, Th, Tbody, Td, Image, ButtonGroup, Button
 } from '@chakra-ui/react';
 import {AdoptionType, CategoryType, PetType, PostType} from "@/types/types";
-import React, {useEffect, useState} from "react";
 import Link from "next/link";
-import DeleteButton from "@/components/DeleteButton";
 import {sendEmail} from "@/actions/sendEmailMessage";
+import ConfirmModal from "@/components/ConfirmModal";
 
 const getData = async (collection: String) => {
     const res = await fetch(`/api/${collection}`, {
         cache: "no-store"
     })
-
-    if (!res.ok) {
-        throw new Error("Failed");
-    }
 
     return res.json();
 }
@@ -165,7 +161,7 @@ const Dashboard = () => {
                                                     <Link href={`/pets/update/${pet.id}`}>
                                                         <Button colorScheme='orange'>Оновити</Button>
                                                     </Link>
-                                                    <DeleteButton id={pet.id} collection={"pets"} />
+                                                    <ConfirmModal id={pet.id} collection={"pets"} isIcon={false} />
                                                 </ButtonGroup>
                                             </Td>
                                         </Tr>
@@ -213,7 +209,7 @@ const Dashboard = () => {
                                                     <Link href={`/categories/update/${category.id}`}>
                                                         <Button colorScheme='orange'>Оновити</Button>
                                                     </Link>
-                                                    <DeleteButton id={category.id} collection={"categories"} />
+                                                    <ConfirmModal id={category.id} collection={"categories"} isIcon={false} />
                                                 </ButtonGroup>
                                             </Td>
                                         </Tr>
@@ -269,7 +265,7 @@ const Dashboard = () => {
                                                     <Link href={`/blog/update/${post.id}`}>
                                                         <Button colorScheme='orange'>Оновити</Button>
                                                     </Link>
-                                                    <DeleteButton id={post.id} collection={"blog"} />
+                                                    <ConfirmModal id={post.id} collection={"blog"} isIcon={false} />
                                                 </ButtonGroup>
                                             </Td>
                                         </Tr>

@@ -1,6 +1,6 @@
-import { Spinner } from '@chakra-ui/react'
+import {Spinner} from '@chakra-ui/react'
 
-const Loading = async () => {
+const Loading = () => {
     return (
         <Spinner
             thickness='4px'

@@ -14,15 +14,20 @@ import DeleteButton from "@/components/DeleteButton";
 type ModalProps = {
     id: string;
     collection: string;
+    isIcon?: boolean;
 };
 
-const ConfirmModal = ({ id, collection }: ModalProps) => {
+const ConfirmModal = ({ id, collection, isIcon }: ModalProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const cancelRef = useRef<HTMLButtonElement>(null);
 
     return (
         <>
-            <DeleteIcon onClick={() => setIsOpen(true)} className="mr-4 cursor-pointer hover:text-red-400" />
+            {isIcon ? (
+                <DeleteIcon onClick={() => setIsOpen(true)} className="mr-4 cursor-pointer hover:text-red-400" />
+            ) : (
+                <Button colorScheme='red' onClick={() => setIsOpen(true)}>Видалити</Button>
+            )}
             <AlertDialog
                 isOpen={isOpen}
                 leastDestructiveRef={cancelRef}

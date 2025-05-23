@@ -1,13 +1,14 @@
 "use client";
-import Image from "next/image";
-import {redirect, useRouter} from "next/navigation";
 import React, {useEffect, useState} from "react";
+import Image from "next/image";
+import {useRouter} from "next/navigation";
 import {useUser, useSession} from "@clerk/nextjs";
 import {checkUserRole} from "@/utils/userUtils";
 
 type Inputs = {
     name: string;
     description: string;
+    imageUrl?: string;
 };
 
 const AddPostPage = () => {
@@ -17,17 +18,21 @@ const AddPostPage = () => {
 
     const [inputs, setInputs] = useState<Inputs>({
         name: "",
-        description: "",
+        description: ""
     });
+    const [isAllowed, setIsAllowed] = useState<boolean | null>(null);
 
     const [file, setFile] = useState<File>();
+    const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
     const router = useRouter();
 
     useEffect(() => {
         if (isLoaded) {
             if (userRole !== "org:admin") {
-                redirect("/")
+                setIsAllowed(false);
+            } else {
+                setIsAllowed(true);
             }
         }
     }, [isLoaded, userRole]);
@@ -38,13 +43,22 @@ const AddPostPage = () => {
         setInputs((prev) => {
             return { ...prev, [e.target.name]: e.target.value };
         });
-        console.log(e.target.name + " " + e.target.value)
+    };
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const selectedFile = e.target.files?.[0];
+        if (selectedFile) {
+            setFile(selectedFile);
+            setPreviewUrl(URL.createObjectURL(selectedFile));
+        }
     };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (!file) return
+        if (!file) return;
+
+        let uploadedImageName = file.name;
 
         try {
             const formData = new FormData();
@@ -53,34 +67,44 @@ const AddPostPage = () => {
             const res = await fetch('/api/upload', {
                 method: 'POST',
                 body: formData
-            })
+            });
+
             if (!res.ok) throw new Error(await res.text())
+
+            const result = await res.json();
+            uploadedImageName = result.filename || file.name;
         } catch (err) {
-            console.log(err)
+            console.error(err)
         }
 
         try {
-            const res = await fetch(`${process.env.BASE_URL}/api/blog`, {
+            const res = await fetch(`/api/blog`, {
                 method: "POST",
                 body: JSON.stringify({
-                    imageUrl: file?.name,
-                    ...inputs
+                    ...inputs,
+                    imageUrl: uploadedImageName
                 }),
             });
 
             const data = await res.json();
-            console.log(data);
-
             router.push(`/blog/post/${data.id}`);
         } catch (err) {
-            console.log(err);
+            console.error(err);
         }
     };
+
+    if (isAllowed === false) {
+        return <div className="p-4">You must have admin rights to view this page.</div>;
+    }
+
+    if (isAllowed === null) {
+        return <div className="p-4">Loading...</div>;
+    }
 
     return (
         <div className="form">
             <form onSubmit={handleSubmit} className="flex flex-wrap gap-6">
-                <div className="w-full flex flex-col gap-2 ">
+                <div className="w-full flex flex-col gap-2">
                     <label
                         className="text-sm cursor-pointer flex gap-4 items-center"
                         htmlFor="file"
@@ -90,10 +114,19 @@ const AddPostPage = () => {
                     </label>
                     <input
                         type="file"
-                        onChange={(e) => setFile(e.target.files?.[0])}
+                        onChange={handleFileChange}
                         id="file"
                         className="hidden"
                     />
+                    {previewUrl && (
+                        <Image
+                            src={previewUrl}
+                            alt="Preview"
+                            width={100}
+                            height={100}
+                            className="mt-2 rounded"
+                        />
+                    )}
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
                     <label className="text-sm">Назва</label>

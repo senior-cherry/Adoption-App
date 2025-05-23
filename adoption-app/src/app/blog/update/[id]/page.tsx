@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import {redirect, useRouter} from "next/navigation";
+import {useRouter} from "next/navigation";
 import React, {useEffect, useState} from "react";
 import {useUser, useSession} from "@clerk/nextjs";
 import {checkUserRole} from "@/utils/userUtils";
@@ -21,6 +21,7 @@ const UpdatePostPage = ({ params }: Params) => {
         description: "",
         imageUrl: ""
     });
+    const [isAllowed, setIsAllowed] = useState<boolean | null>(null);
 
     const [file, setFile] = useState<File>();
 
@@ -28,11 +29,13 @@ const UpdatePostPage = ({ params }: Params) => {
 
     useEffect(() => {
         const initialize = async () => {
-            if (!isLoaded) return;
 
-            if (userRole !== "org:admin") {
-                redirect("/");
-                return;
+            if (isLoaded) {
+                if (userRole !== "org:admin") {
+                    setIsAllowed(false);
+                } else {
+                    setIsAllowed(true);
+                }
             }
 
             try {
@@ -101,13 +104,19 @@ const UpdatePostPage = ({ params }: Params) => {
             });
 
             const data = await res.json();
-
             router.push(`/blog/post/${data.id}`);
         } catch (err) {
             console.error("Update error:", err);
         }
     };
 
+    if (isAllowed === false) {
+        return <div className="p-4">You must have admin rights to view this page.</div>;
+    }
+
+    if (isAllowed === null) {
+        return <div className="p-4">Loading...</div>;
+    }
 
     return (
         <div className="form">

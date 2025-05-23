@@ -14,9 +14,9 @@ type CardProps = {
         }
 }
 
-const CardComponent = ({pet}: CardProps) => {
+const CardComponent = ({pet}: CardProps, key: string) => {
     return (
-        <Card w="sm">
+        <Card w="sm" key={key}>
             <CardBody>
                 <Image
                     src={`/uploads/${pet.imageUrl}`}

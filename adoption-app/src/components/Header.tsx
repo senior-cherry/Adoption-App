@@ -1,5 +1,4 @@
 "use client";
-
 import {
     Image,
     Flex,
@@ -11,10 +10,8 @@ import {
     IconButton,
     MenuList,
     MenuItem,
-    Divider,
+    Divider, Spinner,
 } from '@chakra-ui/react';
-import Link from "next/link";
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import {
     CalendarIcon,
     HamburgerIcon,
@@ -24,6 +21,17 @@ import {
     ChatIcon
 } from "@chakra-ui/icons";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import Link from "next/link";
+import dynamic from "next/dynamic";
+
+const AuthButtons = dynamic(() => import("./AuthButtons"), {
+    ssr: false,
+    loading: () => (
+        <Box minW="60px" minH="40px" display="flex" alignItems="center" justifyContent="center">
+            <Spinner size="sm" />
+        </Box>
+    ),
+});
 
 const Header = () => {
     return (
@@ -55,13 +63,8 @@ const Header = () => {
                             icon={<HamburgerIcon />}
                         />
                         <MenuList>
-                            <Box px={4} py={2} color="black">
-                                <SignedOut>
-                                    <SignInButton />
-                                </SignedOut>
-                                <SignedIn>
-                                    <UserButton afterSignOutUrl="/" />
-                                </SignedIn>
+                            <Box marginLeft={2}>
+                                <AuthButtons />
                             </Box>
 
                             <Divider my={2} />
@@ -100,12 +103,7 @@ const Header = () => {
                     <LanguageSwitcher />
                 </HStack>
                 <HStack display={{ base: "none", xl: "flex" }}>
-                    <SignedOut>
-                        <SignInButton />
-                    </SignedOut>
-                    <SignedIn>
-                        <UserButton afterSignOutUrl="/" />
-                    </SignedIn>
+                    <AuthButtons />
                 </HStack>
             </Flex>
         </Box>

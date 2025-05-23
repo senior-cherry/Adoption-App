@@ -4,12 +4,13 @@ import { useSession, useUser } from "@clerk/nextjs";
 import { handleNewMessage } from "@/actions/handleNewMessage";
 import { checkUserRole } from "@/utils/userUtils";
 import {usePathname} from "next/navigation";
-import {useTranslations} from "next-intl";
+import {useLocale, useTranslations} from "next-intl";
 
 export default function AIHelper() {
     const { session } = useSession();
     const { isLoaded } = useUser();
     const [message, setMessage] = useState("");
+    const locale = useLocale();
     const t = useTranslations("ai-helper");
     const path = usePathname();
 
@@ -31,7 +32,7 @@ export default function AIHelper() {
 
         fetchHint();
 
-    }, [userRole, path]);
+    }, [userRole, path, locale]);
 
     if (!message) return null;
 

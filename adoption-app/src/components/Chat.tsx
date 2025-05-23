@@ -53,7 +53,6 @@ const Chat = async ({ chatId }: ChatProps) => {
                     </AccordionButton>
                     <AccordionPanel>
 
-                        {/* Income */}
                         <div className="mt-3">
                             <label className="block text-sm font-medium">Your monthly income</label>
                             <select
@@ -68,7 +67,6 @@ const Chat = async ({ chatId }: ChatProps) => {
                             </select>
                         </div>
 
-                        {/* Living space */}
                         <div className="mt-3">
                             <label className="block text-sm font-medium">Your living situation</label>
                             <select
@@ -83,7 +81,6 @@ const Chat = async ({ chatId }: ChatProps) => {
                             </select>
                         </div>
 
-                        {/* Free time */}
                         <div className="mt-3">
                             <label className="block text-sm font-medium">Your free time per week</label>
                             <select
@@ -98,7 +95,6 @@ const Chat = async ({ chatId }: ChatProps) => {
                             </select>
                         </div>
 
-                        {/* Experience */}
                         <div className="mt-3">
                             <label className="block text-sm font-medium">Your experience with pets</label>
                             <select
@@ -112,7 +108,6 @@ const Chat = async ({ chatId }: ChatProps) => {
                             </select>
                         </div>
 
-                        {/* Children */}
                         <div className="mt-3">
                             <label className="block text-sm font-medium">Do you have children?</label>
                             <select
@@ -127,7 +122,6 @@ const Chat = async ({ chatId }: ChatProps) => {
                             </select>
                         </div>
 
-                        {/* Reason */}
                         <div className="mt-3">
                             <label className="block text-sm font-medium">Why do you want a pet?</label>
                             <input

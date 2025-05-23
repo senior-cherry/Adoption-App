@@ -1,7 +1,7 @@
-import { Button, ButtonGroup, Image } from "@chakra-ui/react";
+import { ButtonGroup, Image } from "@chakra-ui/react";
 import AdoptButtonGroup from "@/components/AdoptButtonGroup";
-import Link from "next/link";
 import { PetType } from "@/types/types";
+import BackButton from "@/components/BackButton";
 
 type Props = {
     params: { id: string };
@@ -57,11 +57,9 @@ const SinglePet = async ({ params }: Props) => {
                                     imageUrl={pet.imageUrl}
                                     species={pet.species}
                                 />
-                                <Link href="/pets">
-                                    <Button variant="ghost" colorScheme="blue">
+                                    <BackButton>
                                         Назад
-                                    </Button>
-                                </Link>
+                                    </BackButton>
                             </ButtonGroup>
                         </div>
                     </div>

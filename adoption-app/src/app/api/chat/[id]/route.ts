@@ -1,18 +1,15 @@
 import {prisma} from "@/utils/connect";
 import {NextRequest, NextResponse} from "next/server";
-
-type Params = {
-    id: string;
-}
+import {Params} from "next/dist/shared/lib/router/utils/route-matcher";
 
 export async function DELETE(request: NextRequest, { params }: Params) {
     const id = params.id;
 
     try {
-        await prisma.chat.delete({
+        const chat = await prisma.chat.delete({
             where: { id }
         });
-        return NextResponse.json(JSON.stringify({}), { status: 204 });
+        return NextResponse.json(JSON.stringify(chat), { status: 200 });
     } catch (e) {
         return NextResponse.json(JSON.stringify({ message: 'Something went wrong!' }), { status: 500 });
     }

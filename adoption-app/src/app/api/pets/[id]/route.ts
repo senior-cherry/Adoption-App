@@ -1,9 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/utils/connect";
-
-type Params = {
-    id: string;
-}
+import {Params} from "next/dist/shared/lib/router/utils/route-matcher";
 
 export const GET = async (req: NextRequest, { params }: Params) => {
     const id = params.id;
@@ -37,10 +34,10 @@ export async function DELETE(request: NextRequest, { params }: Params) {
     const id = params.id;
 
     try {
-        await prisma.pet.delete({
+        const pet = await prisma.pet.delete({
            where: {id}
         });
-        return NextResponse(JSON.stringify({}), { status: 204 });
+        return NextResponse(JSON.stringify(pet), { status: 200 });
     } catch (e) {
         return new NextResponse(JSON.stringify({ message: "Something went wrong!" }), { status: 500 });
     }

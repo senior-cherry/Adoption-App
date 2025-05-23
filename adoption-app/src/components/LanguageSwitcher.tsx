@@ -1,12 +1,11 @@
 "use client";
-
 import { Button, ButtonGroup } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const LanguageSwitcher = () => {
     const router = useRouter();
-    const [locale, setLocale] = useState("en");
+    const [locale, setLocale] = useState("uk");
 
     useEffect(() => {
         const savedLocale = document.cookie
@@ -25,11 +24,11 @@ const LanguageSwitcher = () => {
 
     return (
         <ButtonGroup isAttached variant="solid">
-            <Button onClick={() => onSelectChange("en")} colorScheme={locale === "en" ? "orange" : "gray"}>
-                English
-            </Button>
             <Button onClick={() => onSelectChange("uk")} colorScheme={locale === "uk" ? "orange" : "gray"}>
                 Українська
+            </Button>
+            <Button onClick={() => onSelectChange("en")} colorScheme={locale === "en" ? "orange" : "gray"}>
+                English
             </Button>
         </ButtonGroup>
     );

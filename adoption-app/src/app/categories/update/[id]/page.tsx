@@ -1,5 +1,5 @@
 "use client";
-import {redirect, useRouter} from "next/navigation";
+import {useRouter} from "next/navigation";
 import React, {useEffect, useState} from "react";
 import {useSession, useUser} from "@clerk/nextjs";
 import {checkUserRole} from "@/utils/userUtils";
@@ -21,16 +21,19 @@ const UpdateCategoryPage = ({params}: Params) => {
         description: "",
         slug: ""
     });
+    const [isAllowed, setIsAllowed] = useState<boolean | null>(null);
 
     const router = useRouter();
 
     useEffect(() => {
         const initialize = async () => {
-            if (!isLoaded) return;
 
-            if (userRole !== "org:admin") {
-                redirect("/");
-                return;
+            if (isLoaded) {
+                if (userRole !== "org:admin") {
+                    setIsAllowed(false);
+                } else {
+                    setIsAllowed(true);
+                }
             }
 
             try {
@@ -69,12 +72,19 @@ const UpdateCategoryPage = ({params}: Params) => {
             });
 
             const data = await res.json();
-
             router.push(`/pets/${data.slug}`);
         } catch (err) {
-            console.log(err);
+            console.error(err);
         }
     };
+
+    if (isAllowed === false) {
+        return <div className="p-4">You must have admin rights to view this page.</div>;
+    }
+
+    if (isAllowed === null) {
+        return <div className="p-4">Loading...</div>;
+    }
 
     return (
         <div className="form">

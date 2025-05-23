@@ -36,7 +36,7 @@ const ChatList = ({ chats }: ChatListProps) => {
                                     className="p-4 cursor-pointer hover:text-teal-200">
                                     {chat.name}
                                 </li>
-                                    <ConfirmModal id={chat.id} collection={"chat"} />
+                                    <ConfirmModal id={chat.id} collection={"chat"} isIcon={true} />
                             </div>
                         );
                     }
