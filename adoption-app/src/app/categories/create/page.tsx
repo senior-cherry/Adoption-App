@@ -25,6 +25,8 @@ const AddCategoryPage = () => {
         slug: ""
     });
     const [isAllowed, setIsAllowed] = useState<boolean | null>(null);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
     const router = useRouter();
 
@@ -44,22 +46,34 @@ const AddCategoryPage = () => {
         setInputs((prev) => {
             return { ...prev, [e.target.name]: e.target.value };
         });
+        if (error) setError(null);
     };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        setIsLoading(true);
+        setError(null);
+
         try {
-            await fetch(`/api/categories`, {
+            const res = await fetch(`/api/categories`, {
                 method: "POST",
                 body: JSON.stringify({
                     ...inputs,
                 }),
             });
 
+            if (!res.ok) {
+                const errorData = await res.json();
+                throw new Error(errorData.message || `HTTP error! status: ${res.status}`);
+            }
+
             router.push(`/dashboard`);
         } catch (err) {
             console.error(err);
+            setError(err instanceof Error ? err.message : "Failed to create category");
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -73,6 +87,11 @@ const AddCategoryPage = () => {
 
     return (
         <div className="form">
+            {error && (
+                <div className="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+                    {error}
+                </div>
+            )}
             <form onSubmit={handleSubmit} className="flex flex-wrap gap-6">
                 <div className="w-full flex flex-col gap-2 ">
                     <label className="text-sm">Назва</label>
@@ -82,6 +101,7 @@ const AddCategoryPage = () => {
                         placeholder="Назва"
                         name="name"
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
@@ -92,6 +112,7 @@ const AddCategoryPage = () => {
                         placeholder="Назва англійською"
                         name="engName"
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
@@ -102,6 +123,7 @@ const AddCategoryPage = () => {
                         placeholder="Опис"
                         name="description"
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
@@ -112,6 +134,7 @@ const AddCategoryPage = () => {
                         placeholder="Опис англійською"
                         name="engDescription"
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
@@ -122,13 +145,15 @@ const AddCategoryPage = () => {
                         placeholder="Категорія"
                         name="slug"
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <button
                     type="submit"
-                    className="bg-orange-500 p-4 text-white w-48 rounded-md relative h-14 flex items-center justify-center"
+                    disabled={isLoading}
+                    className="bg-orange-500 p-4 text-white w-48 rounded-md relative h-14 flex items-center justify-center disabled:bg-orange-300 disabled:cursor-not-allowed"
                 >
-                    Підтвердити
+                    {isLoading ? "Створення..." : "Підтвердити"}
                 </button>
             </form>
         </div>

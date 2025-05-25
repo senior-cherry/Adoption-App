@@ -25,6 +25,8 @@ const AddPostPage = () => {
         engDescription: ""
     });
     const [isAllowed, setIsAllowed] = useState<boolean | null>(null);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
     const [file, setFile] = useState<File>();
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -47,6 +49,7 @@ const AddPostPage = () => {
         setInputs((prev) => {
             return { ...prev, [e.target.name]: e.target.value };
         });
+        if (error) setError(null);
     };
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,6 +62,9 @@ const AddPostPage = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        setIsLoading(true);
+        setError(null);
 
         if (!file) return;
 
@@ -90,10 +96,18 @@ const AddPostPage = () => {
                 }),
             });
 
+            if (!res.ok) {
+                const errorData = await res.json();
+                throw new Error(errorData.message || `HTTP error! status: ${res.status}`);
+            }
+
             const data = await res.json();
             router.push(`/blog/post/${data.id}`);
         } catch (err) {
             console.error(err);
+            setError(err instanceof Error ? err.message : "Failed to create post");
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -107,6 +121,11 @@ const AddPostPage = () => {
 
     return (
         <div className="form">
+            {error && (
+                <div className="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+                    {error}
+                </div>
+            )}
             <form onSubmit={handleSubmit} className="flex flex-wrap gap-6">
                 <div className="w-full flex flex-col gap-2">
                     <label
@@ -140,6 +159,7 @@ const AddPostPage = () => {
                         placeholder="Назва"
                         name="name"
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
@@ -150,6 +170,7 @@ const AddPostPage = () => {
                         placeholder="Назва англійською"
                         name="engName"
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
@@ -160,6 +181,7 @@ const AddPostPage = () => {
                         placeholder="Опис"
                         name="description"
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
@@ -170,13 +192,15 @@ const AddPostPage = () => {
                         placeholder="Опис англійською"
                         name="engDescription"
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <button
                     type="submit"
-                    className="bg-orange-500 p-4 text-white w-48 rounded-md relative h-14 flex items-center justify-center"
+                    disabled={isLoading}
+                    className="bg-orange-500 p-4 text-white w-48 rounded-md relative h-14 flex items-center justify-center disabled:bg-orange-300 disabled:cursor-not-allowed"
                 >
-                    Підтвердити
+                    {isLoading ? "Створення..." : "Підтвердити"}
                 </button>
             </form>
         </div>

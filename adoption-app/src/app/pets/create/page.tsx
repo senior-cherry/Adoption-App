@@ -4,6 +4,7 @@ import {useRouter} from "next/navigation";
 import React, {useEffect, useState} from "react";
 import {useUser, useSession} from "@clerk/nextjs";
 import {checkUserRole} from "@/utils/userUtils";
+import {CategoryType} from "@/types/types";
 
 type Inputs = {
     name: string;
@@ -26,6 +27,7 @@ const AddPage = () => {
     const {isLoaded}  = useUser();
     const userRole = checkUserRole(session);
 
+    const [categories, setCategories] = useState<CategoryType[]>([]);
     const [inputs, setInputs] = useState<Inputs>({
         name: "",
         engName: "",
@@ -41,6 +43,8 @@ const AddPage = () => {
         isFeatured: true
     });
     const [isAllowed, setIsAllowed] = useState<boolean | null>(null);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
     const [file, setFile] = useState<File>();
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -48,21 +52,38 @@ const AddPage = () => {
     const router = useRouter();
 
     useEffect(() => {
-        if (isLoaded) {
+        const init = async () => {
+            if (!isLoaded) return;
+
             if (userRole !== "org:admin") {
                 setIsAllowed(false);
-            } else {
-                setIsAllowed(true);
+                return;
             }
-        }
+
+            setIsAllowed(true);
+
+            try {
+                const res = await fetch("/api/categories");
+                if (!res.ok) throw new Error("Не вдалося завантажити категорії");
+                const data = await res.json();
+                setCategories(data);
+            } catch (err) {
+                console.error(err);
+                setError("Не вдалося завантажити категорії");
+            }
+        };
+
+        init();
     }, [isLoaded, userRole]);
 
+
     const handleChange = (
-        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
     ) => {
         setInputs((prev) => {
             return { ...prev, [e.target.name]: e.target.value };
         });
+        if (error) setError(null);
     };
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -75,6 +96,9 @@ const AddPage = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        setIsLoading(true);
+        setError(null);
 
         if (!file) return;
 
@@ -106,10 +130,18 @@ const AddPage = () => {
                 }),
             });
 
+            if (!res.ok) {
+                const errorData = await res.json();
+                throw new Error(errorData.message || `HTTP error! status: ${res.status}`);
+            }
+
             const data = await res.json();
             router.push(`/pets/pet/${data.id}`);
         } catch (err) {
             console.error(err);
+            setError(err instanceof Error ? err.message : "Failed to create pet");
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -123,6 +155,11 @@ const AddPage = () => {
 
     return (
         <div className="form">
+            {error && (
+                <div className="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+                    {error}
+                </div>
+            )}
             <form onSubmit={handleSubmit} className="flex flex-wrap gap-6">
                     <div className="w-full flex flex-col gap-2 ">
                         <label
@@ -156,6 +193,7 @@ const AddPage = () => {
                         placeholder="Ім'я"
                         name="name"
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
@@ -166,6 +204,7 @@ const AddPage = () => {
                         placeholder="Ім'я англійською"
                         name="engName"
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
@@ -176,6 +215,7 @@ const AddPage = () => {
                         placeholder="Вид"
                         name="species"
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
@@ -186,6 +226,7 @@ const AddPage = () => {
                         placeholder="Вид англійською"
                         name="engSpecies"
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
@@ -196,6 +237,7 @@ const AddPage = () => {
                         placeholder="Вік"
                         name="age"
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
@@ -206,6 +248,7 @@ const AddPage = () => {
                         placeholder="Вік англійською"
                         name="engAge"
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
@@ -216,6 +259,7 @@ const AddPage = () => {
                         placeholder="Стать"
                         name="gender"
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
@@ -226,6 +270,7 @@ const AddPage = () => {
                         placeholder="Стать англійською"
                         name="engGender"
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
@@ -236,6 +281,7 @@ const AddPage = () => {
                         placeholder="Опис"
                         name="desc"
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
@@ -246,24 +292,33 @@ const AddPage = () => {
                         placeholder="Опис англійською"
                         name="engDesc"
                         onChange={handleChange}
+                        required
                     />
                 </div>
-                <div className="w-full flex flex-col gap-2 ">
+                <div className="w-full flex flex-col gap-2">
                     <label className="text-sm">Категорія</label>
-                    <input
-                        className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
-                        type="text"
-                        placeholder="Собаки, Коти, Рептилії..."
+                    <select
                         name="catSlug"
+                        value={inputs.catSlug}
                         onChange={handleChange}
-                    />
-                </div>
-                    <button
-                        type="submit"
-                        className="bg-orange-500 p-4 text-white w-48 rounded-md relative h-14 flex items-center justify-center"
+                        required
+                        className="ring-1 ring-orange-700 p-4 rounded-sm text-orange-700 outline-none"
                     >
-                        Підтвердити
-                    </button>
+                        <option value="" disabled>Оберіть категорію</option>
+                        {categories.map((cat) => (
+                            <option key={cat.id} value={cat.slug}>
+                                {cat.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <button
+                    type="submit"
+                    disabled={isLoading}
+                    className="bg-orange-500 p-4 text-white w-48 rounded-md relative h-14 flex items-center justify-center disabled:bg-orange-300 disabled:cursor-not-allowed"
+                >
+                    {isLoading ? "Створення..." : "Підтвердити"}
+                </button>
             </form>
         </div>
     );
