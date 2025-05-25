@@ -28,46 +28,9 @@ export const handleNewMessage = async (formData: FormData) => {
     const pageContext = formData.get("pageContext") as string;
     const userRole = formData.get("userRole") as string;
 
-    const formFields = {
-        income: formData.get("income"),
-        space: formData.get("space"),
-        freeTime: formData.get("freeTime"),
-        experience: formData.get("experience"),
-        kids: formData.get("kids"),
-        reason: formData.get("reason"),
-    };
+    if (!rawMessage) return;
 
-    const isFormFilled = Object.values(formFields).some((val) => val && val.toString().trim() !== "");
-
-    if (!rawMessage.trim() && !isFormFilled) return;
-
-    const formattedForm = isFormFilled ? `
-    - Income: ${formFields.income || "Not provided"}\n
-    - Living situation: ${formFields.space || "Not provided"}\n
-    - Free time: ${formFields.freeTime || "Not provided"}\n
-    - Pet experience: ${formFields.experience || "Not provided"}\n
-    - Children: ${formFields.kids || "Not provided"}\n
-    - Reason for adopting: ${formFields.reason || "Not provided"}.\n
-    `.trim() : "";
-
-    let userInput = "";
-
-    const availablePets = await prisma.pet.findMany({
-        select: {
-            name: true,
-            species: true
-        }
-    });
-
-    if (rawMessage) {
-        userInput = [formattedForm, rawMessage].filter(Boolean).join("\n\n");
-    } else if (formattedForm) {
-        userInput = `${formattedForm}\n\nBased on this information, what kind of pet would be most suitable for this person?\n
-        Recommend from available pets: ${JSON.stringify(availablePets)}`;
-    } else {
-        return;
-    }
-
+    const userInput = rawMessage;
 
     const systemMessage = `${(await t)("systemMessage")}
     ${(await t)("role")}: ${userRole}.
@@ -79,7 +42,6 @@ export const handleNewMessage = async (formData: FormData) => {
             const response = await openai.chat.completions.create({
                 model: "gpt-3.5-turbo",
                 temperature: 0.2,
-                max_tokens: 100,
                 messages: [
                     { role: "system", content: systemMessage },
                     { role: "user", content: userInput },
@@ -141,5 +103,3 @@ export const handleNewMessage = async (formData: FormData) => {
         await prisma.$disconnect();
     }
 };
-
-

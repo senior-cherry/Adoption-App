@@ -6,7 +6,9 @@ import {checkUserRole} from "@/utils/userUtils";
 
 type Inputs = {
     name: string;
+    engName: string;
     description: string;
+    engDescription: string;
     slug: string;
 };
 
@@ -17,7 +19,9 @@ const AddCategoryPage = () => {
 
     const [inputs, setInputs] = useState<Inputs>({
         name: "",
+        engName: "",
         description: "",
+        engDescription: "",
         slug: ""
     });
     const [isAllowed, setIsAllowed] = useState<boolean | null>(null);
@@ -46,15 +50,14 @@ const AddCategoryPage = () => {
         e.preventDefault();
 
         try {
-            const res = await fetch(`/api/categories`, {
+            await fetch(`/api/categories`, {
                 method: "POST",
                 body: JSON.stringify({
                     ...inputs,
                 }),
             });
 
-            const data = await res.json();
-            router.push(`/pets/${data.slug}`);
+            router.push(`/dashboard`);
         } catch (err) {
             console.error(err);
         }
@@ -82,12 +85,32 @@ const AddCategoryPage = () => {
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
+                    <label className="text-sm">Назва англійською</label>
+                    <input
+                        className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
+                        type="text"
+                        placeholder="Назва англійською"
+                        name="engName"
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="w-full flex flex-col gap-2 ">
                     <label className="text-sm">Опис</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
                         placeholder="Опис"
                         name="description"
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="w-full flex flex-col gap-2 ">
+                    <label className="text-sm">Опис англійською</label>
+                    <input
+                        className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
+                        type="text"
+                        placeholder="Опис англійською"
+                        name="engDescription"
                         onChange={handleChange}
                     />
                 </div>

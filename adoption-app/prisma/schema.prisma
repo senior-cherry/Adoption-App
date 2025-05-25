@@ -11,10 +11,15 @@ datasource db {
 model Pet {
   id         String    @id @default(cuid())
   name       String
+  engName    String?
   species    String
+  engSpecies String?
   age        String
+  engAge     String?
   gender     String    @default("Невідомо")
+  engGender  String?
   desc       String
+  engDesc    String?
   imageUrl   String?
   isFeatured Boolean   @default(true)
   category   Category? @relation(fields: [catSlug], references: [slug])
@@ -26,7 +31,9 @@ model Pet {
 model Category {
   id          String @id @default(cuid())
   name        String
+  engName     String?
   description String
+  engDescription String?
   pets        Pet[]
   slug        String @unique
 }
@@ -34,7 +41,9 @@ model Category {
 model Post {
   id          String   @id @default(cuid())
   name        String
+  engName     String?
   description String
+  engDescription String?
   imageUrl    String
   createdAt   DateTime @default(now())
 }

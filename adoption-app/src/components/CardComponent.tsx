@@ -2,6 +2,7 @@ import {Card, CardBody, CardFooter} from "@chakra-ui/card";
 import {Button, ButtonGroup, Divider, Heading, Image, Stack, Text} from "@chakra-ui/react";
 import AdoptButtonGroup from "@/components/AdoptButtonGroup";
 import Link from "next/link";
+import {useTranslations} from "next-intl";
 
 type CardProps = {
         pet: {
@@ -15,6 +16,7 @@ type CardProps = {
 }
 
 const CardComponent = ({pet}: CardProps, key: string) => {
+    const t = useTranslations("adoptBtnGroup");
     return (
         <Card w="sm" key={key}>
             <CardBody>
@@ -42,11 +44,11 @@ const CardComponent = ({pet}: CardProps, key: string) => {
             </CardBody>
             <Divider />
             <CardFooter>
-                <ButtonGroup spacing='2'>
+                <ButtonGroup className="flex justify-between w-full">
                     <AdoptButtonGroup pet_id={pet.id} imageUrl={pet.imageUrl} species={pet.species} />
                     <Link href={`/pets/pet/${pet.id}`} className="details_link">
                         <Button variant='ghost' colorScheme='blue'>
-                            Дізнатись більше
+                            {t("moreInfoBtn")}
                         </Button>
                     </Link>
                 </ButtonGroup>

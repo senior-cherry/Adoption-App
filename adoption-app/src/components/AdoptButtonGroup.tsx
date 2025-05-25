@@ -4,10 +4,12 @@ import { useRouter } from "next/navigation";
 import { Button, ButtonGroup, Text } from "@chakra-ui/react";
 import { useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
+import {useTranslations} from "next-intl";
 
 const AdoptButtonGroup = ({ pet_id, imageUrl, species }) => {
     const { isLoaded, user } = useUser();
     const router = useRouter();
+    const t = useTranslations("adoptBtnGroup");
 
     const [isLoading, setIsLoading] = useState(true);
     const [hasPendingRequest, setHasPendingRequest] = useState(false);
@@ -30,14 +32,14 @@ const AdoptButtonGroup = ({ pet_id, imageUrl, species }) => {
 
     if (!user) {
         return (
-            <Button isDisabled colorScheme="gray">Увійдіть щоб подати</Button>
+            <Button isDisabled colorScheme="gray">{t("btnDisabled")}</Button>
         );
     }
 
     if (!isLoaded || isLoading) {
         return (
             <ButtonGroup spacing="2">
-                <Button isLoading colorScheme="blue">Перевірка...</Button>
+                <Button isLoading colorScheme="blue">{t("btnIsLoading")}...</Button>
             </ButtonGroup>
         );
     }
@@ -45,11 +47,9 @@ const AdoptButtonGroup = ({ pet_id, imageUrl, species }) => {
     return (
         <ButtonGroup spacing="2" flexDir="column" alignItems="start">
             {hasPendingRequest ? (
-                <Button isDisabled colorScheme="gray">Заявка вже на розгляді</Button>
+                <Button isDisabled colorScheme="gray">{t("underReviewBtn")}</Button>
             ) : (
-                <Button colorScheme="blue" onClick={handleAdoptClick}>
-                    Взяти тварину
-                </Button>
+                <Button colorScheme="blue" onClick={handleAdoptClick}>{t("adoptBtn")}</Button>
             )}
         </ButtonGroup>
     );

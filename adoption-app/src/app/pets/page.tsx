@@ -4,8 +4,10 @@ import { useSearchParams } from "next/navigation";
 import PetLayout from "@/layouts/PetLayout";
 import { Grid, Center, Text, Box, Flex, Badge, Alert, AlertIcon, AlertTitle, AlertDescription } from "@chakra-ui/react";
 import CardComponent from "@/components/CardComponent";
+import {useLocale} from "next-intl";
 
 export default function Pets() {
+    const locale = useLocale();
     const searchParams = useSearchParams();
     const [pets, setPets] = useState([]);
     const [filterInfo, setFilterInfo] = useState({
@@ -54,7 +56,7 @@ export default function Pets() {
         };
 
         fetchPets();
-    }, [searchParams]);
+    }, [searchParams, locale]);
 
     const getStatusMessage = () => {
         if (filterInfo.isRecommended) {

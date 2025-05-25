@@ -23,6 +23,7 @@ import {
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import {useTranslations} from "next-intl";
 
 const AuthButtons = dynamic(() => import("./AuthButtons"), {
     ssr: false,
@@ -34,6 +35,7 @@ const AuthButtons = dynamic(() => import("./AuthButtons"), {
 });
 
 const Header = () => {
+    const t = useTranslations("header");
     return (
         <Box className="header" w="100%">
             <Flex
@@ -69,11 +71,11 @@ const Header = () => {
 
                             <Divider my={2} />
 
-                            <Link href="/about"><MenuItem icon={<InfoIcon />} color="black">Про нас</MenuItem></Link>
-                            <Link href="/pets"><MenuItem icon={<SearchIcon />} color="black">Улюбленці</MenuItem></Link>
-                            <Link href="/blog"><MenuItem icon={<CalendarIcon />} color="black">Блог</MenuItem></Link>
-                            <Link href="/chat"><MenuItem icon={<ChatIcon />} color="black">Чат</MenuItem></Link>
-                            <Link href="/dashboard"><MenuItem icon={<SettingsIcon />} color="black">Адмінпанель</MenuItem></Link>
+                            <Link href="/about"><MenuItem icon={<InfoIcon />} color="black">{t("about")}</MenuItem></Link>
+                            <Link href="/pets"><MenuItem icon={<SearchIcon />} color="black">{t("pets")}</MenuItem></Link>
+                            <Link href="/blog"><MenuItem icon={<CalendarIcon />} color="black">{t("blog")}</MenuItem></Link>
+                            <Link href="/chat"><MenuItem icon={<ChatIcon />} color="black">{t("chat")}</MenuItem></Link>
+                            <Link href="/dashboard"><MenuItem icon={<SettingsIcon />} color="black">{t("dashboard")}</MenuItem></Link>
 
                             <Divider my={2} />
 
@@ -92,11 +94,11 @@ const Header = () => {
                     className="menu"
                     display={{ base: "none", xl: "flex" }}
                 >
-                    <Link href="/about"><Button variant="nav">Про нас</Button></Link>
-                    <Link href="/pets"><Button variant="nav">Улюбленці</Button></Link>
-                    <Link href="/blog"><Button variant="nav">Блог</Button></Link>
-                    <Link href="/chat"><Button variant="nav">Чат</Button></Link>
-                    <Link href="/dashboard"><Button variant="nav">Адмінпанель</Button></Link>
+                    <Link href="/about"><Button variant="nav">{t("about")}</Button></Link>
+                    <Link href="/pets"><Button variant="nav">{t("pets")}</Button></Link>
+                    <Link href="/blog"><Button variant="nav">{t("blog")}</Button></Link>
+                    <Link href="/chat"><Button variant="nav">{t("chat")}</Button></Link>
+                    <Link href="/dashboard"><Button variant="nav">{t("dashboard")}</Button></Link>
                 </HStack>
 
                 <HStack display={{ base: "none", xl: "flex" }}>

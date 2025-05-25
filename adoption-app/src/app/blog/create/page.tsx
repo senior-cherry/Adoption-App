@@ -7,7 +7,9 @@ import {checkUserRole} from "@/utils/userUtils";
 
 type Inputs = {
     name: string;
+    engName: string;
     description: string;
+    engDescription: string;
     imageUrl?: string;
 };
 
@@ -18,7 +20,9 @@ const AddPostPage = () => {
 
     const [inputs, setInputs] = useState<Inputs>({
         name: "",
-        description: ""
+        engName: "",
+        description: "",
+        engDescription: ""
     });
     const [isAllowed, setIsAllowed] = useState<boolean | null>(null);
 
@@ -139,12 +143,32 @@ const AddPostPage = () => {
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
+                    <label className="text-sm">Назва англійською</label>
+                    <input
+                        className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
+                        type="text"
+                        placeholder="Назва англійською"
+                        name="engName"
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="w-full flex flex-col gap-2 ">
                     <label className="text-sm">Опис</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
                         placeholder="Опис"
                         name="description"
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="w-full flex flex-col gap-2 ">
+                    <label className="text-sm">Опис англійською</label>
+                    <input
+                        className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
+                        type="text"
+                        placeholder="Опис англійською"
+                        name="engDescription"
                         onChange={handleChange}
                     />
                 </div>

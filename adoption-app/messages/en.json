@@ -83,8 +83,25 @@
     "approve": "Congratulations! Your application to adopt a pet has been approved. Our team will contact you shortly with the next steps.",
     "deny": "We appreciate your interest in adopting a pet. After careful consideration, your application was not approved. Feel free to apply again in the future."
   },
-  "fallback-category": {
-    "name": "Not defined",
-    "description": "Fallback category for unassigned pets"
+  "header": {
+    "about": "About us",
+    "pets": "Pets",
+    "blog": "Blog",
+    "chat": "Chat",
+    "dashboard": "Dashboard"
+  },
+  "footer": {
+    "heading": "Find your companion",
+    "paragraph": "Visit our shelter or find pet on website",
+    "mainBtn": "Main page",
+    "petsBtn": "Find pet",
+    "rights": "All rights reserved."
+  },
+  "adoptBtnGroup": {
+    "btnDisabled": "Sign in to apply",
+    "btnIsLoading": "Verifying",
+    "underReviewBtn": "Under review",
+    "adoptBtn": "Adopt pet",
+    "moreInfoBtn": "Learn more"
   }
 }

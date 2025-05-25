@@ -7,10 +7,15 @@ import {checkUserRole} from "@/utils/userUtils";
 
 type Inputs = {
     name: string;
+    engName: string;
     species: string;
+    engSpecies: string;
     age: string;
+    engAge: string;
     gender: string;
+    engGender: string;
     desc: string;
+    engDesc: string;
     catSlug: string;
     isFeatured: boolean;
     imageUrl?: string;
@@ -23,10 +28,15 @@ const AddPage = () => {
 
     const [inputs, setInputs] = useState<Inputs>({
         name: "",
+        engName: "",
         species: "",
+        engSpecies: "",
         age: "",
+        engAge: "",
         gender: "",
+        engGender: "",
         desc: "",
+        engDesc: "",
         catSlug: "",
         isFeatured: true
     });
@@ -149,12 +159,32 @@ const AddPage = () => {
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
+                    <label className="text-sm">Ім'я ангійською</label>
+                    <input
+                        className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
+                        type="text"
+                        placeholder="Ім'я англійською"
+                        name="engName"
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="w-full flex flex-col gap-2 ">
                     <label className="text-sm">Вид</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
                         placeholder="Вид"
                         name="species"
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="w-full flex flex-col gap-2 ">
+                    <label className="text-sm">Вид англійською</label>
+                    <input
+                        className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
+                        type="text"
+                        placeholder="Вид англійською"
+                        name="engSpecies"
                         onChange={handleChange}
                     />
                 </div>
@@ -169,6 +199,16 @@ const AddPage = () => {
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
+                    <label className="text-sm">Вік англійською</label>
+                    <input
+                        className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
+                        type="text"
+                        placeholder="Вік англійською"
+                        name="engAge"
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="w-full flex flex-col gap-2 ">
                     <label className="text-sm">Стать</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
@@ -179,12 +219,32 @@ const AddPage = () => {
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
+                    <label className="text-sm">Стать англійською</label>
+                    <input
+                        className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
+                        type="text"
+                        placeholder="Стать англійською"
+                        name="engGender"
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="w-full flex flex-col gap-2 ">
                     <label className="text-sm">Опис</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
                         placeholder="Опис"
                         name="desc"
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="w-full flex flex-col gap-2 ">
+                    <label className="text-sm">Опис англійською</label>
+                    <input
+                        className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
+                        type="text"
+                        placeholder="Опис англійською"
+                        name="engDesc"
                         onChange={handleChange}
                     />
                 </div>

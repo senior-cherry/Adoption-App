@@ -112,7 +112,7 @@ const Dashboard = () => {
     }
 
     return (
-        <Accordion>
+        <Accordion allowMultiple>
             <AccordionItem>
                 <h2>
                     <AccordionButton onClick={() => fetchData("pets")}>

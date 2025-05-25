@@ -8,7 +8,9 @@ import {Params} from "next/dist/shared/lib/router/utils/route-matcher";
 
 type Inputs = {
     name: string;
+    engName: string;
     description: string;
+    engDescription: string;
 };
 
 const UpdatePostPage = ({ params }: Params) => {
@@ -18,10 +20,14 @@ const UpdatePostPage = ({ params }: Params) => {
 
     const [inputs, setInputs] = useState<Inputs>({
         name: "",
+        engName: "",
         description: "",
+        engDescription: "",
         imageUrl: ""
     });
     const [isAllowed, setIsAllowed] = useState<boolean | null>(null);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
     const [file, setFile] = useState<File>();
 
@@ -43,11 +49,14 @@ const UpdatePostPage = ({ params }: Params) => {
                 const data = await res.json();
                 setInputs({
                     name: data.name,
+                    engName: data.engName,
                     description: data.description,
+                    engDescription: data.engDescription,
                     imageUrl: data.imageUrl,
                 });
             } catch (error) {
                 console.error("Error fetching post:", error);
+                setError("Failed to load blog post data");
             }
         };
 
@@ -61,11 +70,14 @@ const UpdatePostPage = ({ params }: Params) => {
         setInputs((prev) => {
             return { ...prev, [e.target.name]: e.target.value };
         });
-        console.log(e.target.name + " " + e.target.value)
+        if (error) setError(null);
     };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        setIsLoading(true);
+        setError(null);
 
         let uploadedImageName = inputs.imageUrl;
 
@@ -103,10 +115,18 @@ const UpdatePostPage = ({ params }: Params) => {
                 }),
             });
 
+            if (!res.ok) {
+                const errorData = await res.json();
+                throw new Error(errorData.message || `HTTP error! status: ${res.status}`);
+            }
+
             const data = await res.json();
             router.push(`/blog/post/${data.id}`);
         } catch (err) {
             console.error("Update error:", err);
+            setError(err instanceof Error ? err.message : "Failed to update post");
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -120,6 +140,11 @@ const UpdatePostPage = ({ params }: Params) => {
 
     return (
         <div className="form">
+            {error && (
+                <div className="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+                    {error}
+                </div>
+            )}
             <form onSubmit={handleSubmit} className="flex flex-wrap gap-6">
                 <div className="w-full flex flex-col gap-2 ">
                     <label
@@ -157,6 +182,17 @@ const UpdatePostPage = ({ params }: Params) => {
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
+                    <label className="text-sm">Назва англійською</label>
+                    <input
+                        className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
+                        type="text"
+                        placeholder="Назва англійською"
+                        name="engName"
+                        value={inputs.engName}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="w-full flex flex-col gap-2 ">
                     <label className="text-sm">Опис</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
@@ -167,11 +203,23 @@ const UpdatePostPage = ({ params }: Params) => {
                         onChange={handleChange}
                     />
                 </div>
+                <div className="w-full flex flex-col gap-2 ">
+                    <label className="text-sm">Опис англійською</label>
+                    <input
+                        className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
+                        type="text"
+                        placeholder="Опис англійською"
+                        name="engDescription"
+                        value={inputs.engDescription}
+                        onChange={handleChange}
+                    />
+                </div>
                 <button
                     type="submit"
-                    className="bg-orange-500 p-4 text-white w-48 rounded-md relative h-14 flex items-center justify-center"
+                    disabled={isLoading}
+                    className="bg-orange-500 p-4 text-white w-48 rounded-md relative h-14 flex items-center justify-center disabled:bg-orange-300 disabled:cursor-not-allowed"
                 >
-                    Підтвердити
+                    {isLoading ? "Оновлення..." : "Підтвердити"}
                 </button>
             </form>
         </div>
