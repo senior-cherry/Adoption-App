@@ -103,5 +103,68 @@
     "underReviewBtn": "Under review",
     "adoptBtn": "Adopt pet",
     "moreInfoBtn": "Learn more"
+  },
+  "pets-page": {
+    "loading": "Loading",
+    "match": "Match",
+    "byCategory": "From categories",
+    "filteredBy": "Filtered by",
+    "noPets": "No pets found",
+    "adjustCriteria": "Try adjusting your search criteria"
+  },
+  "drawer-filter": {
+    "applyBtn": "Apply Filters",
+    "cancelBtn": "Cancel",
+    "clearBtn": "Clear All",
+    "toastTitle": "No matching pets found",
+    "toastDescription": "Try adjusting your preferences or browse by categories",
+    "errorTitle": "Error applying filters",
+    "errorDescription": "Something went wrong. Please try again.",
+    "filterBtn": "Filter Pets",
+    "drawerHeader": "Find Your Perfect Pet",
+    "categories": "Categories",
+    "drawerText": "Tell us about yourself for AI recommendations",
+    "loadingText": "Applying..."
+  },
+  "filter-form": {
+    "income": {
+      "label": "Your monthly income",
+      "placeholder": "Select your income range",
+      "under_1000": "Under $1,000",
+      "1000_3000": "$1,000–3,000",
+      "3000_5000": "$3,000–5,000",
+      "over_5000": "Over $5,000"
+    },
+    "space": {
+      "label": "Your living situation",
+      "placeholder": "Select your living space",
+      "rent_apartment": "Renting an apartment",
+      "own_apartment": "Own an apartment",
+      "rent_house": "Renting a house",
+      "own_house": "Own a house"
+    },
+    "freeTime": {
+      "label": "Your free time per week",
+      "placeholder": "Select free time",
+      "less_than_5": "Less than 5 hours",
+      "5_10": "5–10 hours",
+      "10_20": "10–20 hours",
+      "20_plus": "More than 20 hours"
+    },
+    "experience": {
+      "label": "Your experience with pets",
+      "placeholder": "Select experience level",
+      "none": "No experience",
+      "some": "Some experience",
+      "experienced": "Experienced pet owner"
+    },
+    "kids": {
+      "label": "Do you have children?",
+      "placeholder": "Select one",
+      "no": "No",
+      "yes_under_5": "Yes, under 5 years old",
+      "yes_over_5": "Yes, over 5 years old",
+      "yes_mixed": "Yes, mixed ages"
+    }
   }
 }

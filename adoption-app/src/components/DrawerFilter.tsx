@@ -14,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 import CategoryDropdown from "@/components/CategoryDropdown";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useTranslations } from 'next-intl';
 
 const DrawerFilter = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -22,6 +23,9 @@ const DrawerFilter = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
     const toast = useToast();
+
+    const t = useTranslations('drawer-filter');
+    const tf = useTranslations('filter-form');
 
     const [formData, setFormData] = useState({
         income: "",
@@ -82,8 +86,8 @@ const DrawerFilter = () => {
                     router.push(`/pets?recommended=${petIds}${categoryParam}`);
                 } else {
                     toast({
-                        title: "No matching pets found",
-                        description: "Try adjusting your preferences or browse by categories",
+                        title: t('toastTitle'),
+                        description: t('toastDescription'),
                         status: "info",
                         duration: 5000,
                         isClosable: true,
@@ -104,8 +108,8 @@ const DrawerFilter = () => {
         } catch (error) {
             console.error('Error applying filters:', error);
             toast({
-                title: "Error applying filters",
-                description: "Something went wrong. Please try again.",
+                title: t('errorTitle'),
+                description: t('errorDescription'),
                 status: "error",
                 duration: 5000,
                 isClosable: true,
@@ -130,17 +134,17 @@ const DrawerFilter = () => {
     return (
         <>
             <Button size="md" colorScheme="teal" m={6} onClick={onOpen}>
-                Filter Pets
+                {t('filterBtn')}
             </Button>
             <Drawer isOpen={isOpen} placement="right" onClose={onClose} size="md">
                 <DrawerOverlay />
                 <DrawerContent>
                     <DrawerCloseButton />
-                    <DrawerHeader>Find Your Perfect Pet</DrawerHeader>
+                    <DrawerHeader>{t('drawerHeader')}</DrawerHeader>
                     <DrawerBody>
                         <form onSubmit={handleSubmit}>
                             <div className="mb-4">
-                                <p className="font-medium mb-2">Pet Categories</p>
+                                <p className="font-medium mb-2">{t('categories')}</p>
                                 <CategoryDropdown
                                     onChange={handleCategoriesChange}
                                     selectedCategories={selectedCategories}
@@ -149,101 +153,102 @@ const DrawerFilter = () => {
 
                             <hr className="my-4" />
 
-                            <p className="font-medium mb-3">Tell us about yourself for AI recommendations</p>
+                            <p className="font-medium mb-3">{t('drawerText')}</p>
+
                             <div className="mt-3">
-                                <label className="block text-sm font-medium">Your monthly income</label>
+                                <label className="block text-sm font-medium">{tf('income.label')}</label>
                                 <select
                                     name="income"
                                     value={formData.income}
                                     onChange={handleInputChange}
                                     className="w-full p-3 mt-1 text-gray-800 rounded bg-gray-200 focus:outline-none"
                                 >
-                                    <option value="">Select your income range</option>
-                                    <option value="under_1000">Under $1,000</option>
-                                    <option value="1000_3000">$1,000–3,000</option>
-                                    <option value="3000_5000">$3,000–5,000</option>
-                                    <option value="over_5000">Over $5,000</option>
+                                    <option value="">{tf('income.placeholder')}</option>
+                                    <option value="under_1000">{tf('income.under_1000')}</option>
+                                    <option value="1000_3000">{tf('income.1000_3000')}</option>
+                                    <option value="3000_5000">{tf('income.3000_5000')}</option>
+                                    <option value="over_5000">{tf('income.over_5000')}</option>
                                 </select>
                             </div>
 
                             <div className="mt-3">
-                                <label className="block text-sm font-medium">Your living situation</label>
+                                <label className="block text-sm font-medium">{tf('space.label')}</label>
                                 <select
                                     name="space"
                                     value={formData.space}
                                     onChange={handleInputChange}
                                     className="w-full p-3 mt-1 text-gray-800 rounded bg-gray-200 focus:outline-none"
                                 >
-                                    <option value="">Select your living space</option>
-                                    <option value="rent_apartment">Renting an apartment</option>
-                                    <option value="own_apartment">Own an apartment</option>
-                                    <option value="rent_house">Renting a house</option>
-                                    <option value="own_house">Own a house</option>
+                                    <option value="">{tf('space.placeholder')}</option>
+                                    <option value="rent_apartment">{tf('space.rent_apartment')}</option>
+                                    <option value="own_apartment">{tf('space.own_apartment')}</option>
+                                    <option value="rent_house">{tf('space.rent_house')}</option>
+                                    <option value="own_house">{tf('space.own_house')}</option>
                                 </select>
                             </div>
 
                             <div className="mt-3">
-                                <label className="block text-sm font-medium">Your free time per week</label>
+                                <label className="block text-sm font-medium">{tf('freeTime.label')}</label>
                                 <select
                                     name="freeTime"
                                     value={formData.freeTime}
                                     onChange={handleInputChange}
                                     className="w-full p-3 mt-1 text-gray-800 rounded bg-gray-200 focus:outline-none"
                                 >
-                                    <option value="">Select free time</option>
-                                    <option value="less_than_5">Less than 5 hours</option>
-                                    <option value="5_10">5–10 hours</option>
-                                    <option value="10_20">10–20 hours</option>
-                                    <option value="20_plus">More than 20 hours</option>
+                                    <option value="">{tf('freeTime.placeholder')}</option>
+                                    <option value="less_than_5">{tf('freeTime.less_than_5')}</option>
+                                    <option value="5_10">{tf('freeTime.5_10')}</option>
+                                    <option value="10_20">{tf('freeTime.10_20')}</option>
+                                    <option value="20_plus">{tf('freeTime.20_plus')}</option>
                                 </select>
                             </div>
 
                             <div className="mt-3">
-                                <label className="block text-sm font-medium">Your experience with pets</label>
+                                <label className="block text-sm font-medium">{tf('experience.label')}</label>
                                 <select
                                     name="experience"
                                     value={formData.experience}
                                     onChange={handleInputChange}
                                     className="w-full p-3 mt-1 text-gray-800 rounded bg-gray-200 focus:outline-none"
                                 >
-                                    <option value="">Select experience level</option>
-                                    <option value="none">No experience</option>
-                                    <option value="some">Some experience</option>
-                                    <option value="experienced">Experienced pet owner</option>
+                                    <option value="">{tf('experience.placeholder')}</option>
+                                    <option value="none">{tf('experience.none')}</option>
+                                    <option value="some">{tf('experience.some')}</option>
+                                    <option value="experienced">{tf('experience.experienced')}</option>
                                 </select>
                             </div>
 
                             <div className="mt-3">
-                                <label className="block text-sm font-medium">Do you have children?</label>
+                                <label className="block text-sm font-medium">{tf('kids.label')}</label>
                                 <select
                                     name="kids"
                                     value={formData.kids}
                                     onChange={handleInputChange}
                                     className="w-full p-3 mt-1 text-gray-800 rounded bg-gray-200 focus:outline-none"
                                 >
-                                    <option value="">Select one</option>
-                                    <option value="no">No</option>
-                                    <option value="yes_under_5">Yes, under 5 years old</option>
-                                    <option value="yes_over_5">Yes, over 5 years old</option>
-                                    <option value="yes_mixed">Yes, mixed ages</option>
+                                    <option value="">{tf('kids.placeholder')}</option>
+                                    <option value="no">{tf('kids.no')}</option>
+                                    <option value="yes_under_5">{tf('kids.yes_under_5')}</option>
+                                    <option value="yes_over_5">{tf('kids.yes_over_5')}</option>
+                                    <option value="yes_mixed">{tf('kids.yes_mixed')}</option>
                                 </select>
                             </div>
                         </form>
                     </DrawerBody>
                     <DrawerFooter>
                         <Button variant="outline" mr={3} onClick={handleClear}>
-                            Clear All
+                            {t('clearBtn')}
                         </Button>
                         <Button variant="outline" mr={3} onClick={onClose}>
-                            Cancel
+                            {t('cancelBtn')}
                         </Button>
                         <Button
                             colorScheme="blue"
                             onClick={handleSubmit}
                             isLoading={isLoading}
-                            loadingText="Applying..."
+                            loadingText={t('loadingText')}
                         >
-                            Apply Filters
+                            {t('applyBtn')}
                         </Button>
                     </DrawerFooter>
                 </DrawerContent>

@@ -4,12 +4,15 @@ import { useSearchParams } from "next/navigation";
 import PetLayout from "@/layouts/PetLayout";
 import { Grid, Center, Text, Box, Flex, Badge, Alert, AlertIcon, AlertTitle, AlertDescription } from "@chakra-ui/react";
 import CardComponent from "@/components/CardComponent";
-import {useLocale} from "next-intl";
+import {useLocale, useTranslations} from "next-intl";
+import Loading from "@/components/Loading";
 
 export default function Pets() {
     const locale = useLocale();
+    const t = useTranslations("pets-page");
     const searchParams = useSearchParams();
     const [pets, setPets] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
     const [filterInfo, setFilterInfo] = useState({
         isFiltered: false,
         isRecommended: false,
@@ -19,6 +22,7 @@ export default function Pets() {
 
     useEffect(() => {
         const fetchPets = async () => {
+            setIsLoading(true);
             const cat = searchParams.get("cat");
             const recommended = searchParams.get("recommended");
 
@@ -52,6 +56,8 @@ export default function Pets() {
             } catch (error) {
                 console.error("Error fetching pets:", error);
                 setPets([]);
+            } finally {
+                setIsLoading(false);
             }
         };
 
@@ -66,14 +72,16 @@ export default function Pets() {
             if (foundCount < requestedCount) {
                 return {
                     type: "warning",
-                    title: "Some recommendations unavailable",
-                    message: `Showing ${foundCount} of ${requestedCount} recommended pets. Some may no longer be available.`
+                    title: locale === 'uk' ? "Деякі рекомендації недоступні" : "Some recommendations are unavailable",
+                    message: locale === 'uk' ? `Знайдено ${foundCount} з ${requestedCount} рекомендованих улюбленців. Деякі вже можуть бути недоступними.`
+                        : `Showing ${foundCount} of ${requestedCount} recommended pets. Some may no longer be available.`
                 };
             } else if (foundCount > 0) {
                 return {
                     type: "success",
-                    title: "Perfect matches found!",
-                    message: `We found ${foundCount} pets that match your lifestyle and preferences.`
+                    title: locale === 'uk' ? "Ми знайшли чудові варіанти для вас" : "Perfect matches were found for you",
+                    message: locale === 'uk' ? `Було знайдено ${foundCount} улюбленців відповідно до вашого стилю життя і побажань.`
+                        :`We found ${foundCount} pets that match your lifestyle and preferences.`
                 };
             }
         }
@@ -81,6 +89,17 @@ export default function Pets() {
     };
 
     const statusMessage = getStatusMessage();
+
+    if (isLoading) {
+        return (
+            <PetLayout>
+                <Flex direction="column" align="center" gap={4}>
+                    <Loading />
+                    <Text color="gray.600">{t("loading")}...</Text>
+                </Flex>
+            </PetLayout>
+        );
+    }
 
     return (
         <PetLayout>
@@ -99,16 +118,16 @@ export default function Pets() {
 
                 {filterInfo.categories.length > 0 && (
                     <Box mb={6} w="full" maxW="4xl">
-                        <Text fontSize="sm" color="gray.600" mb={2}>
-                            {filterInfo.isRecommended ? "From categories:" : "Filtered by:"}
+                        <Text fontSize="md" color="gray.600" mb={2}>
+                            {filterInfo.isRecommended ? `${t("byCategory")}:` : `${t("filteredBy")}:`}
                         </Text>
                         <Flex gap={2} flexWrap="wrap">
                             {filterInfo.categories.map(cat => (
                                 <Badge
                                     key={cat}
                                     colorScheme={filterInfo.isRecommended ? "green" : "blue"}
-                                    px={3}
-                                    py={1}
+                                    px={5}
+                                    py={2}
                                     borderRadius="full"
                                     textTransform="capitalize"
                                 >
@@ -137,7 +156,7 @@ export default function Pets() {
                                         fontSize="xs"
                                         zIndex={1}
                                     >
-                                        #{index + 1} Match
+                                        #{index + 1} {t("match")}
                                     </Badge>
                                 )}
                             </Box>
@@ -145,30 +164,16 @@ export default function Pets() {
                     </Grid>
                 ) : (
                     <Center
-                        h="300px"
+                        h="200px"
                         w="full"
                         maxW="4xl"
                         flexDirection="column"
-                        border="1px dashed"
-                        borderColor="gray.300"
-                        borderRadius="lg"
-                        bg="gray.50"
                     >
-                        <Text fontSize="xl" fontWeight="medium" color="gray.600" mb={2}>
-                            {filterInfo.isRecommended
-                                ? "No matching pets found"
-                                : filterInfo.isFiltered
-                                    ? "No pets in selected categories"
-                                    : "No pets available"
-                            }
+                        <Text fontSize="lg" color="gray.600" mb={2}>
+                            {t("noPets")}
                         </Text>
-                        <Text fontSize="sm" color="gray.500" textAlign="center">
-                            {filterInfo.isRecommended
-                                ? "Try adjusting your preferences or browse different categories"
-                                : filterInfo.isFiltered
-                                    ? "Try selecting different categories or clear filters"
-                                    : "Check back later for new pets"
-                            }
+                        <Text fontSize="sm" color="gray.500">
+                            {t("adjustCriteria")}
                         </Text>
                     </Center>
                 )}
@@ -176,4 +181,3 @@ export default function Pets() {
         </PetLayout>
     );
 }
-

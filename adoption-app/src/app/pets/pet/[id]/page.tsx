@@ -2,6 +2,7 @@ import { ButtonGroup, Image } from "@chakra-ui/react";
 import AdoptButtonGroup from "@/components/AdoptButtonGroup";
 import { PetType } from "@/types/types";
 import BackButton from "@/components/BackButton";
+import {getLocale} from "next-intl/server";
 
 type Props = {
     params: { id: string };
@@ -20,13 +21,8 @@ const getData = async (id: string) => {
 };
 
 const SinglePet = async ({ params }: Props) => {
+    const locale = await getLocale();
     const pet: PetType = await getData(params.id);
-
-    const getGenderColor = () => {
-        if (pet.gender === "Самець" || pet.gender === "Хлопчик") return "text-blue-600";
-        if (pet.gender === "Самка" || pet.gender === "Дівчинка") return "text-pink-500";
-        return "text-red-600";
-    };
 
     return (
         <div className="min-h-screen bg-white py-10 px-4 md:px-10">
@@ -42,10 +38,10 @@ const SinglePet = async ({ params }: Props) => {
                         </div>
                     </div>
                     <div className="w-full md:w-1/2 flex flex-col gap-3">
-                        <h1 className="text-3xl font-bold text-gray-800">{pet.name}</h1>
+                        <h1 className="text-3xl font-bold text-gray-800">{locale === 'uk' ? pet.name : pet.engName}</h1>
                         <p className="text-lg text-gray-700">Вид: {pet.species}</p>
                         <p className="text-lg text-gray-700">Вік: {pet.age}</p>
-                        <p className={`text-lg font-medium ${getGenderColor()}`}>
+                        <p className={"text-lg font-medium text-gray-700"}>
                             Стать: {pet.gender}
                         </p>
                         <p className="mt-4 text-gray-600 leading-relaxed whitespace-pre-line">{pet.desc}</p>

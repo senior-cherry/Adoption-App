@@ -13,7 +13,7 @@ const AuthButtons = () => {
                     key={`signin-${locale}`}
                 >
                     <Button colorScheme="teal" size="sm">
-                        Sign in
+                        {locale === 'uk' ? "Увійти" : "Sign in"}
                     </Button>
                 </SignInButton>
             </SignedOut>

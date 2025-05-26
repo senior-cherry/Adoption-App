@@ -9,6 +9,7 @@ import {
     Button,
 } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
+import {useLocale} from "next-intl";
 
 interface Category {
     id: number;
@@ -22,6 +23,7 @@ interface Props {
 }
 
 const CategoryDropdown = ({ onChange, selectedCategories }: Props) => {
+    const locale = useLocale();
     const [categories, setCategories] = useState<Category[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -54,13 +56,13 @@ const CategoryDropdown = ({ onChange, selectedCategories }: Props) => {
     };
 
     const getButtonText = () => {
-        if (isLoading) return "Loading...";
-        if (selectedCategories.length === 0) return "Select categories";
+        if (isLoading) return locale === 'uk' ? "Завантаження..." : "Loading...";
+        if (selectedCategories.length === 0) return locale === 'uk' ? "Оберіть категорії" : "Select categories";
         if (selectedCategories.length === 1) {
             const selected = categories.find(c => c.slug === selectedCategories[0]);
-            return selected ? selected.name : "1 category";
+            return selected ? (locale === 'uk' ? selected.name : selected.engName) : (locale === 'uk' ? "1 категорія" : "1 category");
         }
-        return `${selectedCategories.length} categories`;
+        return locale === 'uk' ? `${selectedCategories.length} категорій` : `${selectedCategories.length} categories`;
     };
 
     return (
@@ -75,7 +77,7 @@ const CategoryDropdown = ({ onChange, selectedCategories }: Props) => {
             </MenuButton>
             <MenuList>
                 {categories.length === 0 && !isLoading ? (
-                    <MenuItem>No categories found</MenuItem>
+                    <MenuItem>{locale === 'uk' ? "Категорій не знайдено" : "No categories found"}</MenuItem>
                 ) : (
                     categories.map((category) => (
                         <MenuItem key={category.id} onClick={() => toggleOption(category.slug)}>
@@ -83,7 +85,7 @@ const CategoryDropdown = ({ onChange, selectedCategories }: Props) => {
                                 isChecked={selectedCategories.includes(category.slug)}
                                 pointerEvents="none"
                             >
-                                {category.name}
+                                {locale === 'uk' ? category.name : category.engName}
                             </Checkbox>
                         </MenuItem>
                     ))
