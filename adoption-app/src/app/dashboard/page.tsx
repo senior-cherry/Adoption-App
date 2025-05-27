@@ -13,6 +13,7 @@ import {AdoptionType, CategoryType, PetType, PostType} from "@/types/types";
 import Link from "next/link";
 import {sendEmail} from "@/actions/sendEmailMessage";
 import ConfirmModal from "@/components/ConfirmModal";
+import {revalidatePath} from "next/cache";
 
 const getData = async (collection: String) => {
     const res = await fetch(`/api/${collection}`, {
@@ -32,7 +33,11 @@ const handleAdoptionRequest = async (id: String, decision: string, email: string
         throw new Error("Failed");
     }
 
-    await sendEmail(email, decision);
+    const message = await sendEmail(email, decision);
+
+    if (message.success) {
+        revalidatePath();
+    }
 }
 
 const Dashboard = () => {

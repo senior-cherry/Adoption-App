@@ -52,43 +52,66 @@ const AdoptionForm = () => {
     const imageUrl = searchParams.get("imageUrl") || "";
     const species = searchParams.get("species") || "";
 
-    const [inputs, setInputs] = useState<Inputs>({
-        pet_id,
-        imageUrl,
-        species,
-        user: user?.fullName || "",
-        user_id: user?.id || "",
-        age: 0,
-        phoneNumber: "",
-        email: user?.emailAddresses?.[0]?.emailAddress || "",
-        address: "",
-        aptType: "",
-        petsAllowed: "",
-        kids: "",
-        otherAnimals: "",
-        liveWith: "",
-        employmentStatus: "",
-        incomeLevel: "",
-        animalsBefore: "",
-        nutritionalNeeds: "",
-        reasonToAdoptPet: "",
-        characterPreferences: "",
-        lifeChangingActions: "",
-        psychologicalDiseases: "",
-        tendencyToBeImpulsive: "",
-        emotionalStability: "",
-        reactionToStress: "",
-        uncontrolledAnger: "",
-        blamesForAnger: "",
-        attitudeToSpending: "",
-        attitudeToBadBehaviour: "",
-        requireLove: "",
-        isAbleToFollowSchedule: "",
-        friendlySupport: "",
-        allergyToFur: "",
-        howToRaisePet: "",
-        reactionToBadAction: "",
-        isPunishmentNecessary: ""
+    const loadSavedFormData = () => {
+        try {
+            const savedData = localStorage.getItem('adoptionFormData');
+            if (savedData) {
+                return JSON.parse(savedData);
+            }
+        } catch (error) {
+            console.error('Error loading saved form data:', error);
+        }
+        return null;
+    };
+
+    const saveFormData = (data: Inputs) => {
+        try {
+            localStorage.setItem('adoptionFormData', JSON.stringify(data));
+        } catch (error) {
+            console.error('Error saving form data:', error);
+        }
+    };
+
+    const [inputs, setInputs] = useState<Inputs>(() => {
+        const savedData = loadSavedFormData();
+        return {
+            pet_id,
+            imageUrl,
+            species,
+            user: user?.fullName || "",
+            user_id: user?.id || "",
+            age: savedData?.age || 0,
+            phoneNumber: savedData?.phoneNumber || "",
+            email: savedData?.email || user?.emailAddresses?.[0]?.emailAddress || "",
+            address: savedData?.address || "",
+            aptType: savedData?.aptType || "",
+            petsAllowed: savedData?.petsAllowed || "",
+            kids: savedData?.kids || "",
+            otherAnimals: savedData?.otherAnimals || "",
+            liveWith: savedData?.liveWith || "",
+            employmentStatus: savedData?.employmentStatus || "",
+            incomeLevel: savedData?.incomeLevel || "",
+            animalsBefore: savedData?.animalsBefore || "",
+            nutritionalNeeds: savedData?.nutritionalNeeds || "",
+            reasonToAdoptPet: savedData?.reasonToAdoptPet || "",
+            characterPreferences: savedData?.characterPreferences || "",
+            lifeChangingActions: savedData?.lifeChangingActions || "",
+            psychologicalDiseases: savedData?.psychologicalDiseases || "",
+            tendencyToBeImpulsive: savedData?.tendencyToBeImpulsive || "",
+            emotionalStability: savedData?.emotionalStability || "",
+            reactionToStress: savedData?.reactionToStress || "",
+            uncontrolledAnger: savedData?.uncontrolledAnger || "",
+            blamesForAnger: savedData?.blamesForAnger || "",
+            attitudeToSpending: savedData?.attitudeToSpending || "",
+            attitudeToBadBehaviour: savedData?.attitudeToBadBehaviour || "",
+            requireLove: savedData?.requireLove || "",
+            isAbleToFollowSchedule: savedData?.isAbleToFollowSchedule || "",
+            friendlySupport: savedData?.friendlySupport || "",
+            allergyToFur: savedData?.allergyToFur || "",
+            howToRaisePet: savedData?.howToRaisePet || "",
+            reactionToBadAction: savedData?.reactionToBadAction || "",
+            isPunishmentNecessary: savedData?.isPunishmentNecessary || ""
+        }
     });
 
 
@@ -115,6 +138,8 @@ const AdoptionForm = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        await saveFormData(inputs);
         try {
             const res = await fetch(`/api/adoption`, {
                 method: "POST",
@@ -159,6 +184,7 @@ const AdoptionForm = () => {
                         min="0"
                         max="100"
                         onChange={handleChange}
+                        value={inputs.age}
                     />
                 </div>
 
@@ -170,6 +196,7 @@ const AdoptionForm = () => {
                         placeholder={q("phoneNumber")}
                         name="phoneNumber"
                         onChange={handleChange}
+                        value={inputs.phoneNumber}
                     />
                 </div>
 
@@ -181,6 +208,7 @@ const AdoptionForm = () => {
                         placeholder={q("email")}
                         name="email"
                         onChange={handleChange}
+                        value={inputs.email}
                     />
                 </div>
 
@@ -192,6 +220,7 @@ const AdoptionForm = () => {
                         placeholder={q("address")}
                         name="address"
                         onChange={handleChange}
+                        value={inputs.address}
                     />
                 </div>
 
@@ -247,6 +276,7 @@ const AdoptionForm = () => {
                         placeholder={q("otherAnimals")}
                         name="otherAnimals"
                         onChange={handleChange}
+                        value={inputs.otherAnimals}
                     />
                 </div>
 
@@ -319,6 +349,7 @@ const AdoptionForm = () => {
                         placeholder={q("nutritionalNeeds")}
                         name="nutritionalNeeds"
                         onChange={handleChange}
+                        value={inputs.nutritionalNeeds}
                     />
                 </div>
 
@@ -328,6 +359,7 @@ const AdoptionForm = () => {
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         name="reasonToAdoptPet"
                         onChange={handleChange}
+                        value={inputs.reasonToAdoptPet}
                     ></textarea>
                 </div>
 
@@ -337,6 +369,7 @@ const AdoptionForm = () => {
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         name="characterPreferences"
                         onChange={handleChange}
+                        value={inputs.characterPreferences}
                     ></textarea>
                 </div>
 
@@ -346,6 +379,7 @@ const AdoptionForm = () => {
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         name="lifeChangingActions"
                         onChange={handleChange}
+                        value={inputs.lifeChangingActions}
                     ></textarea>
                 </div>
 
