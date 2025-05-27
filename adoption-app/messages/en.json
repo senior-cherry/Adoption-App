@@ -166,5 +166,37 @@
       "yes_over_5": "Yes, over 5 years old",
       "yes_mixed": "Yes, mixed ages"
     }
+  },
+  "dashboard": {
+    "message": {
+      "notAllowed": "You must have admin rights to view this page.",
+      "loading": "Loading"
+    },
+    "tables": {
+      "pets": "Pets",
+      "categories": "Categories",
+      "articles": "Articles",
+      "adoption": "Adoption requests",
+      "adoptionCaption": "Adoption requests data"
+    },
+    "actions": {
+      "add": "Add",
+      "update": "Update",
+      "accept": "Accept",
+      "deny": "Deny"
+    },
+    "fields": {
+      "image": "Image",
+      "name": "Name",
+      "species": "Species",
+      "age": "Age",
+      "category": "Category",
+      "actions": "Actions",
+      "title": "Title",
+      "description": "Description",
+      "user": "User",
+      "email": "Email",
+      "aiConclusion": "AI conclusion"
+    }
   }
 }

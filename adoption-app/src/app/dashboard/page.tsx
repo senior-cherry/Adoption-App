@@ -14,6 +14,8 @@ import Link from "next/link";
 import {sendEmail} from "@/actions/sendEmailMessage";
 import ConfirmModal from "@/components/ConfirmModal";
 import {revalidatePath} from "next/cache";
+import {Tooltip} from "@/components/Tooltip";
+import {useLocale, useTranslations} from "next-intl";
 
 const getData = async (collection: String) => {
     const res = await fetch(`/api/${collection}`, {
@@ -41,6 +43,8 @@ const handleAdoptionRequest = async (id: String, decision: string, email: string
 }
 
 const Dashboard = () => {
+    const locale = useLocale();
+    const t = useTranslations("dashboard");
     const {session} = useSession();
     const {isLoaded}  = useUser();
     const userRole = checkUserRole(session);
@@ -109,11 +113,11 @@ const Dashboard = () => {
     };
 
     if (isAllowed === false) {
-        return <div className="p-4">You must have admin rights to view this page.</div>;
+        return <div className="p-4">{t("message.notAllowed")}</div>;
     }
 
     if (isAllowed === null) {
-        return <div className="p-4">Loading...</div>;
+        return <div className="p-4">{t("message.loading")}...</div>;
     }
 
     return (
@@ -122,7 +126,7 @@ const Dashboard = () => {
                 <h2>
                     <AccordionButton onClick={() => fetchData("pets")}>
                         <Box as='span' flex='1' textAlign='left'>
-                            Домашні улюбленці
+                            {t("tables.pets")}
                         </Box>
                         <AccordionIcon />
                     </AccordionButton>
@@ -132,17 +136,17 @@ const Dashboard = () => {
                         <Table variant='simple'>
                             <TableCaption>
                                 <Link href="/pets/create">
-                                    <Button colorScheme='teal'>Додати</Button>
+                                    <Button colorScheme='teal'>{t("actions.add")}</Button>
                                 </Link>
                             </TableCaption>
                             <Thead>
                                 <Tr>
-                                    <Th>Фото</Th>
-                                    <Th>Ім'я</Th>
-                                    <Th>Вид</Th>
-                                    <Th>Вік</Th>
-                                    <Th>Категорія</Th>
-                                    <Th>Дії</Th>
+                                    <Th>{t("fields.image")}</Th>
+                                    <Th>{t("fields.name")}</Th>
+                                    <Th>{t("fields.species")}</Th>
+                                    <Th>{t("fields.age")}</Th>
+                                    <Th>{t("fields.category")}</Th>
+                                    <Th>{t("fields.actions")}</Th>
                                 </Tr>
                             </Thead>
                             <Tbody>
@@ -164,7 +168,7 @@ const Dashboard = () => {
                                             <Td>
                                                 <ButtonGroup gap='4'>
                                                     <Link href={`/pets/update/${pet.id}`}>
-                                                        <Button colorScheme='orange'>Оновити</Button>
+                                                        <Button colorScheme='orange'>{t("actions.update")}</Button>
                                                     </Link>
                                                     <ConfirmModal id={pet.id} collection={"pets"} isIcon={false} />
                                                 </ButtonGroup>
@@ -182,7 +186,7 @@ const Dashboard = () => {
                 <h2>
                     <AccordionButton onClick={() => fetchData("categories")}>
                         <Box as='span' flex='1' textAlign='left'>
-                            Категорії
+                            {t("tables.categories")}
                         </Box>
                         <AccordionIcon />
                     </AccordionButton>
@@ -192,14 +196,14 @@ const Dashboard = () => {
                         <Table variant='simple'>
                             <TableCaption>
                                 <Link href="/categories/create">
-                                    <Button colorScheme='teal'>Додати</Button>
+                                    <Button colorScheme='teal'>{t("actions.add")}</Button>
                                 </Link>
                             </TableCaption>
                             <Thead>
                                 <Tr>
-                                    <Th>Назва</Th>
-                                    <Th>Опис</Th>
-                                    <Th>Дії</Th>
+                                    <Th>{t("fields.title")}</Th>
+                                    <Th>{t("fields.description")}</Th>
+                                    <Th>{t("fields.actions")}</Th>
                                 </Tr>
                             </Thead>
                             <Tbody>
@@ -212,7 +216,7 @@ const Dashboard = () => {
                                             <Td>
                                                 <ButtonGroup gap='4'>
                                                     <Link href={`/categories/update/${category.id}`}>
-                                                        <Button colorScheme='orange'>Оновити</Button>
+                                                        <Button colorScheme='orange'>{t("actions.update")}</Button>
                                                     </Link>
                                                     <ConfirmModal id={category.id} collection={"categories"} isIcon={false} />
                                                 </ButtonGroup>
@@ -230,7 +234,7 @@ const Dashboard = () => {
                 <h2>
                     <AccordionButton onClick={() => fetchData("blog")}>
                         <Box as='span' flex='1' textAlign='left'>
-                            Статті
+                            {t("tables.articles")}
                         </Box>
                         <AccordionIcon />
                     </AccordionButton>
@@ -240,15 +244,15 @@ const Dashboard = () => {
                         <Table variant='simple'>
                             <TableCaption>
                                 <Link href="/blog/create">
-                                    <Button colorScheme='teal'>Додати</Button>
+                                    <Button colorScheme='teal'>{t("actions.add")}</Button>
                                 </Link>
                             </TableCaption>
                             <Thead>
                                 <Tr>
-                                    <Th>Фото</Th>
-                                    <Th>Ім'я</Th>
-                                    <Th>Опис</Th>
-                                    <Th>Дії</Th>
+                                    <Th>{t("fields.image")}</Th>
+                                    <Th>{t("fields.title")}</Th>
+                                    <Th>{t("fields.description")}</Th>
+                                    <Th>{t("fields.actions")}</Th>
                                 </Tr>
                             </Thead>
                             <Tbody>
@@ -268,7 +272,7 @@ const Dashboard = () => {
                                             <Td>
                                                 <ButtonGroup gap='4'>
                                                     <Link href={`/blog/update/${post.id}`}>
-                                                        <Button colorScheme='orange'>Оновити</Button>
+                                                        <Button colorScheme='orange'>{t("actions.update")}</Button>
                                                     </Link>
                                                     <ConfirmModal id={post.id} collection={"blog"} isIcon={false} />
                                                 </ButtonGroup>
@@ -286,7 +290,7 @@ const Dashboard = () => {
                 <h2>
                     <AccordionButton onClick={() => fetchData("adoption")}>
                         <Box as='span' flex='1' textAlign='left'>
-                            Заявки на адопцію
+                            {t("tables.adoption")}
                         </Box>
                         <AccordionIcon />
                     </AccordionButton>
@@ -294,17 +298,15 @@ const Dashboard = () => {
                 <AccordionPanel pb={4}>
                     <TableContainer>
                         <Table variant='simple'>
-                            <TableCaption>База заявок на адопцію</TableCaption>
+                            <TableCaption>{t("tables.adoptionCaption")}</TableCaption>
                             <Thead>
                                 <Tr>
-                                    <Th>Фото</Th>
-                                    <Th>Вид</Th>
-                                    <Th>Користувач</Th>
-                                    <Th>Електронна пошта</Th>
-                                    <Th>Номер телефону</Th>
-                                    <Th>Адреса</Th>
-                                    <Th>Висновок ШІ</Th>
-                                    <Th>Дії</Th>
+                                    <Th>{t("fields.image")}</Th>
+                                    <Th>{t("fields.species")}</Th>
+                                    <Th>{t("fields.user")}</Th>
+                                    <Th>{t("fields.email")}</Th>
+                                    <Th>{t("fields.aiConclusion")}</Th>
+                                    <Th>{t("fields.actions")}</Th>
                                 </Tr>
                             </Thead>
                             <Tbody>
@@ -322,20 +324,22 @@ const Dashboard = () => {
                                             <Td>{req.species}</Td>
                                             <Td>{req.user}</Td>
                                             <Td>{req.email}</Td>
-                                            <Td>{req.phoneNumber}</Td>
-                                            <Td>{req.address}</Td>
-                                            <Td>{req.aiConclusion}</Td>
+                                            <Td>
+                                                <Tooltip content={req.aiConclusion} showArrow portalled={false}>
+                                                    <Button variant="outline" colorScheme="orange">{t("fields.aiConclusion")}</Button>
+                                                </Tooltip>
+                                            </Td>
                                             <Td>
                                                 <ButtonGroup gap='4'>
                                                     <Button
                                                         colorScheme='teal'
                                                         onClick={() => handleAdoptionRequest(req.id, "approve", req.email)}>
-                                                        Прийняти
+                                                        {t("actions.accept")}
                                                     </Button>
                                                     <Button
                                                         colorScheme='red'
                                                         onClick={() => handleAdoptionRequest(req.id, "deny", req.email)}>
-                                                        Відхилити
+                                                        {t("actions.deny")}
                                                     </Button>
                                                 </ButtonGroup>
                                             </Td>
