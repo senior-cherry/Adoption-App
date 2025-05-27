@@ -1,58 +1,77 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import PetLayout from "@/layouts/PetLayout";
-import { Grid, Center, Text, Box, Flex, Badge, Alert, AlertIcon, AlertTitle, AlertDescription } from "@chakra-ui/react";
+import {
+    Grid,
+    Center,
+    Text,
+    Box,
+    Flex,
+    Badge,
+    Alert,
+    AlertIcon,
+    AlertTitle,
+    AlertDescription,
+    Button,
+} from "@chakra-ui/react";
 import CardComponent from "@/components/CardComponent";
-import {useLocale, useTranslations} from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Loading from "@/components/Loading";
 
 export default function Pets() {
     const locale = useLocale();
     const t = useTranslations("pets-page");
     const searchParams = useSearchParams();
+    const router = useRouter();
+
     const [pets, setPets] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [filterInfo, setFilterInfo] = useState({
         isFiltered: false,
         isRecommended: false,
         categories: [],
-        totalRecommended: 0
+        totalRecommended: 0,
     });
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPets, setTotalPets] = useState(0);
+    const petsPerPage = 8;
+
+    const cat = searchParams.get("cat") || "";
+    const recommended = searchParams.get("recommended") || "";
+    const pageParam = parseInt(searchParams.get("page") || "1", 10);
+
     useEffect(() => {
+        if (!searchParams.get("page")) {
+            const params = new URLSearchParams(searchParams.toString());
+            params.set("page", "1");
+            router.replace(`?${params.toString()}`);
+        }
+
         const fetchPets = async () => {
             setIsLoading(true);
-            const cat = searchParams.get("cat");
-            const recommended = searchParams.get("recommended");
+            setCurrentPage(pageParam);
 
             try {
-                let queryUrl = "/api/pets";
                 const params = new URLSearchParams();
+                if (cat) params.set("cat", cat);
+                if (recommended) params.set("recommended", recommended);
+                params.set("page", pageParam.toString());
+                params.set("limit", petsPerPage.toString());
 
-                if (recommended) {
-                    params.append("recommended", recommended);
-                }
-
-                if (cat) {
-                    params.append("cat", cat);
-                }
-
-                if (params.toString()) {
-                    queryUrl += `?${params.toString()}`;
-                }
-
-                const res = await fetch(queryUrl);
+                const res = await fetch(`/api/pets?${params.toString()}`);
                 const data = await res.json();
-                setPets(data);
+
+                setPets(data.pets || []);
+                setTotalPets(data.totalCount || 0);
 
                 setFilterInfo({
                     isFiltered: Boolean(cat || recommended),
                     isRecommended: Boolean(recommended),
                     categories: cat ? cat.split(",") : [],
-                    totalRecommended: recommended ? recommended.split(",").length : 0
+                    totalRecommended: recommended ? recommended.split(",").length : 0,
                 });
-
             } catch (error) {
                 console.error("Error fetching pets:", error);
                 setPets([]);
@@ -62,7 +81,15 @@ export default function Pets() {
         };
 
         fetchPets();
-    }, [searchParams, locale]);
+    }, [cat, recommended, pageParam, locale]);
+
+    const handlePageChange = (page: number) => {
+        const params = new URLSearchParams(searchParams.toString());
+        params.set("page", page.toString());
+        router.push(`?${params.toString()}`);
+    };
+
+    const totalPages = Math.ceil(totalPets / petsPerPage);
 
     const getStatusMessage = () => {
         if (filterInfo.isRecommended) {
@@ -72,16 +99,20 @@ export default function Pets() {
             if (foundCount < requestedCount) {
                 return {
                     type: "warning",
-                    title: locale === 'uk' ? "Деякі рекомендації недоступні" : "Some recommendations are unavailable",
-                    message: locale === 'uk' ? `Знайдено ${foundCount} з ${requestedCount} рекомендованих улюбленців. Деякі вже можуть бути недоступними.`
-                        : `Showing ${foundCount} of ${requestedCount} recommended pets. Some may no longer be available.`
+                    title: locale === "uk" ? "Деякі рекомендації недоступні" : "Some recommendations are unavailable",
+                    message:
+                        locale === "uk"
+                            ? `Знайдено ${foundCount} з ${requestedCount} рекомендованих улюбленців. Деякі вже можуть бути недоступними.`
+                            : `Showing ${foundCount} of ${requestedCount} recommended pets. Some may no longer be available.`,
                 };
             } else if (foundCount > 0) {
                 return {
                     type: "success",
-                    title: locale === 'uk' ? "Ми знайшли чудові варіанти для вас" : "Perfect matches were found for you",
-                    message: locale === 'uk' ? `Було знайдено ${foundCount} улюбленців відповідно до вашого стилю життя і побажань.`
-                        :`We found ${foundCount} pets that match your lifestyle and preferences.`
+                    title: locale === "uk" ? "Ми знайшли чудові варіанти для вас" : "Perfect matches were found for you",
+                    message:
+                        locale === "uk"
+                            ? `Було знайдено ${foundCount} улюбленців відповідно до вашого стилю життя і побажань.`
+                            : `We found ${foundCount} pets that match your lifestyle and preferences.`,
                 };
             }
         }
@@ -122,7 +153,7 @@ export default function Pets() {
                             {filterInfo.isRecommended ? `${t("byCategory")}:` : `${t("filteredBy")}:`}
                         </Text>
                         <Flex gap={2} flexWrap="wrap">
-                            {filterInfo.categories.map(cat => (
+                            {filterInfo.categories.map((cat) => (
                                 <Badge
                                     key={cat}
                                     colorScheme={filterInfo.isRecommended ? "green" : "blue"}
@@ -139,36 +170,44 @@ export default function Pets() {
                 )}
 
                 {pets.length > 0 ? (
-                    <Grid gap={10} className="pet-grid">
-                        {pets.map((pet, index) => (
-                            <Box key={pet.id} position="relative">
-                                <CardComponent pet={pet} />
-                                {filterInfo.isRecommended && (
-                                    <Badge
-                                        position="absolute"
-                                        top={2}
-                                        right={2}
-                                        colorScheme="green"
-                                        variant="solid"
-                                        borderRadius="full"
-                                        px={2}
-                                        py={1}
-                                        fontSize="xs"
-                                        zIndex={1}
-                                    >
-                                        #{index + 1} {t("match")}
-                                    </Badge>
-                                )}
-                            </Box>
-                        ))}
-                    </Grid>
+                    <>
+                        <Grid gap={10} className="pet-grid">
+                            {pets.map((pet, index) => (
+                                <Box key={pet.id} position="relative">
+                                    <CardComponent pet={pet} />
+                                    {filterInfo.isRecommended && (
+                                        <Badge
+                                            position="absolute"
+                                            top={2}
+                                            right={2}
+                                            colorScheme="green"
+                                            variant="solid"
+                                            borderRadius="full"
+                                            px={2}
+                                            py={1}
+                                            fontSize="xs"
+                                            zIndex={1}
+                                        >
+                                            #{index + 1} {t("match")}
+                                        </Badge>
+                                    )}
+                                </Box>
+                            ))}
+                        </Grid>
+
+                        {totalPages > 1 && (
+                            <Flex mt={10} mb={10} gap={2} wrap="wrap" justify="center">
+                                {[...Array(totalPages)].map((_, i) => (
+                                    <Button key={i} onClick={() => handlePageChange(i + 1)} colorScheme={currentPage === (i + 1) ? "orange" : "gray"}>
+                                        {i + 1}
+                                    </Button>
+                                ))}
+                            </Flex>
+                        )}
+
+                    </>
                 ) : (
-                    <Center
-                        h="200px"
-                        w="full"
-                        maxW="4xl"
-                        flexDirection="column"
-                    >
+                    <Center h="200px" w="full" maxW="4xl" flexDirection="column">
                         <Text fontSize="lg" color="gray.600" mb={2}>
                             {t("noPets")}
                         </Text>
@@ -181,3 +220,4 @@ export default function Pets() {
         </PetLayout>
     );
 }
+

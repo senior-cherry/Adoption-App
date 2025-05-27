@@ -6,63 +6,59 @@ export const GET = async (req: NextRequest) => {
     const cat = searchParams.get("cat");
     const recommended = searchParams.get("recommended");
 
+    const page = parseInt(searchParams.get("page") || "1", 10);
+    const limit = parseInt(searchParams.get("limit") || "8", 10);
+    const skip = (page - 1) * limit;
+
     try {
         if (recommended) {
-            const petIds = recommended.split(',');
+            const petIds = recommended.split(",");
 
-            const pets = await prisma.pet.findMany({
+            let pets = await prisma.pet.findMany({
                 where: {
-                    id: {in: petIds},
-                    ...(cat ? {
-                        catSlug: {
-                            in: cat.split(',')
+                    id: { in: petIds },
+                    ...(cat
+                        ? {
+                            catSlug: {
+                                in: cat.split(","),
+                            },
                         }
-                    } : {})
+                        : {}),
                 },
-                include: {
-                    category: true
-                }
+                include: { category: true },
             });
 
-            const sortedPets = petIds.map(id =>
-                pets.find(pet => pet.id === id)
-            ).filter(Boolean);
+            const sortedPets = petIds.map((id) => pets.find((pet) => pet.id === id)).filter(Boolean);
 
-            return NextResponse.json(sortedPets);
-        }
+            const paginated = sortedPets.slice(skip, skip + limit);
 
-        else if (cat) {
-            const categorySlugs = cat.split(',');
-
-            const pets = await prisma.pet.findMany({
-                where: {
-                    catSlug: {in: categorySlugs}
-                },
-                include: {
-                    category: true
-                }
+            return NextResponse.json({
+                pets: paginated,
+                totalCount: sortedPets.length,
             });
-
-            return NextResponse.json(pets);
         }
 
-        else {
-            const pets = await prisma.pet.findMany({
-                where: {
-                    isFeatured: true
-                },
-                include: {
-                    category: true
-                }
-            });
+        const baseFilter = cat ? { catSlug: { in: cat.split(",") } } : { isFeatured: true };
 
-            return NextResponse.json(pets);
-        }
+        const [pets, totalCount] = await Promise.all([
+            prisma.pet.findMany({
+                where: baseFilter,
+                skip,
+                take: limit,
+                include: { category: true },
+            }),
+            prisma.pet.count({ where: baseFilter }),
+        ]);
+
+        return NextResponse.json({ pets, totalCount });
     } catch (err) {
         console.error("Error fetching pets:", err);
-        return NextResponse.json({ message: "Something went wrong!" }, { status: 500 });
+        return NextResponse.json(
+            { message: "Something went wrong!" },
+            { status: 500 }
+        );
     }
-}
+};
 
 export const POST = async (req: NextRequest) => {
     try {
