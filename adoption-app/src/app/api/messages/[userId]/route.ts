@@ -9,7 +9,7 @@ type Params = {
 
 export const GET = async (req: NextRequest, {params}: Params) => {
     try {
-        const messages = await prisma.messages.findMany({
+        const messages = await prisma.message.findMany({
             where: {
                 user: params.userId,
             },
