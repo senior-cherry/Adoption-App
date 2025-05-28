@@ -17,7 +17,8 @@ type Inputs = {
     desc: string;
     engDesc: string;
     catSlug: string;
-    isFeatured: boolean
+    isFeatured: boolean;
+    imageUrl: string;
 };
 
 type Params = {

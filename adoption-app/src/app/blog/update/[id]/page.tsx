@@ -10,6 +10,7 @@ type Inputs = {
     engName: string;
     description: string;
     engDescription: string;
+    imageUrl: string;
 };
 
 type Params = {
