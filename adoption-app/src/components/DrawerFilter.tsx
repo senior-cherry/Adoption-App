@@ -47,7 +47,7 @@ const DrawerFilter = () => {
         setSelectedCategories(options);
     };
 
-    const handleInputChange = (e) => {
+    const handleInputChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const { name, value } = e.target;
         setFormData(prev => ({
             ...prev,
