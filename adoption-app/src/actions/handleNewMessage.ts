@@ -19,7 +19,7 @@ export const handleNewMessage = async (formData: FormData) => {
     const t = getTranslations("ai-helper");
 
     const openai = new OpenAI({
-        apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
+        apiKey: process.env.OPENAI_API_KEY,
     });
 
     const userId = auth().userId || "guest";
