@@ -4,7 +4,8 @@ export type CategoryType = {
     engName: string,
     description: string,
     engDescription: string,
-    pets: PetType[]
+    pets: PetType[],
+    slug: string
 };
 
 export type PetType = {
