@@ -43,7 +43,7 @@ const DrawerFilter = () => {
         }
     }, [searchParams]);
 
-    const handleCategoriesChange = (options) => {
+    const handleCategoriesChange = (options: string[]) => {
         setSelectedCategories(options);
     };
 
