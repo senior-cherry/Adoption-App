@@ -13,7 +13,9 @@ type Inputs = {
 };
 
 type Params = {
-    id: string;
+    params: {
+        id: string;
+    };
 }
 
 const UpdatePostPage = ({ params }: Params) => {
