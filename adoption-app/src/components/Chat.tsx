@@ -14,14 +14,19 @@ const Chat = async ({ chatId }: ChatProps) => {
         return <div className="p-4">You must be signed in to view this page.</div>;
     }
 
-    const messages = await prisma.message.findMany({
+    const rawMessages = await prisma.message.findMany({
         where: { chat_id: chatId, user_id: userId },
         orderBy: { createdAt: "asc" },
         select: { id: true, content: true, role: true },
     });
 
+    const messages = rawMessages.map((msg) => ({
+        id: msg.id,
+        content: msg.content,
+        role: msg.role as "user" | "assistant",
+    }));
+
     return <ChatClient chatId={chatId} initialMessages={messages} />;
 };
 
 export default Chat;
-
