@@ -40,5 +40,7 @@ export type AdoptionType = {
     pet: string,
     imageUrl: string,
     user: string,
-    email: string
+    email: string,
+    species: string,
+    aiConclusion: string
 };
