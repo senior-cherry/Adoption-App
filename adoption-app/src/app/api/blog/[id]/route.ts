@@ -40,7 +40,7 @@ export async function DELETE(request: NextRequest, {params}: Params) {
         const post = await prisma.post.delete({
             where: {id}
         });
-        return NextResponse(JSON.stringify(post), { status: 200 });
+        return new NextResponse(JSON.stringify(post), { status: 200 });
     } catch (e) {
         return new NextResponse(JSON.stringify({ message: "Something went wrong!" }), { status: 500 });
     }
