@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import {NextRequest, NextResponse} from "next/server";
 import { prisma } from "@/utils/connect";
 import OpenAI from "openai";
 
@@ -6,7 +6,7 @@ const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
 });
 
-export async function POST(req) {
+export async function POST(req: NextRequest) {
     try {
         const body = await req.json();
         const { income, space, freeTime, experience, kids, categories } = body;
