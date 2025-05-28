@@ -19,6 +19,14 @@ import CardComponent from "@/components/CardComponent";
 import { useLocale, useTranslations } from "next-intl";
 import Loading from "@/components/Loading";
 
+type StatusType = "info" | "error" | "success" | "loading" | "warning";
+
+type StatusMessage = {
+    type: StatusType;
+    title: string;
+    message: string;
+} | null;
+
 export default function Pets() {
     const locale = useLocale();
     const t = useTranslations("pets-page");
@@ -96,7 +104,7 @@ export default function Pets() {
 
     const totalPages = Math.ceil(totalPets / petsPerPage);
 
-    const getStatusMessage = () => {
+    const getStatusMessage = (): StatusMessage => {
         if (filterInfo.isRecommended) {
             const foundCount = pets.length;
             const requestedCount = filterInfo.totalRecommended;
