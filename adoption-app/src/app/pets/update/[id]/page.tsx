@@ -139,8 +139,8 @@ const UpdatePage = ({ params }: Params) => {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    imageUrl: uploadedImageName,
                     ...inputs,
+                    imageUrl: uploadedImageName,
                 }),
             });
 
