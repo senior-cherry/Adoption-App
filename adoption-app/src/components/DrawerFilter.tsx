@@ -15,10 +15,11 @@ import {
 import CategoryDropdown from "@/components/CategoryDropdown";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from 'next-intl';
+import {CategoryType} from "@/types/types";
 
 const DrawerFilter = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const [selectedCategories, setSelectedCategories] = useState([]);
+    const [selectedCategories, setSelectedCategories] = useState<CategoryType[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
     const searchParams = useSearchParams();
