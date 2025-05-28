@@ -244,7 +244,7 @@ const DrawerFilter = () => {
                         </Button>
                         <Button
                             colorScheme="blue"
-                            onClick={handleSubmit}
+                            type="submit"
                             isLoading={isLoading}
                             loadingText={t('loadingText')}
                         >
