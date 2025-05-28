@@ -27,7 +27,12 @@ export default function Pets() {
 
     const [pets, setPets] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [filterInfo, setFilterInfo] = useState({
+    const [filterInfo, setFilterInfo] = useState<{
+        isFiltered: boolean;
+        isRecommended: boolean;
+        categories: string[];
+        totalRecommended: number;
+    }>({
         isFiltered: false,
         isRecommended: false,
         categories: [],
