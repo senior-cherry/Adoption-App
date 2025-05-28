@@ -4,7 +4,7 @@ import {prisma} from "@/utils/connect";
 export const POST = async (req: NextRequest) => {
     try {
         const body = await req.json();
-        const message = await prisma.messages.create({
+        const message = await prisma.message.create({
             data: body
         });
         return new NextResponse(JSON.stringify(message), { status: 201 });
