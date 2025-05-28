@@ -160,13 +160,15 @@ const AdoptionForm = () => {
             })
         }
         } catch (err) {
+            const message = err instanceof Error ? err.message : 'Невідома помилка';
+
             toast({
                 title: 'Помилка',
-                description: err.message,
+                description: message,
                 status: 'error',
                 duration: 5000,
                 isClosable: true,
-            })
+            });
         }
     };
 
