@@ -78,7 +78,7 @@ const DrawerFilter = () => {
                     throw new Error('Failed to get recommendations');
                 }
 
-                const recommendedPets = await response.json();
+                const recommendedPets: { id: string }[] = await response.json();
 
                 if (recommendedPets && recommendedPets.length > 0) {
                     const petIds = recommendedPets.map(pet => pet.id).join(',');
