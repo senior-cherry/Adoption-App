@@ -1,12 +1,17 @@
 "use client";
-
 import { useRouter } from "next/navigation";
 import { Button, ButtonGroup, Text } from "@chakra-ui/react";
 import { useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 import {useTranslations} from "next-intl";
 
-const AdoptButtonGroup = ({ pet_id, imageUrl, species }) => {
+type AdoptButtonProps = {
+    pet_id: string,
+    imageUrl: string,
+    species: string
+}
+
+const AdoptButtonGroup = ({ pet_id, imageUrl, species }: AdoptButtonProps) => {
     const { isLoaded, user } = useUser();
     const router = useRouter();
     const t = useTranslations("adoptBtnGroup");
