@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
             return NextResponse.json([]);
         }
 
-        let petsQuery = {
+        let petsQuery: any = {
             select: {
                 id: true,
                 name: true,
