@@ -14,6 +14,7 @@ import {useLocale} from "next-intl";
 interface Category {
     id: number;
     name: string;
+    engName: string;
     slug: string;
 }
 
