@@ -86,7 +86,11 @@ export async function POST(req: NextRequest) {
             temperature: 0.7,
         });
 
-        const aiResponse = response.choices[0].message.content?.trim();
+        const aiResponse = response.choices[0].message.content?.trim() || "";
+
+        if (!aiResponse) {
+            return NextResponse.json({ message: "No response from AI" }, { status: 500 });
+        }
 
         let recommendedPetIds;
         try {
