@@ -325,7 +325,7 @@ const Dashboard = () => {
                                             <Td>{req.user}</Td>
                                             <Td>{req.email}</Td>
                                             <Td>
-                                                <Tooltip content={req.aiConclusion} showArrow portalled={false}>
+                                                <Tooltip content={req.aiConclusion as string} showArrow portalled={false}>
                                                     <Button variant="outline" colorScheme="orange">{t("fields.aiConclusion")}</Button>
                                                 </Tooltip>
                                             </Td>
