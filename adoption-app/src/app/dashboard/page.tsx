@@ -38,7 +38,7 @@ const handleAdoptionRequest = async (id: String, decision: string, email: string
     const message = await sendEmail(email, decision);
 
     if (message.success) {
-        revalidatePath();
+        revalidatePath("/");
     }
 }
 
