@@ -15,7 +15,7 @@ const getData = async () => {
 }
 
 const Blog = async () => {
-    const posts: PostType = await getData();
+    const posts: PostType[] = await getData();
 
     return (
         <div className="my-16 max-w-4xl mx-auto px-4 md:px-0 space-y-8">

@@ -1,17 +1,24 @@
 export type CategoryType = {
     id: string;
     name: string,
+    engName: string,
     description: string,
+    engDescription: string,
     pets: PetType[]
 };
 
 export type PetType = {
     id: string,
     name: string,
+    engName: string,
     species: string,
+    engSpecies: string,
     age: string,
+    engAge: string,
     gender: string,
+    engGender: string,
     desc: string,
+    engDesc: string,
     imageUrl: string,
     isFeatured: boolean,
     category: CategoryType,
@@ -21,7 +28,9 @@ export type PetType = {
 export type PostType = {
     id: string,
     name: string,
+    engName: string,
     description: string,
+    engDescription: string,
     imageUrl: string,
     createdAt: number | Date
 };
