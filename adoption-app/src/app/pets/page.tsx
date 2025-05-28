@@ -18,6 +18,7 @@ import {
 import CardComponent from "@/components/CardComponent";
 import { useLocale, useTranslations } from "next-intl";
 import Loading from "@/components/Loading";
+import {PetType} from "@/types/types";
 
 type StatusType = "info" | "error" | "success" | "loading" | "warning";
 
@@ -33,7 +34,7 @@ export default function Pets() {
     const searchParams = useSearchParams();
     const router = useRouter();
 
-    const [pets, setPets] = useState([]);
+    const [pets, setPets] = useState<PetType[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [filterInfo, setFilterInfo] = useState<{
         isFiltered: boolean;
