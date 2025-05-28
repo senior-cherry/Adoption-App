@@ -86,7 +86,7 @@ export async function POST(req: NextRequest) {
             temperature: 0.7,
         });
 
-        const aiResponse = response.choices[0].message.content.trim();
+        const aiResponse = response.choices[0].message.content?.trim();
 
         let recommendedPetIds;
         try {
