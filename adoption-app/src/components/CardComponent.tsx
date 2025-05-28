@@ -3,19 +3,9 @@ import {Button, ButtonGroup, Divider, Heading, Image, Stack, Text} from "@chakra
 import AdoptButtonGroup from "@/components/AdoptButtonGroup";
 import Link from "next/link";
 import {useLocale, useTranslations} from "next-intl";
+import {PetType} from "@/types/types";
 
-type CardProps = {
-        pet: {
-            id: string;
-            imageUrl: string;
-            name: string;
-            species: string;
-            gender: string;
-            age: string;
-        }
-}
-
-const CardComponent = ({pet}: CardProps, key: string) => {
+const CardComponent = ({pet}: PetType, key: string) => {
     const locale = useLocale();
     const t = useTranslations("adoptBtnGroup");
     return (
