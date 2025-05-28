@@ -3,9 +3,23 @@ import {Button, ButtonGroup, Divider, Heading, Image, Stack, Text} from "@chakra
 import AdoptButtonGroup from "@/components/AdoptButtonGroup";
 import Link from "next/link";
 import {useLocale, useTranslations} from "next-intl";
-import {PetType} from "@/types/types";
 
-const CardComponent = ({pet}: PetType, key: string) => {
+type CardProps = {
+        pet: {
+            id: string;
+            imageUrl: string;
+            name: string;
+            engName: string;
+            species: string;
+            engSpecies: string;
+            gender: string;
+            engGender: string;
+            age: string;
+            engAge: string;
+        }
+}
+
+const CardComponent = ({pet}: CardProps, key: string) => {
     const locale = useLocale();
     const t = useTranslations("adoptBtnGroup");
     return (
