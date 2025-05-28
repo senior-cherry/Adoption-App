@@ -111,6 +111,7 @@ import { v4 as uuidv4 } from "uuid";
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/utils/connect";
 import { getTranslations } from "next-intl/server";
+import {ChatCompletionMessageParam} from "openai/resources/chat/completions";
 
 export const handleNewMessage = async (formData: FormData) => {
     const t = getTranslations("ai-helper");
@@ -170,7 +171,7 @@ export const handleNewMessage = async (formData: FormData) => {
             where: { chat_id: chatId, user_id: userId },
             orderBy: { createdAt: "asc" },
             select: { role: true, content: true },
-        });
+        }) as ChatCompletionMessageParam[];
 
         const response = await openai.chat.completions.create({
             model: "gpt-3.5-turbo",
