@@ -11,7 +11,7 @@ export const GET = async (req: NextRequest, {params}: Params) => {
     try {
         const messages = await prisma.message.findMany({
             where: {
-                user: params.userId,
+                user_id: params.userId,
             },
             orderBy: {
                 createdAt: 'asc'
