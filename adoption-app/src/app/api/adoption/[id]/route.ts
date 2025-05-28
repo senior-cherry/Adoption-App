@@ -2,7 +2,9 @@ import {NextRequest, NextResponse} from "next/server";
 import {prisma} from "@/utils/connect";
 
 type Params = {
-    id: string;
+    params: {
+        id: string;
+    }
 }
 
 export const PATCH = async (req: NextRequest, { params }: Params) => {

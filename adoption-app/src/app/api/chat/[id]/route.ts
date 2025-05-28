@@ -1,6 +1,11 @@
 import {prisma} from "@/utils/connect";
 import {NextRequest, NextResponse} from "next/server";
-import {Params} from "next/dist/shared/lib/router/utils/route-matcher";
+
+type Params = {
+    params: {
+        id: string;
+    }
+}
 
 export async function DELETE(request: NextRequest, { params }: Params) {
     const id = params.id;

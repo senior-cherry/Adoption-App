@@ -2,7 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/utils/connect";
 
 type Params = {
-    userId: string;
+    params: {
+        userId: string;
+    }
 }
 
 export const GET = async (req: NextRequest, { params }: Params) => {

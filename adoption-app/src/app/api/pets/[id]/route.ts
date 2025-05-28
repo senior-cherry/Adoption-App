@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/utils/connect";
-import {Params} from "next/dist/shared/lib/router/utils/route-matcher";
+
+type Params = {
+    params: {
+        id: string;
+    }
+}
 
 export const GET = async (req: NextRequest, { params }: Params) => {
     const id = params.id;
