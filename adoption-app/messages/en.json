@@ -1,0 +1,202 @@
+{
+  "adoptionFormQuestions": {
+    "age": "Age of candidate",
+    "phoneNumber": "Contact phone number",
+    "email": "Email",
+    "address": "Residential address",
+    "aptType": "Type of housing",
+    "petsAllowed": "Are pets allowed in your residence?",
+    "kids": "Do you have children?",
+    "otherAnimals": "Do you have other pets? If yes, which ones?",
+    "liveWith": "Do you live alone or with someone?",
+    "employmentStatus": "Your employment status",
+    "incomeLevel": "Approximate income level",
+    "animalsBefore": "Have you had pets before?",
+    "nutritionalNeeds": "What are the dietary needs of your potential pet?",
+    "reasonToAdoptPet": "Why do you want to adopt a pet?",
+    "characterPreferences": "What qualities do you expect from a pet?",
+    "lifeChangingActions": "What will you do if your life circumstances change (moving, new job, having children)?",
+    "psychologicalDiseases": "Do you have any diagnosed mental health conditions that might affect pet care?",
+    "tendencyToBeImpulsive": "Do you tend to make impulsive decisions?",
+    "emotionalStability": "Do you consider yourself emotionally stable?",
+    "reactionToStress": "How do you usually react to stressful situations?",
+    "uncontrolledAnger": "Have you ever experienced uncontrolled outbursts of anger?",
+    "blamesForAnger": "Do you feel guilt or regret after losing control of your emotions?",
+    "attitudeToSpending": "How do you feel about the time and resources required to care for a pet?",
+    "attitudeToBadBehaviour": "How would you react if the pet behaves differently than expected?",
+    "requireLove": "Do you believe that animals have emotions and need love?",
+    "isAbleToFollowSchedule": "Will you be able to maintain a daily routine for pet care (feeding, walking, vet check-ups)?",
+    "friendlySupport": "Do you have support from family or friends in case of difficulties in pet care?",
+    "allergyToFur": "Do you have an allergy to pet fur?",
+    "howToRaisePet": "How do you plan to train your pet?",
+    "reactionToBadAction": "If the pet damages something at home, how will you react?",
+    "isPunishmentNecessary": "Do you think punishment is necessary in pet training?"
+  },
+  "adoptionFormOptions": {
+    "select": "Select...",
+    "rentFlat": "Apartment (rented)",
+    "rentHouse": "House (rented)",
+    "ownFlat": "Apartment (owned)",
+    "ownHouse": "House (owned)",
+    "alone": "Alone",
+    "family": "Family",
+    "friends": "Friends",
+    "employed": "Employed",
+    "student": "Student",
+    "unemployed": "Unemployed",
+    "retired": "Retired",
+    "lessThanFiveHundred": "Less than $500",
+    "moreThanTwoThousand": "More than $2000",
+    "calm": "Calmly",
+    "worry": "Worry but control emotions",
+    "panic": "Panic",
+    "ready": "Ready",
+    "notSure": "Not sure",
+    "notReady": "Not ready",
+    "patience": "Will patiently train",
+    "refuse": "Would consider giving up the pet",
+    "noIdea": "Don't know",
+    "positive": "Positive reinforcement",
+    "strict": "Strict discipline",
+    "fix": "Calmly fix the situation",
+    "insult": "Scold",
+    "punish": "Punish",
+    "yes": "Yes",
+    "no": "No",
+    "submit": "Submit"
+  },
+  "adoptionRequest": {
+    "message": "You are an expert in screening candidates for pet adoption. Evaluate the following data and make a conclusion.",
+    "conclusion": "Make a conclusion: is this user suitable for adoption? The answer should be short: Recommended or Not Recommended (brief reason why).",
+    "error": "Error processing the request.",
+    "species": "Species to adopt"
+  },
+  "ai-helper": {
+    "message": "Give me a hint.",
+    "systemMessage": "You are an AI assistant for a pet adoption center.\nYour job is to provide helpful guidance based on the user's current page and role.",
+    "role": "User role",
+    "page": "Current page",
+    "task": "Respond with short and actionable advice."
+  },
+  "email": {
+    "header": "Decision on Your Pet Adoption Application",
+    "approve": "Congratulations! Your application to adopt a pet has been approved. Our team will contact you shortly with the next steps.",
+    "deny": "We appreciate your interest in adopting a pet. After careful consideration, your application was not approved. Feel free to apply again in the future."
+  },
+  "header": {
+    "about": "About us",
+    "pets": "Pets",
+    "blog": "Blog",
+    "chat": "Chat",
+    "dashboard": "Dashboard"
+  },
+  "footer": {
+    "heading": "Find your companion",
+    "paragraph": "Visit our shelter or find pet on website",
+    "mainBtn": "Main page",
+    "petsBtn": "Find pet",
+    "rights": "All rights reserved."
+  },
+  "adoptBtnGroup": {
+    "btnDisabled": "Sign in to apply",
+    "btnIsLoading": "Verifying",
+    "underReviewBtn": "Under review",
+    "adoptBtn": "Adopt pet",
+    "moreInfoBtn": "Learn more"
+  },
+  "pets-page": {
+    "loading": "Loading",
+    "match": "Match",
+    "byCategory": "From categories",
+    "filteredBy": "Filtered by",
+    "noPets": "No pets found",
+    "adjustCriteria": "Try adjusting your search criteria"
+  },
+  "drawer-filter": {
+    "applyBtn": "Apply Filters",
+    "cancelBtn": "Cancel",
+    "clearBtn": "Clear All",
+    "toastTitle": "No matching pets found",
+    "toastDescription": "Try adjusting your preferences or browse by categories",
+    "errorTitle": "Error applying filters",
+    "errorDescription": "Something went wrong. Please try again.",
+    "filterBtn": "Filter Pets",
+    "drawerHeader": "Find Your Perfect Pet",
+    "categories": "Categories",
+    "drawerText": "Tell us about yourself for AI recommendations",
+    "loadingText": "Applying..."
+  },
+  "filter-form": {
+    "income": {
+      "label": "Your monthly income",
+      "placeholder": "Select your income range",
+      "under_1000": "Under $1,000",
+      "1000_3000": "$1,000–3,000",
+      "3000_5000": "$3,000–5,000",
+      "over_5000": "Over $5,000"
+    },
+    "space": {
+      "label": "Your living situation",
+      "placeholder": "Select your living space",
+      "rent_apartment": "Renting an apartment",
+      "own_apartment": "Own an apartment",
+      "rent_house": "Renting a house",
+      "own_house": "Own a house"
+    },
+    "freeTime": {
+      "label": "Your free time per week",
+      "placeholder": "Select free time",
+      "less_than_5": "Less than 5 hours",
+      "5_10": "5–10 hours",
+      "10_20": "10–20 hours",
+      "20_plus": "More than 20 hours"
+    },
+    "experience": {
+      "label": "Your experience with pets",
+      "placeholder": "Select experience level",
+      "none": "No experience",
+      "some": "Some experience",
+      "experienced": "Experienced pet owner"
+    },
+    "kids": {
+      "label": "Do you have children?",
+      "placeholder": "Select one",
+      "no": "No",
+      "yes_under_5": "Yes, under 5 years old",
+      "yes_over_5": "Yes, over 5 years old",
+      "yes_mixed": "Yes, mixed ages"
+    }
+  },
+  "dashboard": {
+    "message": {
+      "notAllowed": "You must have admin rights to view this page.",
+      "loading": "Loading"
+    },
+    "tables": {
+      "pets": "Pets",
+      "categories": "Categories",
+      "articles": "Articles",
+      "adoption": "Adoption requests",
+      "adoptionCaption": "Adoption requests data"
+    },
+    "actions": {
+      "add": "Add",
+      "update": "Update",
+      "accept": "Accept",
+      "deny": "Deny"
+    },
+    "fields": {
+      "image": "Image",
+      "name": "Name",
+      "species": "Species",
+      "age": "Age",
+      "category": "Category",
+      "actions": "Actions",
+      "title": "Title",
+      "description": "Description",
+      "user": "User",
+      "email": "Email",
+      "aiConclusion": "AI conclusion"
+    }
+  }
+}

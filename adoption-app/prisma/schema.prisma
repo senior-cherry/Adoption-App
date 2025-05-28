@@ -1,0 +1,84 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model Pet {
+  id         String    @id @default(cuid())
+  name       String
+  engName    String?    @default("Unnamed")
+  species    String
+  engSpecies String?   @default("Unknown")
+  age        String
+  engAge     String?  @default("Unknown")
+  gender     String    @default("Невідомо")
+  engGender  String?    @default("Unknown")
+  desc       String
+  engDesc    String?     @default("No description")
+  imageUrl   String?
+  isFeatured Boolean   @default(true)
+  category   Category? @relation(fields: [catSlug], references: [slug])
+  catSlug    String?
+  adoptions  Adoption[] @relation("PetAdoptions")
+  createdAt  DateTime  @default(now())
+}
+
+model Category {
+  id          String @id @default(cuid())
+  name        String
+  engName     String? @default("Unnamed")
+  description String
+  engDescription String?  @default("No description")
+  pets        Pet[]
+  slug        String @unique
+}
+
+model Post {
+  id          String   @id @default(cuid())
+  name        String
+  engName     String?  @default("Unnamed")
+  description String
+  engDescription String?  @default("No description")
+  imageUrl    String
+  createdAt   DateTime @default(now())
+}
+
+model Adoption {
+  id                String   @id @default(cuid())
+  pet_id             String?
+  pet            Pet?     @relation("PetAdoptions", fields: [pet_id], references: [id])
+  species           String?  @default("")
+  imageUrl         String
+  user             String
+  user_id           String
+  phoneNumber       String?
+  email            String
+  address           String? @default("")
+  aiConclusion     String?   @default("AI denies adoption process")
+  approval         String   @default("inProcess")
+  createdAt        DateTime @default(now())
+  archivedAt        DateTime?
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  chat_id   String
+  chat      Chat?     @relation(fields: [chat_id], references: [id], onDelete: Cascade)
+  user_id   String
+  content   String
+  role      String
+  createdAt DateTime @default(now())
+}
+
+model Chat {
+  id         String   @id @default(uuid())
+  name       String
+  user_id    String
+  messages   Message[]
+  created_at DateTime @default(now())
+}
