@@ -19,6 +19,11 @@ const getData = async (collection: string) => {
     try {
         const res = await fetch(`/api/${collection}`, { cache: "no-store" });
         const data = await res.json();
+
+        if (collection === "pets" && "pets" in data) {
+            return data.pets;
+        }
+
         return Array.isArray(data) ? data : [];
     } catch (e) {
         console.error(`Fetch error for /api/${collection}:`, e);
@@ -72,7 +77,7 @@ const Dashboard = () => {
             switch (section) {
                 case "pets":
                     data = await getData("pets");
-                    setPets(data.pets);
+                    setPets(data);
                     break;
                 case "categories":
                     data = await getData("categories");
