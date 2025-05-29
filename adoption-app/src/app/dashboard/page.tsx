@@ -72,7 +72,7 @@ const Dashboard = () => {
             switch (section) {
                 case "pets":
                     data = await getData("pets");
-                    setPets(data);
+                    setPets(data.pets);
                     break;
                 case "categories":
                     data = await getData("categories");
