@@ -1,9 +1,11 @@
 import {Image} from "@chakra-ui/react";
 import Link from "next/link";
 import {PostType} from "@/types/types";
+import {getBaseUrl} from "@/utils/getBaseUrl";
 
 const getData = async () => {
-    const res = await fetch(`/api/blog`, {
+    const baseUrl = await getBaseUrl();
+    const res = await fetch(`${baseUrl}/api/blog`, {
         cache: "no-store"
     })
 

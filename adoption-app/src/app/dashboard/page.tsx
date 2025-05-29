@@ -18,7 +18,7 @@ import {Tooltip} from "@/components/Tooltip";
 import {useLocale, useTranslations} from "next-intl";
 
 const getData = async (collection: String) => {
-    const res = await fetch(`${process.env.BASE_URL}/api/${collection}`, {
+    const res = await fetch(`/api/${collection}`, {
         cache: "no-store"
     })
 
@@ -26,7 +26,7 @@ const getData = async (collection: String) => {
 }
 
 const handleAdoptionRequest = async (id: String, decision: string, email: string) => {
-    const res = await fetch(`${process.env.BASE_URL}/api/adoption/${id}`, {
+    const res = await fetch(`/api/adoption/${id}`, {
         method: 'PATCH',
         body: JSON.stringify(decision)
     })
