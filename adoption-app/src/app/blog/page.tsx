@@ -3,7 +3,7 @@ import Link from "next/link";
 import {PostType} from "@/types/types";
 
 const getData = async () => {
-    const res = await fetch(`${process.env.BASE_URL}/api/blog`, {
+    const res = await fetch(`/api/blog`, {
         cache: "no-store"
     })
 
