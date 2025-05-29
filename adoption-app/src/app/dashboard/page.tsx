@@ -17,13 +17,16 @@ import {revalidatePath} from "next/cache";
 import {Tooltip} from "@/components/Tooltip";
 import {useLocale, useTranslations} from "next-intl";
 
-const getData = async (collection: String) => {
-    const res = await fetch(`/api/${collection}`, {
-        cache: "no-store"
-    })
-
-    return res.json();
-}
+const getData = async (collection: string) => {
+    try {
+        const res = await fetch(`/api/${collection}`, { cache: "no-store" });
+        const data = await res.json();
+        return Array.isArray(data) ? data : [];
+    } catch (e) {
+        console.error(`Fetch error for /api/${collection}:`, e);
+        return [];
+    }
+};
 
 const handleAdoptionRequest = async (id: String, decision: string, email: string) => {
     const res = await fetch(`/api/adoption/${id}`, {
