@@ -5,15 +5,15 @@ import { checkUserRole } from "@/utils/userUtils";
 import {
     Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon,
     Box, TableContainer, Table, TableCaption, Thead, Tr, Th, Tbody, Td,
-    Image, ButtonGroup, Button
+    Image, ButtonGroup, Button, useToast
 } from '@chakra-ui/react';
 import Link from "next/link";
 import { AdoptionType, CategoryType, PetType, PostType } from "@/types/types";
 import { sendEmail } from "@/actions/sendEmailMessage";
 import ConfirmModal from "@/components/ConfirmModal";
-import { revalidatePath } from "next/cache";
 import { Tooltip } from "@/components/Tooltip";
 import { useLocale, useTranslations } from "next-intl";
+import {useRouter} from "next/navigation";
 
 const getData = async (collection: string) => {
     try {
@@ -31,24 +31,26 @@ const getData = async (collection: string) => {
     }
 };
 
-const handleAdoptionRequest = async (id: String, decision: string, email: string) => {
-    const res = await fetch(`/api/adoption/${id}`, {
-        method: 'PATCH',
-        body: JSON.stringify(decision)
-    });
-
-    if (!res.ok) {
-        throw new Error("Failed");
-    }
-
-    const message = await sendEmail(email, decision);
-    if (message.success) {
-        revalidatePath("/");
-    }
-};
+// const handleAdoptionRequest = async (router: ReturnType<typeof useRouter>, id: String, decision: string, email: string) => {
+//     const res = await fetch(`/api/adoption/${id}`, {
+//         method: 'PATCH',
+//         body: JSON.stringify(decision)
+//     });
+//
+//     if (!res.ok) {
+//         throw new Error("Failed");
+//     }
+//
+//     const message = await sendEmail(email, decision);
+//     if (message.success) {
+//         router.refresh();
+//     }
+// };
 
 const Dashboard = () => {
     const t = useTranslations("dashboard");
+    const router = useRouter();
+    const toast = useToast();
     const { session } = useSession();
     const { isLoaded } = useUser();
     const userRole = checkUserRole(session);
@@ -97,6 +99,38 @@ const Dashboard = () => {
             console.error(`Error fetching ${section}:`, error);
         }
     };
+
+    const handleAdoptionRequest = async (id: String, decision: string, email: string) => {
+        try {
+            const res = await fetch(`/api/adoption/${id}`, {
+                method: 'PATCH',
+                body: JSON.stringify(decision)
+            });
+
+            if (!res.ok) {
+                throw new Error("Failed");
+            }
+
+            const message = await sendEmail(email, decision);
+            if (message.success) {
+                router.refresh();
+                toast({
+                    title: decision === 'approve' ? 'Успішно схвалено' : 'Відхилено',
+                    status: decision === 'approve' ? 'success' : 'warning',
+                    duration: 3000,
+                    isClosable: true,
+                });
+            }
+        } catch (err) {
+            toast({
+                title: 'Помилка',
+                description: 'Щось пішло не так...',
+                status: 'error',
+                duration: 3000,
+                isClosable: true,
+            });
+        }
+    }
 
     if (isAllowed === false) {
         return <div className="p-4">{t("message.notAllowed")}</div>;

@@ -3,13 +3,16 @@ import AdoptButtonGroup from "@/components/AdoptButtonGroup";
 import { PetType } from "@/types/types";
 import BackButton from "@/components/BackButton";
 import {getLocale} from "next-intl/server";
+import {getBaseUrl} from "@/utils/getBaseUrl";
 
 type Props = {
     params: { id: string };
 };
 
 const getData = async (id: string) => {
-    const res = await fetch(`${process.env.BASE_URL}/api/pets/${id}`, {
+    const baseUrl = await getBaseUrl();
+
+    const res = await fetch(`${baseUrl}/api/pets/${id}`, {
         cache: "no-store",
     });
 

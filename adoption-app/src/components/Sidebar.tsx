@@ -2,10 +2,12 @@ import React from "react";
 import ChatList from "@/components/ChatList";
 import ChatForm from "@/components/ChatForm";
 import {auth} from "@clerk/nextjs/server";
+import {getBaseUrl} from "@/utils/getBaseUrl";
 
 const getData = async () => {
     const userId = auth();
-    const res = await fetch(`/api/chat/user/${userId.userId}`, {
+    const baseUrl = await getBaseUrl();
+    const res = await fetch(`${baseUrl}/api/chat/user/${userId.userId}`, {
         cache: "no-store"
     })
 

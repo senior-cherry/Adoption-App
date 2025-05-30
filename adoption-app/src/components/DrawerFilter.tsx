@@ -141,116 +141,121 @@ const DrawerFilter = () => {
                 <DrawerContent>
                     <DrawerCloseButton />
                     <DrawerHeader>{t('drawerHeader')}</DrawerHeader>
-                    <DrawerBody>
-                        <form onSubmit={handleSubmit}>
-                            <div className="mb-4">
-                                <p className="font-medium mb-2">{t('categories')}</p>
-                                <CategoryDropdown
-                                    onChange={handleCategoriesChange}
-                                    selectedCategories={selectedCategories}
-                                />
-                            </div>
+                        <DrawerBody>
+                            <form id="filter-form" onSubmit={handleSubmit}>
+                                <div className="mb-4">
+                                    <p className="font-medium mb-2">{t('categories')}</p>
+                                    <CategoryDropdown
+                                        onChange={handleCategoriesChange}
+                                        selectedCategories={selectedCategories}
+                                    />
+                                </div>
 
-                            <hr className="my-4" />
+                                <hr className="my-4" />
 
-                            <p className="font-medium mb-3">{t('drawerText')}</p>
+                                <p className="font-medium mb-3">{t('drawerText')}</p>
 
-                            <div className="mt-3">
-                                <label className="block text-sm font-medium">{tf('income.label')}</label>
-                                <select
-                                    name="income"
-                                    value={formData.income}
-                                    onChange={handleInputChange}
-                                    className="w-full p-3 mt-1 text-gray-800 rounded bg-gray-200 focus:outline-none"
-                                >
-                                    <option value="">{tf('income.placeholder')}</option>
-                                    <option value="under_1000">{tf('income.under_1000')}</option>
-                                    <option value="1000_3000">{tf('income.1000_3000')}</option>
-                                    <option value="3000_5000">{tf('income.3000_5000')}</option>
-                                    <option value="over_5000">{tf('income.over_5000')}</option>
-                                </select>
-                            </div>
+                                <div className="mt-3">
+                                    <label className="block text-sm font-medium">{tf('income.label')}</label>
+                                    <select
+                                        name="income"
+                                        value={formData.income}
+                                        onChange={handleInputChange}
+                                        className="w-full p-3 mt-1 text-gray-800 rounded bg-gray-200 focus:outline-none"
+                                    >
+                                        <option value="">{tf('income.placeholder')}</option>
+                                        <option value="under_1000">{tf('income.under_1000')}</option>
+                                        <option value="1000_3000">{tf('income.1000_3000')}</option>
+                                        <option value="3000_5000">{tf('income.3000_5000')}</option>
+                                        <option value="over_5000">{tf('income.over_5000')}</option>
+                                    </select>
+                                </div>
 
-                            <div className="mt-3">
-                                <label className="block text-sm font-medium">{tf('space.label')}</label>
-                                <select
-                                    name="space"
-                                    value={formData.space}
-                                    onChange={handleInputChange}
-                                    className="w-full p-3 mt-1 text-gray-800 rounded bg-gray-200 focus:outline-none"
-                                >
-                                    <option value="">{tf('space.placeholder')}</option>
-                                    <option value="rent_apartment">{tf('space.rent_apartment')}</option>
-                                    <option value="own_apartment">{tf('space.own_apartment')}</option>
-                                    <option value="rent_house">{tf('space.rent_house')}</option>
-                                    <option value="own_house">{tf('space.own_house')}</option>
-                                </select>
-                            </div>
+                                <div className="mt-3">
+                                    <label className="block text-sm font-medium">{tf('space.label')}</label>
+                                    <select
+                                        name="space"
+                                        value={formData.space}
+                                        onChange={handleInputChange}
+                                        className="w-full p-3 mt-1 text-gray-800 rounded bg-gray-200 focus:outline-none"
+                                    >
+                                        <option value="">{tf('space.placeholder')}</option>
+                                        <option value="rent_apartment">{tf('space.rent_apartment')}</option>
+                                        <option value="own_apartment">{tf('space.own_apartment')}</option>
+                                        <option value="rent_house">{tf('space.rent_house')}</option>
+                                        <option value="own_house">{tf('space.own_house')}</option>
+                                    </select>
+                                </div>
 
-                            <div className="mt-3">
-                                <label className="block text-sm font-medium">{tf('freeTime.label')}</label>
-                                <select
-                                    name="freeTime"
-                                    value={formData.freeTime}
-                                    onChange={handleInputChange}
-                                    className="w-full p-3 mt-1 text-gray-800 rounded bg-gray-200 focus:outline-none"
-                                >
-                                    <option value="">{tf('freeTime.placeholder')}</option>
-                                    <option value="less_than_5">{tf('freeTime.less_than_5')}</option>
-                                    <option value="5_10">{tf('freeTime.5_10')}</option>
-                                    <option value="10_20">{tf('freeTime.10_20')}</option>
-                                    <option value="20_plus">{tf('freeTime.20_plus')}</option>
-                                </select>
-                            </div>
+                                <div className="mt-3">
+                                    <label className="block text-sm font-medium">{tf('freeTime.label')}</label>
+                                    <select
+                                        name="freeTime"
+                                        value={formData.freeTime}
+                                        onChange={handleInputChange}
+                                        className="w-full p-3 mt-1 text-gray-800 rounded bg-gray-200 focus:outline-none"
+                                    >
+                                        <option value="">{tf('freeTime.placeholder')}</option>
+                                        <option value="less_than_5">{tf('freeTime.less_than_5')}</option>
+                                        <option value="5_10">{tf('freeTime.5_10')}</option>
+                                        <option value="10_20">{tf('freeTime.10_20')}</option>
+                                        <option value="20_plus">{tf('freeTime.20_plus')}</option>
+                                    </select>
+                                </div>
 
-                            <div className="mt-3">
-                                <label className="block text-sm font-medium">{tf('experience.label')}</label>
-                                <select
-                                    name="experience"
-                                    value={formData.experience}
-                                    onChange={handleInputChange}
-                                    className="w-full p-3 mt-1 text-gray-800 rounded bg-gray-200 focus:outline-none"
-                                >
-                                    <option value="">{tf('experience.placeholder')}</option>
-                                    <option value="none">{tf('experience.none')}</option>
-                                    <option value="some">{tf('experience.some')}</option>
-                                    <option value="experienced">{tf('experience.experienced')}</option>
-                                </select>
-                            </div>
+                                <div className="mt-3">
+                                    <label className="block text-sm font-medium">{tf('experience.label')}</label>
+                                    <select
+                                        name="experience"
+                                        value={formData.experience}
+                                        onChange={handleInputChange}
+                                        className="w-full p-3 mt-1 text-gray-800 rounded bg-gray-200 focus:outline-none"
+                                    >
+                                        <option value="">{tf('experience.placeholder')}</option>
+                                        <option value="none">{tf('experience.none')}</option>
+                                        <option value="some">{tf('experience.some')}</option>
+                                        <option value="experienced">{tf('experience.experienced')}</option>
+                                    </select>
+                                </div>
 
-                            <div className="mt-3">
-                                <label className="block text-sm font-medium">{tf('kids.label')}</label>
-                                <select
-                                    name="kids"
-                                    value={formData.kids}
-                                    onChange={handleInputChange}
-                                    className="w-full p-3 mt-1 text-gray-800 rounded bg-gray-200 focus:outline-none"
-                                >
-                                    <option value="">{tf('kids.placeholder')}</option>
-                                    <option value="no">{tf('kids.no')}</option>
-                                    <option value="yes_under_5">{tf('kids.yes_under_5')}</option>
-                                    <option value="yes_over_5">{tf('kids.yes_over_5')}</option>
-                                    <option value="yes_mixed">{tf('kids.yes_mixed')}</option>
-                                </select>
-                            </div>
-                        </form>
-                    </DrawerBody>
-                    <DrawerFooter>
-                        <Button variant="outline" mr={3} onClick={handleClear}>
-                            {t('clearBtn')}
-                        </Button>
-                        <Button variant="outline" mr={3} onClick={onClose}>
-                            {t('cancelBtn')}
-                        </Button>
-                        <Button
-                            colorScheme="blue"
-                            type="submit"
-                            isLoading={isLoading}
-                            loadingText={t('loadingText')}
-                        >
-                            {t('applyBtn')}
-                        </Button>
-                    </DrawerFooter>
+                                <div className="mt-3">
+                                    <label className="block text-sm font-medium">{tf('kids.label')}</label>
+                                    <select
+                                        name="kids"
+                                        value={formData.kids}
+                                        onChange={handleInputChange}
+                                        className="w-full p-3 mt-1 text-gray-800 rounded bg-gray-200 focus:outline-none"
+                                    >
+                                        <option value="">{tf('kids.placeholder')}</option>
+                                        <option value="no">{tf('kids.no')}</option>
+                                        <option value="yes_under_5">{tf('kids.yes_under_5')}</option>
+                                        <option value="yes_over_5">{tf('kids.yes_over_5')}</option>
+                                        <option value="yes_mixed">{tf('kids.yes_mixed')}</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </DrawerBody>
+                        <DrawerFooter>
+                            <Button variant="outline" mr={3} onClick={handleClear}>
+                                {t('clearBtn')}
+                            </Button>
+                            <Button variant="outline" mr={3} onClick={onClose}>
+                                {t('cancelBtn')}
+                            </Button>
+                            <Button
+                                colorScheme="blue"
+                                isLoading={isLoading}
+                                loadingText={t('loadingText')}
+                                onClick={() => {
+                                    const form = document.getElementById("filter-form") as HTMLFormElement;
+                                    if (form) {
+                                        form.requestSubmit();
+                                    }
+                                }}
+                            >
+                                {t('applyBtn')}
+                            </Button>
+                        </DrawerFooter>
                 </DrawerContent>
             </Drawer>
         </>

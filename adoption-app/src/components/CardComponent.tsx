@@ -23,29 +23,29 @@ const CardComponent = ({pet}: CardProps, key: string) => {
     const locale = useLocale();
     const t = useTranslations("adoptBtnGroup");
     return (
-        <Card w="sm" key={key}>
+        <Card maxW="sm" w="100%" key={key}>
             <CardBody>
-                <Image
-                    src={`/uploads/${pet.imageUrl}`}
-                    alt={pet.imageUrl}
-                    borderRadius='lg'
-                    height="400"
-                    width="100%"
-                />
-                <Stack mt='6' spacing='3'>
-                    <Link href={`/pets/pet/${pet.id}`} className="hover:text-orange-500">
-                        <Heading size='md'>{locale === 'uk' ? pet.name : pet.engName}</Heading>
-                    </Link>
-                    <Text>
-                        {locale === 'uk' ? pet.species : pet.engSpecies}
-                    </Text>
-                    <Text>
-                        {locale === 'uk' ? pet.gender : pet.engGender}
-                    </Text>
-                    <Text color='blue.600' fontSize='2xl'>
-                        {locale === 'uk' ? pet.age : pet.engAge}
-                    </Text>
-                </Stack>
+                    <Image
+                        src={`/uploads/${pet.imageUrl}`}
+                        alt={pet.imageUrl}
+                        borderRadius='lg'
+                        height="400"
+                        width="100%"
+                    />
+                    <Stack mt='6' spacing='3'>
+                        <Link href={`/pets/pet/${pet.id}`} className="hover:text-orange-500">
+                            <Heading size='md'>{locale === 'uk' ? pet.name : pet.engName}</Heading>
+                        </Link>
+                        <Text>
+                            {locale === 'uk' ? pet.species : pet.engSpecies}
+                        </Text>
+                        <Text>
+                            {locale === 'uk' ? pet.gender : pet.engGender}
+                        </Text>
+                        <Text color='blue.600' fontSize='2xl'>
+                            {locale === 'uk' ? pet.age : pet.engAge}
+                        </Text>
+                    </Stack>
             </CardBody>
             <Divider />
             <CardFooter>
