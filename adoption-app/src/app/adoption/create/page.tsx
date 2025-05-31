@@ -114,6 +114,8 @@ const AdoptionForm = () => {
         }
     });
 
+    const [isLoading, setIsLoading] = useState(false);
+
 
     useEffect(() => {
         if (isLoaded && user) {
@@ -138,6 +140,8 @@ const AdoptionForm = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        setIsLoading(true);
 
         await saveFormData(inputs);
         try {
@@ -169,6 +173,8 @@ const AdoptionForm = () => {
                 duration: 5000,
                 isClosable: true,
             });
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -604,7 +610,7 @@ const AdoptionForm = () => {
                     type="submit"
                     className="bg-orange-500 p-4 text-white w-48 rounded-md relative h-14 flex items-center justify-center"
                 >
-                    {o("submit")}
+                    {isLoading ? o("creating") : o("submit")}
                 </button>
             </form>
         </div>

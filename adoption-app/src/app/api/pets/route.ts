@@ -5,6 +5,7 @@ export const GET = async (req: NextRequest) => {
     const { searchParams } = new URL(req.url);
     const cat = searchParams.get("cat");
     const recommended = searchParams.get("recommended");
+    const isAdmin = searchParams.get("admin") === "true";
 
     const page = parseInt(searchParams.get("page") || "1", 10);
     const limit = parseInt(searchParams.get("limit") || "8", 10);
@@ -43,8 +44,7 @@ export const GET = async (req: NextRequest) => {
         const [pets, totalCount] = await Promise.all([
             prisma.pet.findMany({
                 where: baseFilter,
-                skip,
-                take: limit,
+                ...(isAdmin ? {} : { skip, take: limit }),
                 include: { category: true },
             }),
             prisma.pet.count({ where: baseFilter }),

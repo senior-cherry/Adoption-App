@@ -5,6 +5,7 @@ import React, {useEffect, useState} from "react";
 import {useUser, useSession} from "@clerk/nextjs";
 import {checkUserRole} from "@/utils/userUtils";
 import {CategoryType} from "@/types/types";
+import {useLocale, useTranslations} from "next-intl";
 
 type Inputs = {
     name: string;
@@ -23,6 +24,8 @@ type Inputs = {
 };
 
 const AddPage = () => {
+    const locale = useLocale();
+    const t = useTranslations("admin-forms");
     const {session} = useSession();
     const {isLoaded}  = useUser();
     const userRole = checkUserRole(session);
@@ -64,12 +67,12 @@ const AddPage = () => {
 
             try {
                 const res = await fetch("/api/categories");
-                if (!res.ok) throw new Error("Не вдалося завантажити категорії");
+                if (!res.ok) throw new Error(t("categoryLoadingError"));
                 const data = await res.json();
                 setCategories(data);
             } catch (err) {
                 console.error(err);
-                setError("Не вдалося завантажити категорії");
+                setError(t("categoryLoadingError"));
             }
         };
 
@@ -146,11 +149,11 @@ const AddPage = () => {
     };
 
     if (isAllowed === false) {
-        return <div className="p-4">You must have admin rights to view this page.</div>;
+        return <div className="p-4">{t("notAdminMessage")}</div>;
     }
 
     if (isAllowed === null) {
-        return <div className="p-4">Loading...</div>;
+        return <div className="p-4">{t("loadingMessage")}...</div>;
     }
 
     return (
@@ -167,7 +170,7 @@ const AddPage = () => {
                             htmlFor="file"
                         >
                             <Image src="/download.png" alt="" width={30} height={20} />
-                            <span>Завантажити картинку</span>
+                            <span>{t("downloadImage")}</span>
                         </label>
                         <input
                             type="file"
@@ -186,117 +189,117 @@ const AddPage = () => {
                         )}
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
-                    <label className="text-sm">Ім&apos;я</label>
+                    <label className="text-sm">{t("ukName")}</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
-                        placeholder="Ім'я"
+                        placeholder={t("ukName")}
                         name="name"
                         onChange={handleChange}
                         required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
-                    <label className="text-sm">Ім&apos;я ангійською</label>
+                    <label className="text-sm">{t("enName")}</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
-                        placeholder="Ім'я англійською"
+                        placeholder={t("enName")}
                         name="engName"
                         onChange={handleChange}
                         required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
-                    <label className="text-sm">Вид</label>
+                    <label className="text-sm">{t("ukSpecies")}</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
-                        placeholder="Вид"
+                        placeholder={t("ukSpecies")}
                         name="species"
                         onChange={handleChange}
                         required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
-                    <label className="text-sm">Вид англійською</label>
+                    <label className="text-sm">{t("enSpecies")}</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
-                        placeholder="Вид англійською"
+                        placeholder={t("enSpecies")}
                         name="engSpecies"
                         onChange={handleChange}
                         required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
-                    <label className="text-sm">Вік</label>
+                    <label className="text-sm">{t("ukAge")}</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
-                        placeholder="Вік"
+                        placeholder={t("ukAge")}
                         name="age"
                         onChange={handleChange}
                         required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
-                    <label className="text-sm">Вік англійською</label>
+                    <label className="text-sm">{t("enAge")}</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
-                        placeholder="Вік англійською"
+                        placeholder={t("enAge")}
                         name="engAge"
                         onChange={handleChange}
                         required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
-                    <label className="text-sm">Стать</label>
+                    <label className="text-sm">{t("ukGender")}</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
-                        placeholder="Стать"
+                        placeholder={t("ukGender")}
                         name="gender"
                         onChange={handleChange}
                         required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
-                    <label className="text-sm">Стать англійською</label>
+                    <label className="text-sm">{t("enGender")}</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
-                        placeholder="Стать англійською"
+                        placeholder={t("enGender")}
                         name="engGender"
                         onChange={handleChange}
                         required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
-                    <label className="text-sm">Опис</label>
+                    <label className="text-sm">{t("ukDesc")}</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
-                        placeholder="Опис"
+                        placeholder={t("ukDesc")}
                         name="desc"
                         onChange={handleChange}
                         required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
-                    <label className="text-sm">Опис англійською</label>
+                    <label className="text-sm">{t("enDesc")}</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
-                        placeholder="Опис англійською"
+                        placeholder={t("enDesc")}
                         name="engDesc"
                         onChange={handleChange}
                         required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2">
-                    <label className="text-sm">Категорія</label>
+                    <label className="text-sm">{t("categoryName")}</label>
                     <select
                         name="catSlug"
                         value={inputs.catSlug}
@@ -304,10 +307,10 @@ const AddPage = () => {
                         required
                         className="ring-1 ring-orange-700 p-4 rounded-sm text-orange-700 outline-none"
                     >
-                        <option value="" disabled>Оберіть категорію</option>
+                        <option value="" disabled>{t("chooseCategory")}</option>
                         {categories.map((cat) => (
                             <option key={cat.id} value={cat.slug}>
-                                {cat.name}
+                                {locale === 'uk' ? cat.name : cat.engName}
                             </option>
                         ))}
                     </select>
@@ -317,7 +320,7 @@ const AddPage = () => {
                     disabled={isLoading}
                     className="bg-orange-500 p-4 text-white w-48 rounded-md relative h-14 flex items-center justify-center disabled:bg-orange-300 disabled:cursor-not-allowed"
                 >
-                    {isLoading ? "Створення..." : "Підтвердити"}
+                    {isLoading ? t("creating") : t("submit")}
                 </button>
             </form>
         </div>

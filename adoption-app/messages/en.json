@@ -63,7 +63,8 @@
     "punish": "Punish",
     "yes": "Yes",
     "no": "No",
-    "submit": "Submit"
+    "submit": "Submit",
+    "creating": "Creating..."
   },
   "adoptionRequest": {
     "message": "You are an expert in screening candidates for pet adoption. Evaluate the following data and make a conclusion.",
@@ -198,5 +199,67 @@
       "email": "Email",
       "aiConclusion": "AI conclusion"
     }
+  },
+  "single-pet": {
+    "species": "Species",
+    "age": "Age",
+    "gender": "Gender"
+  },
+  "chat": {
+    "notSignedInMessage": "You must be signed in to view this page.",
+    "selectChat": "Select a chat to start messaging",
+    "inputPlaceholder": "Type your message...",
+    "sendBtn": "Send",
+    "resetBtn": "Reset",
+    "typing": "Typing",
+    "addPlaceholder": "Enter chat name",
+    "addBtn": "Add",
+    "noChats": "No chats available"
+  },
+  "delete-button": {
+    "btnTitle": "Delete",
+    "toastSuccessTitle": "Success",
+    "toastSuccessDescription": "The request was successfully completed",
+    "toastErrorTitle": "Error",
+    "toastErrorDescription": "Something went wrong"
+  },
+  "confirm-modal": {
+    "btnTitle": "Delete",
+    "alertHeader": "Confirm deletion",
+    "alertBody": "Are you sure you want to delete this record? This action cannot be undone.",
+    "cancelBtn": "Cancel"
+  },
+  "adoption-toast": {
+    "approve": "Successfully approved",
+    "deny": "Denied",
+    "errorTitle": "Error",
+    "errorDescription": "Something went wrong..."
+  },
+  "admin-forms": {
+    "notSignedInMessage": "You must be signed in to view this page.",
+    "notAdminMessage": "You must have admin rights to view this page.",
+    "loadingMessage": "Loading",
+    "downloadImage": "Download image",
+    "ukName": "Name in Ukrainian",
+    "enName": "Name in English",
+    "ukDesc": "Description in Ukrainian",
+    "enDesc": "Description in English",
+    "creating": "Creating...",
+    "submit": "Submit",
+    "postLoadingError": "Failed to load blog post data",
+    "ukTitle": "Title in Ukrainian",
+    "enTitle": "Title in English",
+    "updating": "Updating...",
+    "category": "Category (Slug)",
+    "categoryLoadingError": "Failed to load category data",
+    "ukSpecies": "Species in Ukrainian",
+    "enSpecies": "Species in English",
+    "ukAge": "Age in Ukrainian",
+    "enAge": "Age in English",
+    "ukGender": "Gender in Ukrainian",
+    "enGender": "Gender in English",
+    "chooseCategory": "Choose category",
+    "petLoadingError": "Failed to load pet data",
+    "categoryName": "Category"
   }
 }

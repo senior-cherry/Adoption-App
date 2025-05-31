@@ -3,6 +3,7 @@ import {useRouter} from "next/navigation";
 import React, {useEffect, useState} from "react";
 import {useSession, useUser} from "@clerk/nextjs";
 import {checkUserRole} from "@/utils/userUtils";
+import {useTranslations} from "next-intl";
 
 type Inputs = {
     name: string;
@@ -13,6 +14,7 @@ type Inputs = {
 };
 
 const AddCategoryPage = () => {
+    const t = useTranslations("admin-forms");
     const {session} = useSession();
     const {isLoaded}  = useUser();
     const userRole = checkUserRole(session);
@@ -78,11 +80,11 @@ const AddCategoryPage = () => {
     };
 
     if (isAllowed === false) {
-        return <div className="p-4">You must have admin rights to view this page.</div>;
+        return <div className="p-4">{t("notAdminMessage")}</div>;
     }
 
     if (isAllowed === null) {
-        return <div className="p-4">Loading...</div>;
+        return <div className="p-4">{t("loadingMessage")}...</div>;
     }
 
     return (
@@ -94,55 +96,55 @@ const AddCategoryPage = () => {
             )}
             <form onSubmit={handleSubmit} className="flex flex-wrap gap-6">
                 <div className="w-full flex flex-col gap-2 ">
-                    <label className="text-sm">Назва</label>
+                    <label className="text-sm">{t("ukTitle")}</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
-                        placeholder="Назва"
+                        placeholder={t("ukTitle")}
                         name="name"
                         onChange={handleChange}
                         required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
-                    <label className="text-sm">Назва англійською</label>
+                    <label className="text-sm">{t("enTitle")}</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
-                        placeholder="Назва англійською"
+                        placeholder={t("enTitle")}
                         name="engName"
                         onChange={handleChange}
                         required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
-                    <label className="text-sm">Опис</label>
+                    <label className="text-sm">{t("ukDesc")}</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
-                        placeholder="Опис"
+                        placeholder={t("ukDesc")}
                         name="description"
                         onChange={handleChange}
                         required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
-                    <label className="text-sm">Опис англійською</label>
+                    <label className="text-sm">{t("enDesc")}</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
-                        placeholder="Опис англійською"
+                        placeholder={t("enDesc")}
                         name="engDescription"
                         onChange={handleChange}
                         required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
-                    <label className="text-sm">Категорія</label>
+                    <label className="text-sm">{t("category")}</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
-                        placeholder="Категорія"
+                        placeholder={t("category")}
                         name="slug"
                         onChange={handleChange}
                         required
@@ -153,7 +155,7 @@ const AddCategoryPage = () => {
                     disabled={isLoading}
                     className="bg-orange-500 p-4 text-white w-48 rounded-md relative h-14 flex items-center justify-center disabled:bg-orange-300 disabled:cursor-not-allowed"
                 >
-                    {isLoading ? "Створення..." : "Підтвердити"}
+                    {isLoading ? t("creating") : t("submit")}
                 </button>
             </form>
         </div>

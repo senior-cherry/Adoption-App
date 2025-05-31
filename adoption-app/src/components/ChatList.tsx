@@ -3,12 +3,14 @@
 import React, { useCallback } from "react";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import ConfirmModal from "@/components/ConfirmModal";
+import {useTranslations} from "next-intl";
 
 interface ChatListProps {
     chats: { id: string, name: string }[];
 }
 
 const ChatList = ({ chats }: ChatListProps) => {
+    const t = useTranslations("chat");
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
@@ -42,7 +44,7 @@ const ChatList = ({ chats }: ChatListProps) => {
                     }
                     )
                 ) : (
-                    <li>No chats available</li>
+                    <li>{t("noChats")}</li>
                 )
             }
         </ul>

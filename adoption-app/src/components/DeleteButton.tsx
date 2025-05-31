@@ -1,58 +1,11 @@
-// "use client";
-// import {useRouter} from "next/navigation";
-// import {Button, useToast} from "@chakra-ui/react";
-//
-// const DeleteButton = ({ id, collection }: { id: string, collection: string }) => {
-//     const router = useRouter();
-//     const toast = useToast();
-//
-//     const handleDelete = async () => {
-//         const res = await fetch(`/api/${collection}/${id}`, {
-//             method: "DELETE",
-//         });
-//
-//         if (res.status === 200) {
-//             toast({
-//                 title: 'Успіх',
-//                 description: "Запит успішно виконано",
-//                 status: 'success',
-//                 duration: 3000,
-//                 isClosable: true,
-//             });
-//
-//             setTimeout(() => {
-//                 if (collection === "chat") {
-//                     window.location.href = "/chat";
-//                 } else {
-//                     router.refresh();
-//                 }
-//             }, 1000);
-//
-//     } else {
-//             const data = await res.json();
-//             toast({
-//                 title: 'Помилка',
-//                 description: data.message,
-//                 status: 'error',
-//                 duration: 5000,
-//                 isClosable: true,
-//             })
-//         }
-//     };
-//
-//     return (
-//         <Button colorScheme='red' onClick={handleDelete}>Видалити</Button>
-//     );
-// };
-//
-// export default DeleteButton;
-
 "use client";
 import {useRouter} from "next/navigation";
 import {Button, useToast} from "@chakra-ui/react";
 import {useEffect, useState} from "react";
+import {useTranslations} from "next-intl";
 
 const DeleteButton = ({ id, collection }: { id: string, collection: string }) => {
+    const t = useTranslations("delete-button");
     const router = useRouter();
     const toast = useToast();
     const [isDeleted, setIsDeleted] = useState(false);
@@ -72,8 +25,8 @@ const DeleteButton = ({ id, collection }: { id: string, collection: string }) =>
 
             if (res.status === 200) {
                 toast({
-                    title: 'Успіх',
-                    description: "Запит успішно виконано",
+                    title: t("toastSuccessTitle"),
+                    description: t("toastSuccessDescription"),
                     status: 'success',
                     duration: 3000,
                     isClosable: true,
@@ -89,7 +42,7 @@ const DeleteButton = ({ id, collection }: { id: string, collection: string }) =>
             } else {
                 const data = await res.json();
                 toast({
-                    title: 'Помилка',
+                    title: t("toastErrorTitle"),
                     description: data.message,
                     status: 'error',
                     duration: 5000,
@@ -98,8 +51,8 @@ const DeleteButton = ({ id, collection }: { id: string, collection: string }) =>
             }
         } catch (error) {
             toast({
-                title: 'Помилка',
-                description: "Щось пішло не так",
+                title: t("toastErrorTitle"),
+                description: t("toastErrorDescription"),
                 status: 'error',
                 duration: 5000,
                 isClosable: true,
@@ -108,7 +61,7 @@ const DeleteButton = ({ id, collection }: { id: string, collection: string }) =>
     }
 
         return (
-            <Button colorScheme='red' onClick={handleDelete}>Видалити</Button>
+            <Button colorScheme='red' onClick={handleDelete}>{t("btnTitle")}</Button>
         );
 }
 

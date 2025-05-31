@@ -2,6 +2,7 @@ import { Button, Image } from "@chakra-ui/react";
 import Link from "next/link";
 import { PostType } from "@/types/types";
 import {getBaseUrl} from "@/utils/getBaseUrl";
+import {getLocale} from "next-intl/server";
 
 const getData = async (id: string) => {
     const baseUrl = await getBaseUrl();
@@ -22,6 +23,7 @@ type Props = {
 };
 
 const SinglePost = async ({ params }: Props) => {
+    const locale = await getLocale();
     const post: PostType = await getData(params.id);
 
     return (
@@ -35,18 +37,18 @@ const SinglePost = async ({ params }: Props) => {
                     />
                 </div>
                 <h1 className="text-4xl font-bold text-center text-gray-900 mb-4">
-                    {post.name}
+                    {locale === 'uk' ? post.name : post.engName}
                 </h1>
                 <p className="text-center text-gray-500 text-lg mb-10">
                     {post.createdAt.toString().substring(0, 10)}
                 </p>
                 <div className="prose prose-lg max-w-none text-gray-800 leading-relaxed whitespace-pre-line">
-                    {post.description}
+                    {locale === 'uk' ? post.description : post.engDescription}
                 </div>
                 <div className="mt-12 text-center">
                     <Link href="/blog">
                         <Button colorScheme="blue" size="lg">
-                            Назад
+                            {locale === 'uk' ? "Назад" : "Back"}
                         </Button>
                     </Link>
                 </div>

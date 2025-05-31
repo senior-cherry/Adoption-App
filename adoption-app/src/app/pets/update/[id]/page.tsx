@@ -4,6 +4,8 @@ import React, {useEffect, useState} from "react";
 import Image from "next/image";
 import {useUser, useSession} from "@clerk/nextjs";
 import {checkUserRole} from "@/utils/userUtils";
+import {useLocale, useTranslations} from "next-intl";
+import {CategoryType} from "@/types/types";
 
 type Inputs = {
     name: string;
@@ -28,10 +30,13 @@ type Params = {
 }
 
 const UpdatePage = ({ params }: Params) => {
+    const locale = useLocale();
+    const t = useTranslations("admin-forms");
     const {session} = useSession();
     const {isLoaded}  = useUser();
     const userRole = checkUserRole(session);
 
+    const [categories, setCategories] = useState<CategoryType[]>([]);
     const [inputs, setInputs] = useState<Inputs>({
         name: "",
         engName: "",
@@ -86,7 +91,17 @@ const UpdatePage = ({ params }: Params) => {
                 });
             } catch (error) {
                 console.error("Error fetching pet:", error);
-                setError("Failed to load pet data");
+                setError(t("petLoadingError"));
+            }
+
+            try {
+                const res = await fetch("/api/categories");
+                if (!res.ok) throw new Error(t("categoryLoadingError"));
+                const data = await res.json();
+                setCategories(data);
+            } catch (error) {
+                console.error("Error fetching categories:", error);
+                setError(t("categoryLoadingError"));
             }
         };
 
@@ -94,7 +109,7 @@ const UpdatePage = ({ params }: Params) => {
     }, [isLoaded, userRole, params.id]);
 
     const handleChange = (
-        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
     ) => {
         setInputs((prev) => {
             return { ...prev, [e.target.name]: e.target.value };
@@ -160,11 +175,11 @@ const UpdatePage = ({ params }: Params) => {
     };
 
     if (isAllowed === false) {
-        return <div className="p-4">You must have admin rights to view this page.</div>;
+        return <div className="p-4">{t("notAdminMessage")}</div>;
     }
 
     if (isAllowed === null) {
-        return <div className="p-4">Loading...</div>;
+        return <div className="p-4">{t("loadingMessage")}...</div>;
     }
 
     return (
@@ -181,7 +196,7 @@ const UpdatePage = ({ params }: Params) => {
                         htmlFor="file"
                     >
                         <Image src="/download.png" alt="" width={30} height={20} />
-                        <span>Завантажити картинку</span>
+                        <span>{t("downloadImage")}</span>
                     </label>
                     <input
                         type="file"
@@ -200,132 +215,138 @@ const UpdatePage = ({ params }: Params) => {
                     )}
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
-                    <label className="text-sm">Ім&apos;я</label>
+                    <label className="text-sm">{t("ukName")}</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
-                        placeholder="Ім'я"
+                        placeholder={t("ukName")}
                         name="name"
                         value={inputs.name}
                         onChange={handleChange}
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
-                    <label className="text-sm">Ім&apos;я ангійською</label>
+                    <label className="text-sm">{t("enName")}</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
-                        placeholder="Ім'я англійською"
+                        placeholder={t("enName")}
                         name="engName"
                         value={inputs.engName}
                         onChange={handleChange}
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
-                    <label className="text-sm">Вид</label>
+                    <label className="text-sm">{t("ukSpecies")}</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
-                        placeholder="Вид"
+                        placeholder={t("ukSpecies")}
                         name="species"
                         value={inputs.species}
                         onChange={handleChange}
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
-                    <label className="text-sm">Вид англійською</label>
+                    <label className="text-sm">{t("enSpecies")}</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
-                        placeholder="Вид англійською"
+                        placeholder={t("enSpecies")}
                         name="engSpecies"
                         value={inputs.engSpecies}
                         onChange={handleChange}
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
-                    <label className="text-sm">Вік</label>
+                    <label className="text-sm">{t("ukAge")}</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
-                        placeholder="Вік"
+                        placeholder={t("ukAge")}
                         name="age"
                         value={inputs.age}
                         onChange={handleChange}
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
-                    <label className="text-sm">Вік англійською</label>
+                    <label className="text-sm">{t("enAge")}</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
-                        placeholder="Вік англійською"
+                        placeholder={t("enAge")}
                         name="engAge"
                         value={inputs.engAge}
                         onChange={handleChange}
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
-                    <label className="text-sm">Стать</label>
+                    <label className="text-sm">{t("ukGender")}</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
-                        placeholder="Стать"
+                        placeholder={t("ukGender")}
                         name="gender"
                         value={inputs.gender}
                         onChange={handleChange}
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
-                    <label className="text-sm">Стать англійською</label>
+                    <label className="text-sm">{t("enGender")}</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
-                        placeholder="Стать англійською"
+                        placeholder={t("enGender")}
                         name="engGender"
                         value={inputs.engGender}
                         onChange={handleChange}
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
-                    <label className="text-sm">Опис</label>
+                    <label className="text-sm">{t("ukDesc")}</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
-                        placeholder="Опис"
+                        placeholder={t("ukDesc")}
                         name="desc"
                         value={inputs.desc}
                         onChange={handleChange}
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
-                    <label className="text-sm">Опис англійською</label>
+                    <label className="text-sm">{t("enDesc")}</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
-                        placeholder="Опис англійською"
+                        placeholder={t("enDesc")}
                         name="engDesc"
                         value={inputs.engDesc}
                         onChange={handleChange}
                     />
                 </div>
-                <div className="w-full flex flex-col gap-2 ">
-                    <label className="text-sm">Категорія</label>
-                    <input
-                        className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
-                        type="text"
-                        placeholder="Собаки, Коти, Рептилії..."
+                <div className="w-full flex flex-col gap-2">
+                    <label className="text-sm">{t("categoryName")}</label>
+                    <select
                         name="catSlug"
                         value={inputs.catSlug}
                         onChange={handleChange}
-                    />
+                        required
+                        className="ring-1 ring-orange-700 p-4 rounded-sm text-orange-700 outline-none"
+                    >
+                        <option value="" disabled>{t("chooseCategory")}</option>
+                        {categories.map((cat) => (
+                            <option key={cat.id} value={cat.slug}>
+                                {locale === 'uk' ? cat.name : cat.engName}
+                            </option>
+                        ))}
+                    </select>
                 </div>
                 <button
                     type="submit"
                     disabled={isLoading}
                     className="bg-orange-500 p-4 text-white w-48 rounded-md relative h-14 flex items-center justify-center disabled:bg-orange-300 disabled:cursor-not-allowed"
                 >
-                    {isLoading ? "Оновлення..." : "Підтвердити"}
+                    {isLoading ? t("updating") : t("submit")}
                 </button>
             </form>
         </div>

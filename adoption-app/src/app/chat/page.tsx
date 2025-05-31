@@ -2,6 +2,7 @@ import Sidebar from "@/components/Sidebar";
 import React from "react";
 import Chat from "@/components/Chat";
 import {auth} from "@clerk/nextjs/server";
+import {getTranslations} from "next-intl/server";
 
 interface ChatProps {
     searchParams: {
@@ -9,11 +10,12 @@ interface ChatProps {
     };
 }
 
-const ChatPage = ({ searchParams }: ChatProps) => {
+const ChatPage = async ({ searchParams }: ChatProps) => {
+    const t = getTranslations("chat");
     const { userId } = auth();
 
     if (!userId) {
-        return <div className="p-4">You must be signed in to view this page.</div>;
+        return <div className="p-4">{(await t)("notSignedInMessage")}</div>;
     }
 
     const chatId = searchParams.chatId;
@@ -28,7 +30,7 @@ const ChatPage = ({ searchParams }: ChatProps) => {
                 {chatId ? (
                     <Chat chatId={chatId} />
                 ) : (
-                    <p className="text-center text-sm md:text-base">Select a chat to start messaging</p>
+                    <p className="text-center text-sm md:text-base">{(await t)("selectChat")}</p>
                 )}
             </div>
         </div>

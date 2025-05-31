@@ -2,6 +2,7 @@ import {Image} from "@chakra-ui/react";
 import Link from "next/link";
 import {PostType} from "@/types/types";
 import {getBaseUrl} from "@/utils/getBaseUrl";
+import {getLocale} from "next-intl/server";
 
 const getData = async () => {
     const baseUrl = await getBaseUrl();
@@ -17,6 +18,7 @@ const getData = async () => {
 }
 
 const Blog = async () => {
+    const locale = await getLocale();
     const posts: PostType[] = await getData();
 
     return (
@@ -39,11 +41,11 @@ const Blog = async () => {
                         </p>
                         <Link href={`/blog/post/${post.id}`}>
                             <h2 className="text-xl font-semibold text-gray-900 hover:underline">
-                                {post.name}
+                                {locale === 'uk' ? post.name : post.engName}
                             </h2>
                         </Link>
                         <p className="mt-2 text-gray-700">
-                            {post.description.substring(0, 100)}...
+                            {locale === 'uk' ? post.description.substring(0, 100) : post.engDescription.substring(0, 100)}...
                         </p>
                     </div>
                 </div>

@@ -2,7 +2,7 @@ import { ButtonGroup, Image } from "@chakra-ui/react";
 import AdoptButtonGroup from "@/components/AdoptButtonGroup";
 import { PetType } from "@/types/types";
 import BackButton from "@/components/BackButton";
-import {getLocale} from "next-intl/server";
+import {getLocale, getTranslations} from "next-intl/server";
 import {getBaseUrl} from "@/utils/getBaseUrl";
 
 type Props = {
@@ -25,6 +25,7 @@ const getData = async (id: string) => {
 
 const SinglePet = async ({ params }: Props) => {
     const locale = await getLocale();
+    const t = await getTranslations("single-pet");
     const pet: PetType = await getData(params.id);
 
     return (
@@ -42,22 +43,22 @@ const SinglePet = async ({ params }: Props) => {
                     </div>
                     <div className="w-full md:w-1/2 flex flex-col gap-3">
                         <h1 className="text-3xl font-bold text-gray-800">{locale === 'uk' ? pet.name : pet.engName}</h1>
-                        <p className="text-lg text-gray-700">Вид: {pet.species}</p>
-                        <p className="text-lg text-gray-700">Вік: {pet.age}</p>
+                        <p className="text-lg text-gray-700">{t("species")}: {locale === 'uk' ? pet.species : pet.engSpecies}</p>
+                        <p className="text-lg text-gray-700">{t("age")}: {locale === 'uk' ? pet.age : pet.engAge}</p>
                         <p className={"text-lg font-medium text-gray-700"}>
-                            Стать: {pet.gender}
+                            {t("gender")}: {locale === 'uk' ? pet.gender : pet.engGender}
                         </p>
-                        <p className="mt-4 text-gray-600 leading-relaxed whitespace-pre-line">{pet.desc}</p>
+                        <p className="mt-4 text-gray-600 leading-relaxed whitespace-pre-line">{locale === 'uk' ? pet.desc : pet.engDesc}</p>
 
                         <div className="mt-6">
                             <ButtonGroup spacing="3">
                                 <AdoptButtonGroup
                                     pet_id={pet.id}
                                     imageUrl={pet.imageUrl}
-                                    species={pet.species}
+                                    species={locale === 'uk' ? pet.species : pet.engSpecies}
                                 />
                                     <BackButton>
-                                        Назад
+                                        {locale === 'uk' ? "Назад" : "Back"}
                                     </BackButton>
                             </ButtonGroup>
                         </div>

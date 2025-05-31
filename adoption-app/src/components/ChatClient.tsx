@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { handleNewMessage } from "@/actions/handleNewMessage";
+import {useTranslations} from "next-intl";
 
 interface Message {
     id: string;
@@ -14,6 +15,7 @@ interface ChatClientProps {
 }
 
 const ChatClient = ({ chatId, initialMessages }: ChatClientProps) => {
+    const t = useTranslations("chat");
     const [messages, setMessages] = useState(initialMessages);
     const [newMessage, setNewMessage] = useState("");
     const [isTyping, setIsTyping] = useState(false);
@@ -63,7 +65,7 @@ const ChatClient = ({ chatId, initialMessages }: ChatClientProps) => {
                     name="newMessage"
                     value={newMessage}
                     onChange={(e) => setNewMessage(e.target.value)}
-                    placeholder="Type your message..."
+                    placeholder={t("inputPlaceholder")}
                     className="w-full p-3 mt-2 text-gray-800 rounded bg-gray-200 placeholder-gray-500 focus:outline-none"
                 />
                 <div className="flex gap-4 mt-6">
@@ -71,14 +73,14 @@ const ChatClient = ({ chatId, initialMessages }: ChatClientProps) => {
                         type="submit"
                         className="flex-1 p-3 text-sm font-medium text-white bg-teal-600 rounded-lg hover:bg-teal-700"
                     >
-                        Send
+                        {t("sendBtn")}
                     </button>
                     <button
                         type="reset"
                         className="flex-1 p-3 text-sm font-medium text-white bg-gray-600 rounded-lg hover:bg-gray-700"
                         onClick={() => setNewMessage("")}
                     >
-                        Reset
+                        {t("resetBtn")}
                     </button>
                 </div>
             </form>
@@ -97,7 +99,7 @@ const ChatClient = ({ chatId, initialMessages }: ChatClientProps) => {
 
                 {isTyping && (
                     <div className="p-3 rounded-lg text-sm bg-gray-500 text-white self-start animate-pulse">
-                        Typing...
+                        {t("typing")}...
                     </div>
                 )}
             </div>

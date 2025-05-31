@@ -20,7 +20,7 @@ import { useLocale, useTranslations } from "next-intl";
 import Loading from "@/components/Loading";
 import {PetType} from "@/types/types";
 
-type StatusType = "info" | "error" | "success" | "loading" | "warning";
+type StatusType = "success" | "warning";
 
 type StatusMessage = {
     type: StatusType;
@@ -47,6 +47,7 @@ export default function Pets() {
         categories: [],
         totalRecommended: 0,
     });
+    const [allCategories, setAllCategories] = useState<{ slug: string; name: string; engName: string }[]>([]);
 
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPets, setTotalPets] = useState(0);
@@ -92,10 +93,20 @@ export default function Pets() {
             } finally {
                 setIsLoading(false);
             }
+
+            try {
+                const res = await fetch("/api/categories");
+                const data = await res.json();
+                setAllCategories(data);
+            } catch (err) {
+                console.error("Failed to fetch categories:", err);
+            }
         };
 
         fetchPets();
     }, [cat, recommended, pageParam, locale]);
+
+    const slugs = filterInfo.categories;
 
     const handlePageChange = (page: number) => {
         const params = new URLSearchParams(searchParams.toString());
@@ -163,22 +174,23 @@ export default function Pets() {
 
                 {filterInfo.categories.length > 0 && (
                     <Box mb={6} w="full" maxW="4xl">
-                        <Text fontSize="md" color="gray.600" mb={2}>
-                            {filterInfo.isRecommended ? `${t("byCategory")}:` : `${t("filteredBy")}:`}
-                        </Text>
                         <Flex gap={2} flexWrap="wrap">
-                            {filterInfo.categories.map((cat) => (
-                                <Badge
-                                    key={cat}
-                                    colorScheme={filterInfo.isRecommended ? "green" : "blue"}
-                                    px={5}
-                                    py={2}
-                                    borderRadius="full"
-                                    textTransform="capitalize"
-                                >
-                                    {cat.replace("-", " ")}
-                                </Badge>
-                            ))}
+                            {slugs.map((slug) => {
+                                const matched = allCategories.find((cat) => cat.slug === slug);
+                                const name = matched ? (locale === "uk" ? matched.name : matched.engName) : slug;
+                                return (
+                                    <Badge
+                                        key={slug}
+                                        colorScheme={filterInfo.isRecommended ? "green" : "blue"}
+                                        px={5}
+                                        py={2}
+                                        borderRadius="full"
+                                        textTransform="capitalize"
+                                    >
+                                        {name}
+                                    </Badge>
+                                );
+                            })}
                         </Flex>
                     </Box>
                 )}
@@ -234,4 +246,3 @@ export default function Pets() {
         </PetLayout>
     );
 }
-

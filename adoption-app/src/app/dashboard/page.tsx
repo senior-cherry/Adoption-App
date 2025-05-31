@@ -17,7 +17,7 @@ import {useRouter} from "next/navigation";
 
 const getData = async (collection: string) => {
     try {
-        const res = await fetch(`/api/${collection}`, { cache: "no-store" });
+        const res = await fetch(`/api/${collection}?admin=${(collection === "pets")}`, { cache: "no-store" });
         const data = await res.json();
 
         if (collection === "pets" && "pets" in data) {
@@ -31,24 +31,10 @@ const getData = async (collection: string) => {
     }
 };
 
-// const handleAdoptionRequest = async (router: ReturnType<typeof useRouter>, id: String, decision: string, email: string) => {
-//     const res = await fetch(`/api/adoption/${id}`, {
-//         method: 'PATCH',
-//         body: JSON.stringify(decision)
-//     });
-//
-//     if (!res.ok) {
-//         throw new Error("Failed");
-//     }
-//
-//     const message = await sendEmail(email, decision);
-//     if (message.success) {
-//         router.refresh();
-//     }
-// };
-
 const Dashboard = () => {
+    const locale = useLocale();
     const t = useTranslations("dashboard");
+    const tt = useTranslations("adoption-toast");
     const router = useRouter();
     const toast = useToast();
     const { session } = useSession();
@@ -115,7 +101,7 @@ const Dashboard = () => {
             if (message.success) {
                 router.refresh();
                 toast({
-                    title: decision === 'approve' ? 'Успішно схвалено' : 'Відхилено',
+                    title: decision === 'approve' ? tt("approve") : tt("deny"),
                     status: decision === 'approve' ? 'success' : 'warning',
                     duration: 3000,
                     isClosable: true,
@@ -123,8 +109,8 @@ const Dashboard = () => {
             }
         } catch (err) {
             toast({
-                title: 'Помилка',
-                description: 'Щось пішло не так...',
+                title: tt("errorTitle"),
+                description: tt("errorDescription"),
                 status: 'error',
                 duration: 3000,
                 isClosable: true,
@@ -170,10 +156,15 @@ const Dashboard = () => {
                             <Tbody>
                                 {pets.map((pet) => (
                                     <Tr key={pet.id}>
-                                        <Td><Image borderRadius='full' boxSize='40px' src={`/uploads/${pet.imageUrl}`} alt={pet.name} /></Td>
-                                        <Td>{pet.name}</Td>
-                                        <Td>{pet.species}</Td>
-                                        <Td>{pet.age}</Td>
+                                        <Td>
+                                            <Image borderRadius='full' boxSize='40px'
+                                                   src={`/uploads/${pet.imageUrl}`}
+                                                   alt={locale === 'uk' ? pet.name : pet.engName}
+                                            />
+                                        </Td>
+                                        <Td>{locale === 'uk' ? pet.name : pet.engName}</Td>
+                                        <Td>{locale === 'uk' ? pet.species : pet.engSpecies}</Td>
+                                        <Td>{locale === 'uk' ? pet.age : pet.engAge}</Td>
                                         <Td>{pet.catSlug}</Td>
                                         <Td>
                                             <ButtonGroup gap='4'>
@@ -216,8 +207,8 @@ const Dashboard = () => {
                             <Tbody>
                                 {categories.map((category) => (
                                     <Tr key={category.id}>
-                                        <Td>{category.name}</Td>
-                                        <Td>{category.description}</Td>
+                                        <Td>{locale === 'uk' ? category.name : category.engName}</Td>
+                                        <Td>{locale === 'uk' ? category.description : category.engDescription}</Td>
                                         <Td>
                                             <ButtonGroup gap='4'>
                                                 <Link href={`/categories/update/${category.id}`}>
@@ -260,9 +251,13 @@ const Dashboard = () => {
                             <Tbody>
                                 {posts.map((post) => (
                                     <Tr key={post.id}>
-                                        <Td><Image borderRadius='full' boxSize='40px' src={`/uploads/${post.imageUrl}`} alt={post.name} /></Td>
-                                        <Td>{post.name}</Td>
-                                        <Td>{post.description.substring(0, 20) + "..."}</Td>
+                                        <Td>
+                                            <Image borderRadius='full' boxSize='40px'
+                                                   src={`/uploads/${post.imageUrl}`}
+                                                   alt={locale === 'uk' ? post.name : post.engName} />
+                                        </Td>
+                                        <Td>{locale === 'uk' ? post.name : post.engName}</Td>
+                                        <Td>{(locale === 'uk' ? post.description.substring(0, 20) : post.engDescription.substring(0, 20)) + "..."}</Td>
                                         <Td>
                                             <ButtonGroup gap='4'>
                                                 <Link href={`/blog/update/${post.id}`}>

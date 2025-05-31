@@ -2,16 +2,18 @@ import React from "react";
 import { auth } from "@clerk/nextjs/server";
 import { prisma } from "@/utils/connect";
 import ChatClient from "./ChatClient";
+import {getTranslations} from "next-intl/server";
 
 interface ChatProps {
     chatId: string;
 }
 
 const Chat = async ({ chatId }: ChatProps) => {
+    const t = getTranslations("chat");
     const userId = auth().userId;
 
     if (!userId) {
-        return <div className="p-4">You must be signed in to view this page.</div>;
+        return <div className="p-4">{(await t)("notSignedInMessage")}</div>;
     }
 
     const rawMessages = await prisma.message.findMany({

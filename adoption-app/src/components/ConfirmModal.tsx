@@ -10,6 +10,7 @@ import {
 import { DeleteIcon } from "@chakra-ui/icons";
 import { useRef, useState } from "react";
 import DeleteButton from "@/components/DeleteButton";
+import {useTranslations} from "next-intl";
 
 type ModalProps = {
     id: string;
@@ -18,6 +19,7 @@ type ModalProps = {
 };
 
 const ConfirmModal = ({ id, collection, isIcon }: ModalProps) => {
+    const t = useTranslations("confirm-modal");
     const [isOpen, setIsOpen] = useState(false);
     const cancelRef = useRef<HTMLButtonElement>(null);
 
@@ -26,7 +28,7 @@ const ConfirmModal = ({ id, collection, isIcon }: ModalProps) => {
             {isIcon ? (
                 <DeleteIcon onClick={() => setIsOpen(true)} className="mr-4 cursor-pointer hover:text-red-400" />
             ) : (
-                <Button colorScheme='red' onClick={() => setIsOpen(true)}>Видалити</Button>
+                <Button colorScheme='red' onClick={() => setIsOpen(true)}>{t("btnTitle")}</Button>
             )}
             <AlertDialog
                 isOpen={isOpen}
@@ -35,13 +37,13 @@ const ConfirmModal = ({ id, collection, isIcon }: ModalProps) => {
             >
                 <AlertDialogOverlay>
                     <AlertDialogContent>
-                        <AlertDialogHeader>Confirm Deletion</AlertDialogHeader>
+                        <AlertDialogHeader>{t("alertHeader")}</AlertDialogHeader>
                         <AlertDialogBody>
-                            Are you sure you want to delete this item? This action cannot be undone.
+                            {t("alertBody")}
                         </AlertDialogBody>
                         <AlertDialogFooter className="flex gap-3">
                             <Button ref={cancelRef} onClick={() => setIsOpen(false)}>
-                                Cancel
+                                {t("cancelBtn")}
                             </Button>
                             <DeleteButton id={id} collection={collection} />
                         </AlertDialogFooter>

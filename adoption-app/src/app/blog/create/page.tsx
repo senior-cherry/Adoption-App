@@ -4,6 +4,7 @@ import Image from "next/image";
 import {useRouter} from "next/navigation";
 import {useUser, useSession} from "@clerk/nextjs";
 import {checkUserRole} from "@/utils/userUtils";
+import {useTranslations} from "next-intl";
 
 type Inputs = {
     name: string;
@@ -14,6 +15,7 @@ type Inputs = {
 };
 
 const AddPostPage = () => {
+    const t = useTranslations("admin-forms");
     const {session} = useSession();
     const {isLoaded}  = useUser();
     const userRole = checkUserRole(session);
@@ -112,11 +114,11 @@ const AddPostPage = () => {
     };
 
     if (isAllowed === false) {
-        return <div className="p-4">You must have admin rights to view this page.</div>;
+        return <div className="p-4">{t("notAdminMessage")}</div>;
     }
 
     if (isAllowed === null) {
-        return <div className="p-4">Loading...</div>;
+        return <div className="p-4">{t("loadingMessage")}...</div>;
     }
 
     return (
@@ -133,7 +135,7 @@ const AddPostPage = () => {
                         htmlFor="file"
                     >
                         <Image src="/download.png" alt="" width={30} height={20} />
-                        <span>Завантажити картинку</span>
+                        <span>{t("downloadImage")}</span>
                     </label>
                     <input
                         type="file"
@@ -152,44 +154,44 @@ const AddPostPage = () => {
                     )}
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
-                    <label className="text-sm">Назва</label>
+                    <label className="text-sm">{t("ukTitle")}</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
-                        placeholder="Назва"
+                        placeholder={t("ukTitle")}
                         name="name"
                         onChange={handleChange}
                         required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
-                    <label className="text-sm">Назва англійською</label>
+                    <label className="text-sm">{t("enTitle")}</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
-                        placeholder="Назва англійською"
+                        placeholder={t("enTitle")}
                         name="engName"
                         onChange={handleChange}
                         required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
-                    <label className="text-sm">Опис</label>
+                    <label className="text-sm">{t("ukDesc")}</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
-                        placeholder="Опис"
+                        placeholder={t("ukDesc")}
                         name="description"
                         onChange={handleChange}
                         required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
-                    <label className="text-sm">Опис англійською</label>
+                    <label className="text-sm">{t("enDesc")}</label>
                     <input
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
                         type="text"
-                        placeholder="Опис англійською"
+                        placeholder={t("enDesc")}
                         name="engDescription"
                         onChange={handleChange}
                         required
@@ -200,7 +202,7 @@ const AddPostPage = () => {
                     disabled={isLoading}
                     className="bg-orange-500 p-4 text-white w-48 rounded-md relative h-14 flex items-center justify-center disabled:bg-orange-300 disabled:cursor-not-allowed"
                 >
-                    {isLoading ? "Створення..." : "Підтвердити"}
+                    {isLoading ? t("creating") : t("submit")}
                 </button>
             </form>
         </div>
