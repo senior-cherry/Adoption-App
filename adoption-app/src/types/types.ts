@@ -45,3 +45,39 @@ export type AdoptionType = {
     species: string,
     aiConclusion: string
 };
+
+export type Inputs = {
+    user: string;
+    user_id: string;
+    age: number;
+    phoneNumber: string;
+    email: string;
+    address: string;
+    aptType: string;
+    petsAllowed: string;
+    kids: string;
+    otherAnimals: string;
+    liveWith: string;
+    employmentStatus: string;
+    incomeLevel: string;
+    animalsBefore: string;
+    nutritionalNeeds: string;
+    reasonToAdoptPet: string;
+    characterPreferences: string;
+    lifeChangingActions: string;
+    psychologicalDiseases: string;
+    tendencyToBeImpulsive: string;
+    emotionalStability: string;
+    reactionToStress: string;
+    uncontrolledAnger: string;
+    blamesForAnger: string;
+    attitudeToSpending: string;
+    attitudeToBadBehaviour: string;
+    requireLove: string;
+    isAbleToFollowSchedule: string;
+    friendlySupport: string;
+    allergyToFur: string;
+    howToRaisePet: string;
+    reactionToBadAction: string;
+    isPunishmentNecessary: string;
+};

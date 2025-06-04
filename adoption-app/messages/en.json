@@ -261,5 +261,14 @@
     "chooseCategory": "Choose category",
     "petLoadingError": "Failed to load pet data",
     "categoryName": "Category"
+  },
+  "adoption-form-toast": {
+    "error": "Error",
+    "email": "Incorrect email",
+    "phone": "Incorrect phone number",
+    "fields": "Please, fill all required fields",
+    "success": "Success",
+    "successDesc": "The request was successfully completed",
+    "unknownError": "Unknown error"
   }
 }

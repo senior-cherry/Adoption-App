@@ -4,47 +4,47 @@ import React, {useEffect, useState} from "react";
 import {useUser} from "@clerk/nextjs";
 import {useTranslations} from "next-intl";
 import {useToast} from "@chakra-ui/react";
+import {Inputs} from "@/types/types";
 
-type Inputs = {
-    user: string;
-    user_id: string;
-    age: number;
-    phoneNumber: string;
-    email: string;
-    address: string;
-    aptType: string;
-    petsAllowed: string;
-    kids: string;
-    otherAnimals: string;
-    liveWith: string;
-    employmentStatus: string;
-    incomeLevel: string;
-    animalsBefore: string;
-    nutritionalNeeds: string;
-    reasonToAdoptPet: string;
-    characterPreferences: string;
-    lifeChangingActions: string;
-    psychologicalDiseases: string;
-    tendencyToBeImpulsive: string;
-    emotionalStability: string;
-    reactionToStress: string;
-    uncontrolledAnger: string;
-    blamesForAnger: string;
-    attitudeToSpending: string;
-    attitudeToBadBehaviour: string;
-    requireLove: string;
-    isAbleToFollowSchedule: string;
-    friendlySupport: string;
-    allergyToFur: string;
-    howToRaisePet: string;
-    reactionToBadAction: string;
-    isPunishmentNecessary: string;
-};
+const requiredSelects = [
+    'age',
+    'phoneNumber',
+    'email',
+    'address',
+    'aptType',
+    'petsAllowed',
+    'kids',
+    'otherAnimals',
+    'liveWith',
+    'employmentStatus',
+    'incomeLevel',
+    'animalsBefore',
+    'nutritionalNeeds',
+    'reasonToAdoptPet',
+    'characterPreferences',
+    'lifeChangingActions',
+    'psychologicalDiseases',
+    'tendencyToBeImpulsive',
+    'emotionalStability',
+    'reactionToStress',
+    'uncontrolledAnger',
+    'blamesForAnger',
+    'attitudeToSpending',
+    'attitudeToBadBehaviour',
+    'requireLove',
+    'isAbleToFollowSchedule',
+    'friendlySupport',
+    'allergyToFur',
+    'howToRaisePet',
+    'reactionToBadAction',
+    'isPunishmentNecessary',
+];
 
 const AdoptionForm = () => {
     const toast = useToast()
     const q = useTranslations("adoptionFormQuestions");
     const o = useTranslations("adoptionFormOptions");
+    const tf = useTranslations("adoption-form-toast");
     const router = useRouter();
     const {isLoaded, user}  = useUser();
     const searchParams = useSearchParams();
@@ -122,6 +122,7 @@ const AdoptionForm = () => {
             setInputs((prev) => ({
                 ...prev,
                 user: user.fullName || prev.user,
+                user_id: user.id || prev.user_id,
                 email: user.emailAddresses[0]?.emailAddress || prev.email,
             }));
         }
@@ -141,6 +142,24 @@ const AdoptionForm = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(inputs.email)) {
+            toast({ title: tf("error"), description: tf("email"), status: 'error' });
+            return;
+        }
+
+        const phoneRegex = /^\+380\d{3}\d{2}\d{2}\d{2}$/;
+        if (!phoneRegex.test(inputs.phoneNumber)) {
+            toast({ title: tf("error"), description: tf("phone"), status: 'error' });
+            return;
+        }
+
+        const invalidSelects = requiredSelects.filter((field) => inputs[field as keyof Inputs] === "");
+        if (invalidSelects.length > 0) {
+            toast({ title: tf("error"), description: tf("fields"), status: 'error' });
+            return;
+        }
+
         setIsLoading(true);
 
         await saveFormData(inputs);
@@ -156,18 +175,18 @@ const AdoptionForm = () => {
             if (res.ok) {
                 router.push('/pets');
                 toast({
-                title: 'Успіх',
-                description: "Запит успішно виконано",
+                title: tf("success"),
+                description: tf("successDesc"),
                 status: 'success',
                 duration: 5000,
                 isClosable: true,
             })
         }
         } catch (err) {
-            const message = err instanceof Error ? err.message : 'Невідома помилка';
+            const message = err instanceof Error ? err.message : tf("unknownError");
 
             toast({
-                title: 'Помилка',
+                title: tf("error"),
                 description: message,
                 status: 'error',
                 duration: 5000,
@@ -189,10 +208,11 @@ const AdoptionForm = () => {
                         type="number"
                         placeholder={q("age")}
                         name="age"
-                        min="0"
+                        min="14"
                         max="100"
                         onChange={handleChange}
                         value={inputs.age}
+                        required
                     />
                 </div>
 
@@ -205,6 +225,7 @@ const AdoptionForm = () => {
                         name="phoneNumber"
                         onChange={handleChange}
                         value={inputs.phoneNumber}
+                        required
                     />
                 </div>
 
@@ -217,6 +238,7 @@ const AdoptionForm = () => {
                         name="email"
                         onChange={handleChange}
                         value={inputs.email}
+                        required
                     />
                 </div>
 
@@ -229,6 +251,7 @@ const AdoptionForm = () => {
                         name="address"
                         onChange={handleChange}
                         value={inputs.address}
+                        required
                     />
                 </div>
 
@@ -285,6 +308,7 @@ const AdoptionForm = () => {
                         name="otherAnimals"
                         onChange={handleChange}
                         value={inputs.otherAnimals}
+                        required
                     />
                 </div>
 
@@ -358,6 +382,7 @@ const AdoptionForm = () => {
                         name="nutritionalNeeds"
                         onChange={handleChange}
                         value={inputs.nutritionalNeeds}
+                        required
                     />
                 </div>
 
@@ -368,6 +393,7 @@ const AdoptionForm = () => {
                         name="reasonToAdoptPet"
                         onChange={handleChange}
                         value={inputs.reasonToAdoptPet}
+                        required
                     ></textarea>
                 </div>
 
@@ -378,6 +404,7 @@ const AdoptionForm = () => {
                         name="characterPreferences"
                         onChange={handleChange}
                         value={inputs.characterPreferences}
+                        required
                     ></textarea>
                 </div>
 
@@ -388,6 +415,7 @@ const AdoptionForm = () => {
                         name="lifeChangingActions"
                         onChange={handleChange}
                         value={inputs.lifeChangingActions}
+                        required
                     ></textarea>
                 </div>
 
@@ -480,7 +508,7 @@ const AdoptionForm = () => {
                     <label className="text-sm">{q("attitudeToSpending")}</label>
                     <select
                         className="ring-1 ring-orange-700 p-4 rounded-sm outline-none"
-                        name="reactionToStress"
+                        name="attitudeToSpending"
                         value={inputs.attitudeToSpending}
                         onChange={handleChange}
                     >
