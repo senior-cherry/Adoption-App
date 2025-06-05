@@ -156,7 +156,7 @@ const Dashboard = () => {
                                     <Tr key={pet.id}>
                                         <Td>
                                             <Image borderRadius='full' boxSize='40px'
-                                                   src={`/uploads/${pet.imageUrl}`}
+                                                   src={pet.imageUrl}
                                                    alt={locale === 'uk' ? pet.name : pet.engName}
                                             />
                                         </Td>
@@ -251,7 +251,7 @@ const Dashboard = () => {
                                     <Tr key={post.id}>
                                         <Td>
                                             <Image borderRadius='full' boxSize='40px'
-                                                   src={`/uploads/${post.imageUrl}`}
+                                                   src={post.imageUrl}
                                                    alt={locale === 'uk' ? post.name : post.engName} />
                                         </Td>
                                         <Td>{locale === 'uk' ? post.name : post.engName}</Td>
@@ -296,7 +296,9 @@ const Dashboard = () => {
                             <Tbody>
                                 {adoptionReqs.map((req) => (
                                     <Tr key={req.id}>
-                                        <Td><Image borderRadius='full' boxSize='40px' src={`/uploads/${req.imageUrl}`} alt={req.species} /></Td>
+                                        <Td>
+                                            <Image borderRadius='full' boxSize='40px' src={req.imageUrl} alt={req.species} />
+                                        </Td>
                                         <Td>{req.species}</Td>
                                         <Td>{req.user}</Td>
                                         <Td>{req.email}</Td>

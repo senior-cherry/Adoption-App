@@ -48,7 +48,7 @@ const Header = () => {
                 <Link href="/">
                     <Box w="260px" h="60px">
                         <Image
-                            src="/uploads/logo_w_bg-removebg-preview.png"
+                            src="/logo_w_bg-removebg-preview.png"
                             alt="Paw in Paw"
                             width="100%"
                             height="100%"

@@ -103,33 +103,39 @@ const AddPage = () => {
         setIsLoading(true);
         setError(null);
 
-        if (!file) return;
-
-        let uploadedImageName = file.name;
+        let imageUrl = "";
 
         try {
-            const formData = new FormData();
-            formData.append('file', file);
+            if (file) {
+                const formData = new FormData();
+                formData.append('file', file);
 
-            const res = await fetch('/api/upload', {
-                method: 'POST',
-                body: formData
-            });
+                const res = await fetch('/api/upload', {
+                    method: 'POST',
+                    body: formData
+                });
 
-            if (!res.ok) throw new Error(await res.text());
+                if (!res.ok) throw new Error(await res.text());
 
-            const result = await res.json();
-            uploadedImageName = result.filename || file.name;
+                const result = await res.json();
+                imageUrl = result.data.secure_url;
+            }
         } catch (err) {
-            console.error(err)
+            console.error("Upload error:", err);
+            setError("Failed to upload image");
+            setIsLoading(false);
+            return;
         }
 
         try {
             const res = await fetch(`/api/pets`, {
                 method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
                 body: JSON.stringify({
                     ...inputs,
-                    imageUrl: uploadedImageName
+                    imageUrl: imageUrl || null
                 }),
             });
 

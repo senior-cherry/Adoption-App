@@ -20,13 +20,18 @@ export async function POST(req: NextRequest) {
         let petsQuery: any = {
             select: {
                 id: true,
-                name: true,
-                species: true,
-                age: true,
-                desc: true,
+                // name: true,
+                // species: true,
+                // age: true,
+                // desc: true,
+                engName: true,
+                engSpecies: true,
+                engAge: true,
+                engDesc: true,
                 category: {
                     select: {
-                        name: true,
+                        // name: true,
+                        engName: true,
                         slug: true
                     }
                 }

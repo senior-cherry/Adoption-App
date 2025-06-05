@@ -104,7 +104,7 @@ const UpdatePostPage = ({ params }: Params) => {
                 }
 
                 const result = await res.json();
-                uploadedImageName = result.filename || file.name;
+                uploadedImageName = result.data.secure_url;
             } catch (err) {
                 console.error("Upload error:", err);
                 return;
@@ -171,6 +171,7 @@ const UpdatePostPage = ({ params }: Params) => {
                     {inputs.imageUrl && (
                         <Image
                             src={`/uploads/${inputs.imageUrl}`}
+                            // src={file ? URL.createObjectURL(file) : inputs.imageUrl}
                             alt="Current"
                             width={100}
                             height={100}

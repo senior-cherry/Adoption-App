@@ -31,7 +31,7 @@ const SinglePost = async ({ params }: Props) => {
             <div className="max-w-3xl mx-auto">
                 <div className="mb-8">
                     <Image
-                        src={`/uploads/${post.imageUrl}`}
+                        src={post.imageUrl}
                         alt={post.imageUrl}
                         className="w-full h-[400px] object-cover rounded-2xl shadow-md"
                     />

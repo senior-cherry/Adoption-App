@@ -30,7 +30,7 @@ const Blog = async () => {
                 >
                     <div className="w-full md:w-48 h-48 overflow-hidden rounded-lg">
                         <Image
-                            src={`/uploads/${post.imageUrl}`}
+                            src={post.imageUrl}
                             alt={post.imageUrl}
                             className="w-full h-full object-cover"
                         />

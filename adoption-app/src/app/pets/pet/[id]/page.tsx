@@ -35,7 +35,7 @@ const SinglePet = async ({ params }: Props) => {
                     <div className="w-full md:w-1/2">
                         <div className="overflow-hidden rounded-xl border border-gray-200">
                             <Image
-                                src={`/uploads/${pet.imageUrl}`}
+                                src={pet.imageUrl}
                                 alt={pet.imageUrl}
                                 className="w-full h-auto object-cover"
                             />

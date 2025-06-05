@@ -26,7 +26,7 @@ const CardComponent = ({pet}: CardProps, key: string) => {
         <Card maxW="sm" w="100%" key={key}>
             <CardBody>
                     <Image
-                        src={`/uploads/${pet.imageUrl}`}
+                        src={pet.imageUrl}
                         alt={pet.imageUrl}
                         borderRadius='lg'
                         height="400"
