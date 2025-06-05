@@ -9,7 +9,6 @@ import {
 } from '@chakra-ui/react';
 import Link from "next/link";
 import { AdoptionType, CategoryType, PetType, PostType } from "@/types/types";
-import { sendEmail } from "@/actions/sendEmailMessage";
 import ConfirmModal from "@/components/ConfirmModal";
 import { Tooltip } from "@/components/Tooltip";
 import { useLocale, useTranslations } from "next-intl";
@@ -90,23 +89,22 @@ const Dashboard = () => {
         try {
             const res = await fetch(`/api/adoption/${id}`, {
                 method: 'PATCH',
-                body: JSON.stringify(decision)
+                body: JSON.stringify({ decision, email }),
+                cache: "no-store"
             });
 
             if (!res.ok) {
                 throw new Error("Failed");
             }
 
-            const message = await sendEmail(email, decision);
-            if (message.success) {
-                router.refresh();
-                toast({
-                    title: decision === 'approve' ? tt("approve") : tt("deny"),
-                    status: decision === 'approve' ? 'success' : 'warning',
-                    duration: 3000,
-                    isClosable: true,
-                });
-            }
+            router.refresh();
+
+            toast({
+                title: decision === 'approve' ? tt("approve") : tt("deny"),
+                status: decision === 'approve' ? 'success' : 'warning',
+                duration: 3000,
+                isClosable: true,
+            });
         } catch (err) {
             toast({
                 title: tt("errorTitle"),
