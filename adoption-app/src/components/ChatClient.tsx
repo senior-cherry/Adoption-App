@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import { handleNewMessage } from "@/actions/handleNewMessage";
 import {useTranslations} from "next-intl";
 
@@ -19,6 +19,10 @@ const ChatClient = ({ chatId, initialMessages }: ChatClientProps) => {
     const [messages, setMessages] = useState(initialMessages);
     const [newMessage, setNewMessage] = useState("");
     const [isTyping, setIsTyping] = useState(false);
+
+    useEffect(() => {
+        setMessages(initialMessages);
+    }, [chatId, initialMessages]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();

@@ -77,11 +77,11 @@ export async function POST(req: NextRequest) {
         
         Return ONLY a JSON array of the pet IDs that are most suitable, ordered by best match first.
         
-        Do not include any explanations or additional text - just the JSON array of numbers.
+        Do not include any explanations or additional text - just the JSON array of string Ids.
         `;
 
         const response = await openai.chat.completions.create({
-            model: "gpt-3.5-turbo",
+            model: "gpt-3.5-turbo-1106",
             messages: [{ role: "user", content: prompt }],
             temperature: 0.7,
         });
