@@ -169,7 +169,12 @@ const Dashboard = () => {
                                                 <Link href={`/pets/update/${pet.id}`}>
                                                     <Button colorScheme='orange'>{t("actions.update")}</Button>
                                                 </Link>
-                                                <ConfirmModal id={pet.id} collection={"pets"} isIcon={false} />
+                                                <ConfirmModal
+                                                    id={pet.id}
+                                                    collection={"pets"}
+                                                    isIcon={false}
+                                                    onDeleteSuccess={() => setPets(prev => prev.filter(p => p.id !== pet.id))}
+                                                />
                                             </ButtonGroup>
                                         </Td>
                                     </Tr>
@@ -212,7 +217,12 @@ const Dashboard = () => {
                                                 <Link href={`/categories/update/${category.id}`}>
                                                     <Button colorScheme='orange'>{t("actions.update")}</Button>
                                                 </Link>
-                                                <ConfirmModal id={category.id} collection={"categories"} isIcon={false} />
+                                                <ConfirmModal
+                                                    id={category.id}
+                                                    collection={"categories"}
+                                                    isIcon={false}
+                                                    onDeleteSuccess={() => setCategories(prev => prev.filter(c => c.id !== category.id))}
+                                                />
                                             </ButtonGroup>
                                         </Td>
                                     </Tr>
@@ -261,7 +271,12 @@ const Dashboard = () => {
                                                 <Link href={`/blog/update/${post.id}`}>
                                                     <Button colorScheme='orange'>{t("actions.update")}</Button>
                                                 </Link>
-                                                <ConfirmModal id={post.id} collection={"blog"} isIcon={false} />
+                                                <ConfirmModal
+                                                    id={post.id}
+                                                    collection={"blog"}
+                                                    isIcon={false}
+                                                    onDeleteSuccess={() => setPosts(prev => prev.filter(p => p.id !== post.id))}
+                                                />
                                             </ButtonGroup>
                                         </Td>
                                     </Tr>

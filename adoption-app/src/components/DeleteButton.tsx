@@ -4,18 +4,22 @@ import {Button, useToast} from "@chakra-ui/react";
 import {useEffect, useState} from "react";
 import {useTranslations} from "next-intl";
 
-const DeleteButton = ({ id, collection }: { id: string, collection: string }) => {
+const DeleteButton = ({ id, collection, onDeleteSuccess }: { id: string, collection: string, onDeleteSuccess: () => void }) => {
     const t = useTranslations("delete-button");
     const router = useRouter();
     const toast = useToast();
     const [isDeleted, setIsDeleted] = useState(false);
 
     useEffect(() => {
-        if (isDeleted && collection === "chat") {
-            router.replace("/chat");
-            router.refresh();
+        if (isDeleted) {
+            if (collection === "chat") {
+                router.replace("/chat");
+                router.refresh();
+            } else {
+                onDeleteSuccess?.();
+            }
         }
-    }, [isDeleted, collection, router]);
+    }, [isDeleted, collection, router, onDeleteSuccess]);
 
     const handleDelete = async () => {
         try {
@@ -31,14 +35,7 @@ const DeleteButton = ({ id, collection }: { id: string, collection: string }) =>
                     duration: 3000,
                     isClosable: true,
                 });
-
-                setTimeout(() => {
-                    setIsDeleted(true);
-
-                    if (collection !== "chat") {
-                        router.refresh();
-                    }
-                }, 1000);
+                setIsDeleted(true);
             } else {
                 const data = await res.json();
                 toast({

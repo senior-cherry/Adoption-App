@@ -16,9 +16,10 @@ type ModalProps = {
     id: string;
     collection: string;
     isIcon?: boolean;
+    onDeleteSuccess: () => void;
 };
 
-const ConfirmModal = ({ id, collection, isIcon }: ModalProps) => {
+const ConfirmModal = ({ id, collection, isIcon, onDeleteSuccess }: ModalProps) => {
     const t = useTranslations("confirm-modal");
     const [isOpen, setIsOpen] = useState(false);
     const cancelRef = useRef<HTMLButtonElement>(null);
@@ -45,7 +46,10 @@ const ConfirmModal = ({ id, collection, isIcon }: ModalProps) => {
                             <Button ref={cancelRef} onClick={() => setIsOpen(false)}>
                                 {t("cancelBtn")}
                             </Button>
-                            <DeleteButton id={id} collection={collection} />
+                            <DeleteButton id={id} collection={collection} onDeleteSuccess={() => {
+                                onDeleteSuccess();
+                                setIsOpen(false);
+                            }} />
                         </AlertDialogFooter>
                     </AlertDialogContent>
                 </AlertDialogOverlay>
