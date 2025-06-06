@@ -18,19 +18,15 @@ export async function POST(req: NextRequest) {
         }
 
         let petsQuery: any = {
+            where: {
+                isFeatured: true
+            },
             select: {
                 id: true,
-                // name: true,
-                // species: true,
-                // age: true,
-                // desc: true,
                 engName: true,
                 engSpecies: true,
-                engAge: true,
-                engDesc: true,
                 category: {
                     select: {
-                        // name: true,
                         engName: true,
                         slug: true
                     }
@@ -40,9 +36,10 @@ export async function POST(req: NextRequest) {
 
         if (categories && categories.length > 0) {
             petsQuery.where = {
-                catSlug: {
-                    in: categories
-                }
+                AND: [
+                    { isFeatured: true },
+                    { catSlug: { in: categories } }
+                ]
             };
         }
 
@@ -62,33 +59,33 @@ export async function POST(req: NextRequest) {
 
         const prompt = `
         You are a pet recommendation expert. Based on the user's lifestyle and preferences, recommend the most suitable pets from the available options.
-        
+
         User Information:
         - Monthly Income: ${filters.income || 'Not specified'}
         - Living Situation: ${filters.space || 'Not specified'}
         - Free Time per Week: ${filters.freeTime || 'Not specified'}
         - Pet Experience Level: ${filters.experience || 'Not specified'}
         - Has Children: ${filters.kids || 'Not specified'}
-        
+
         Available Pets (JSON format):
         ${JSON.stringify(allPets, null, 2)}
-        
+
         Instructions:
         1. Consider the user's income for pet care costs (food, vet bills, supplies)
         2. Match living space with pet size and exercise needs
         3. Consider time commitment required for different pets
         4. Factor in experience level - recommend easier pets for beginners
         5. Consider child safety and pet temperament if children are present
-        
+
         Return ONLY a JSON array of the pet IDs that are most suitable, ordered by best match first.
-        
-        Do not include any explanations or additional text - just the JSON array of string Ids.
+
+        Do not include any explanations or additional text - just the JSON array of string Ids, not more than 8.
         `;
 
         const response = await openai.chat.completions.create({
-            model: "gpt-3.5-turbo-1106",
+            model: "gpt-4",
             messages: [{ role: "user", content: prompt }],
-            temperature: 0.7,
+            temperature: 0.2,
         });
 
         const aiResponse = response.choices[0].message.content?.trim() || "";
