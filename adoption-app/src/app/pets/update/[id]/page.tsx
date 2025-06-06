@@ -206,8 +206,7 @@ const UpdatePage = ({ params }: Params) => {
                     />
                     {inputs.imageUrl && (
                         <Image
-                            src={`/uploads/${inputs.imageUrl}`}
-                            // src={file ? URL.createObjectURL(file) : inputs.imageUrl}
+                            src={file ? URL.createObjectURL(file) : inputs.imageUrl}
                             alt="Current"
                             width={100}
                             height={100}
@@ -224,6 +223,7 @@ const UpdatePage = ({ params }: Params) => {
                         name="name"
                         value={inputs.name}
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
@@ -235,6 +235,7 @@ const UpdatePage = ({ params }: Params) => {
                         name="engName"
                         value={inputs.engName}
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
@@ -246,6 +247,7 @@ const UpdatePage = ({ params }: Params) => {
                         name="species"
                         value={inputs.species}
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
@@ -257,6 +259,7 @@ const UpdatePage = ({ params }: Params) => {
                         name="engSpecies"
                         value={inputs.engSpecies}
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
@@ -268,6 +271,7 @@ const UpdatePage = ({ params }: Params) => {
                         name="age"
                         value={inputs.age}
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
@@ -279,6 +283,7 @@ const UpdatePage = ({ params }: Params) => {
                         name="engAge"
                         value={inputs.engAge}
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
@@ -290,6 +295,7 @@ const UpdatePage = ({ params }: Params) => {
                         name="gender"
                         value={inputs.gender}
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
@@ -301,29 +307,28 @@ const UpdatePage = ({ params }: Params) => {
                         name="engGender"
                         value={inputs.engGender}
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
                     <label className="text-sm">{t("ukDesc")}</label>
-                    <input
+                    <textarea
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
-                        type="text"
-                        placeholder={t("ukDesc")}
                         name="desc"
-                        value={inputs.desc}
                         onChange={handleChange}
-                    />
+                        value={inputs.desc}
+                        required
+                    ></textarea>
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
                     <label className="text-sm">{t("enDesc")}</label>
-                    <input
+                    <textarea
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
-                        type="text"
-                        placeholder={t("enDesc")}
                         name="engDesc"
-                        value={inputs.engDesc}
                         onChange={handleChange}
-                    />
+                        value={inputs.engDesc}
+                        required
+                    ></textarea>
                 </div>
                 <div className="w-full flex flex-col gap-2">
                     <label className="text-sm">{t("categoryName")}</label>

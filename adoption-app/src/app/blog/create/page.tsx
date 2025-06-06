@@ -184,25 +184,21 @@ const AddPostPage = () => {
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
                     <label className="text-sm">{t("ukDesc")}</label>
-                    <input
+                    <textarea
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
-                        type="text"
-                        placeholder={t("ukDesc")}
                         name="description"
                         onChange={handleChange}
                         required
-                    />
+                    ></textarea>
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
                     <label className="text-sm">{t("enDesc")}</label>
-                    <input
+                    <textarea
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
-                        type="text"
-                        placeholder={t("enDesc")}
                         name="engDescription"
                         onChange={handleChange}
                         required
-                    />
+                    ></textarea>
                 </div>
                 <button
                     type="submit"

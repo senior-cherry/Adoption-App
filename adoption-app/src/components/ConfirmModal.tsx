@@ -16,7 +16,7 @@ type ModalProps = {
     id: string;
     collection: string;
     isIcon?: boolean;
-    onDeleteSuccess: () => void;
+    onDeleteSuccess?: () => void;
 };
 
 const ConfirmModal = ({ id, collection, isIcon, onDeleteSuccess }: ModalProps) => {

@@ -170,8 +170,7 @@ const UpdatePostPage = ({ params }: Params) => {
                     />
                     {inputs.imageUrl && (
                         <Image
-                            src={`/uploads/${inputs.imageUrl}`}
-                            // src={file ? URL.createObjectURL(file) : inputs.imageUrl}
+                            src={file ? URL.createObjectURL(file) : inputs.imageUrl}
                             alt="Current"
                             width={100}
                             height={100}
@@ -188,6 +187,7 @@ const UpdatePostPage = ({ params }: Params) => {
                         name="name"
                         value={inputs.name}
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
@@ -199,29 +199,28 @@ const UpdatePostPage = ({ params }: Params) => {
                         name="engName"
                         value={inputs.engName}
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
                     <label className="text-sm">{t("ukDesc")}</label>
-                    <input
+                    <textarea
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
-                        type="text"
-                        placeholder={t("ukDesc")}
                         name="description"
-                        value={inputs.description}
                         onChange={handleChange}
-                    />
+                        value={inputs.description}
+                        required
+                    ></textarea>
                 </div>
                 <div className="w-full flex flex-col gap-2 ">
                     <label className="text-sm">{t("enDesc")}</label>
-                    <input
+                    <textarea
                         className="ring-1 ring-orange-700 p-4 rounded-sm placeholder:text-orange-700 outline-none"
-                        type="text"
-                        placeholder={t("enDesc")}
                         name="engDescription"
-                        value={inputs.engDescription}
                         onChange={handleChange}
-                    />
+                        value={inputs.engDescription}
+                        required
+                    ></textarea>
                 </div>
                 <button
                     type="submit"
