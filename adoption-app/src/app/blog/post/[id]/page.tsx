@@ -1,8 +1,8 @@
 import { Image } from "@chakra-ui/react";
-import { PostType } from "@/types/types";
 import {getBaseUrl} from "@/utils/getBaseUrl";
 import {getLocale} from "next-intl/server";
 import BackButton from "@/components/BackButton";
+import { PostType } from "@/types/types";
 
 const getData = async (id: string) => {
     const baseUrl = await getBaseUrl();

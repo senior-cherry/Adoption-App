@@ -140,7 +140,7 @@ const DrawerFilter = () => {
                 <DrawerOverlay />
                 <DrawerContent>
                     <DrawerCloseButton />
-                    <DrawerHeader>{t('drawerHeader')}</DrawerHeader>
+                    <DrawerHeader mt={6} textAlign="center">{t('drawerHeader')}</DrawerHeader>
                         <DrawerBody>
                             <form id="filter-form" onSubmit={handleSubmit}>
                                 <div className="mb-4">
@@ -235,11 +235,11 @@ const DrawerFilter = () => {
                                 </div>
                             </form>
                         </DrawerBody>
-                        <DrawerFooter>
+                        <DrawerFooter justifyContent="space-between">
                             <Button variant="outline" mr={3} onClick={handleClear}>
                                 {t('clearBtn')}
                             </Button>
-                            <Button variant="outline" mr={3} onClick={onClose}>
+                            <Button variant="outline" mr={3} onClick={onClose} display={{ base: "none", xl: "flex" }}>
                                 {t('cancelBtn')}
                             </Button>
                             <Button

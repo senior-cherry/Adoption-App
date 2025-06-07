@@ -1,48 +1,50 @@
 import {Image} from "@chakra-ui/react";
+import {getLocale, getTranslations} from "next-intl/server";
 
-const About = () => {
+const About = async () => {
+    const locale = await getLocale();
+    const t = await getTranslations("aboutUs");
     return (
         <div id="about" className="container">
             <div className="about-row">
                 <div className="left-col">
-                    <Image src="/uploads/philip-veater-jyASQAXhmGk-unsplash.jpg" alt="image 1" />
+                    <Image src="/philip-veater-jyASQAXhmGk-unsplash.jpg" alt="image 1" />
                 </div>
                 <div className="right-col">
-                    <h1>Наша <span>історія</span></h1>
-                    <p>Наш притулок народився з великої любові до тварин і бажання створити краще життя для тих, хто його потребує.
-                        Ідея створення &quot;Paw in Paw: House of Friendship&quot; виникла багато років тому, коли наша команда волонтерів усвідомила,
-                        що в нашому місті бракує місця, де безхатні тварини могли знайти притулок, турботу та шанс на новий дім.
-                        Почавши з невеликих зусиль і великих мрій, ми пройшли довгий шлях від невеликої ініціативи до великої родини,
-                        яка сьогодні охоплює сотні тварин і волонтерів.</p>
+                    {locale === 'uk' ? (
+                        <h1>Наша <span>історія</span></h1>
+                    ) : (
+                        <h1>Our <span>story</span></h1>
+                    )}
+                    <p>{t("paragraph1")}</p>
                 </div>
             </div>
 
             <div className="about-row">
                 <div className="left-col">
-                    <h1>Реалізація <span>мрії</span></h1>
-                    <p>Реалізація нашої мрії стала можливою завдяки підтримці небайдужих людей і постійній роботі нашої команди.
-                        Ми віримо, що кожна тварина заслуговує на шанс бути щасливою, і робимо все можливе, щоб втілити цю мрію в життя.
-                        Зусиллями багатьох волонтерів, спонсорів та партнерів, ми створили простір, де кожна тварина отримує необхідний догляд,
-                        медичну допомогу та шанс знайти люблячу родину. Наша мрія – бачити кожну тварину щасливою,
-                        здоровою та у безпеці – поступово перетворюється на реальність завдяки зусиллям нашої великої команди.</p>
+                    {locale === 'uk' ? (
+                        <h1>Реалізація <span>мрії</span></h1>
+                    ) : (
+                        <h1>Making the <span>dream</span> real</h1>
+                    )}
+                    <p>{t("paragraph2")}</p>
                 </div>
                 <div className="right-col">
-                    <Image src="/uploads/tran-mau-tri-tam-7QjU_u2vGDs-unsplash.jpg" alt="image 2" />
+                    <Image src="/tran-mau-tri-tam-7QjU_u2vGDs-unsplash.jpg" alt="image 2" />
                 </div>
             </div>
 
             <div className="about-row">
                 <div className="left-col">
-                    <Image src="/uploads/jametlene-reskp-fliwkBbS7oM-unsplash.jpg" alt="image 3" />
+                    <Image src="/jametlene-reskp-fliwkBbS7oM-unsplash.jpg" alt="image 3" />
                 </div>
                 <div className="right-col">
-                    <h1>Перші <span>кроки</span></h1>
-                    <p>Наші перші кроки були наповнені викликами та відкриттями. Ми починали з невеликого притулку,
-                        де розмістили перших врятованих тварин. З часом, завдяки підтримці громади та небайдужих людей,
-                        ми змогли розширити наші можливості, побудувати додаткові приміщення та створити комфортні умови для
-                        життя наших підопічних. Кожен наш крок був спрямований на покращення життя тварин, і ми пишаємося тим,
-                        що разом з вами пройшли цей шлях. Кожна історія порятунку, кожна щаслива доля тварини, що знайшла новий дім,
-                        надихає нас продовжувати працювати і дарувати тваринам нові шанси на щасливе життя.</p>
+                    {locale === 'uk' ? (
+                        <h1>Перші <span>кроки</span></h1>
+                    ) : (
+                        <h1>Our first <span>steps</span></h1>
+                    )}
+                    <p>{t("paragraph3")}</p>
                 </div>
             </div>
         </div>

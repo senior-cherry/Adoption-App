@@ -1,6 +1,6 @@
 'use server';
 import { revalidatePath } from 'next/cache';
-import { prisma } from "@/utils/connect";
+import { prisma } from "../../lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 
 export const handleNewChat = async (formData: FormData): Promise<void> => {

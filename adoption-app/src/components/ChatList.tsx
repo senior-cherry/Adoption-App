@@ -1,5 +1,4 @@
 'use client';
-
 import React, { useCallback } from "react";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import ConfirmModal from "@/components/ConfirmModal";

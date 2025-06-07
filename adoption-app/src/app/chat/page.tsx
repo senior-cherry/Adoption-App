@@ -1,5 +1,5 @@
-import Sidebar from "@/components/Sidebar";
 import React from "react";
+import Sidebar from "@/components/Sidebar";
 import Chat from "@/components/Chat";
 import {auth} from "@clerk/nextjs/server";
 import {getTranslations} from "next-intl/server";

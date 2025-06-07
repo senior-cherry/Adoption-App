@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/utils/connect";
+import { prisma } from "../../../../lib/prisma";
 import OpenAI from "openai";
 import {getTranslations} from "next-intl/server";
 
@@ -26,7 +26,7 @@ export const POST = async (req: NextRequest) => {
     try {
         const body = await req.json();
         const aiResponse = await openai.chat.completions.create({
-            model: "gpt-3.5-turbo-1106",
+            model: "gpt-3.5-turbo",
             messages: [
                 { role: "system", content: r("message") },
                 { role: "user", content: `

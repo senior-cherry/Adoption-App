@@ -270,5 +270,10 @@
     "success": "Success",
     "successDesc": "The request was successfully completed",
     "unknownError": "Unknown error"
+  },
+  "aboutUs": {
+    "paragraph1": "Our center began with a simple idea: to make adoption accessible to everyone who wants to give a homeless animal a loving home. Through conversations with volunteers, shelter workers, and people trying to adopt, we realized what was missing — a clear, trusted, and user-friendly space. That’s when we decided to combine real-world experience with the power of digital tools.",
+    "paragraph2": "Today, Paw in Paw is more than just a physical space. It’s an app where anyone can complete a pre-screening form, explore available animals, and learn about their personalities, needs, and backgrounds. With our smart matching system, we help animals find responsible guardians and help people connect with the pets that truly fit their lives. We use data not for the sake of it, but to support meaningful, lasting bonds.",
+    "paragraph3": "We started as a small initiative with just a few rescued animals and a big dream: to make adoption transparent and humane. One of our major milestones was launching our web app, which streamlined and organized the adoption process. Today, our app continues to grow, with features like application tracking, notification updates etc."
   }
 }

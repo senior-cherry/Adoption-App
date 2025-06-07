@@ -1,9 +1,9 @@
 import { ButtonGroup, Image } from "@chakra-ui/react";
 import AdoptButtonGroup from "@/components/AdoptButtonGroup";
-import { PetType } from "@/types/types";
 import BackButton from "@/components/BackButton";
 import {getLocale, getTranslations} from "next-intl/server";
 import {getBaseUrl} from "@/utils/getBaseUrl";
+import { PetType } from "@/types/types";
 
 type Props = {
     params: { id: string };

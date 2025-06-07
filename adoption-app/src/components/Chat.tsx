@@ -1,6 +1,6 @@
 import React from "react";
 import { auth } from "@clerk/nextjs/server";
-import { prisma } from "@/utils/connect";
+import { prisma } from "../../lib/prisma";
 import ChatClient from "./ChatClient";
 import {getTranslations} from "next-intl/server";
 

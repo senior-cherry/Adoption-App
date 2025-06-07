@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { Button, ButtonGroup, Text } from "@chakra-ui/react";
+import { Button, ButtonGroup } from "@chakra-ui/react";
 import { useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 import {useTranslations} from "next-intl";

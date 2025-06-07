@@ -1,6 +1,6 @@
 "use client";
-import {useSearchParams, useRouter} from "next/navigation";
 import React, {useEffect, useState} from "react";
+import {useSearchParams, useRouter} from "next/navigation";
 import {useUser} from "@clerk/nextjs";
 import {useTranslations} from "next-intl";
 import {useToast} from "@chakra-ui/react";

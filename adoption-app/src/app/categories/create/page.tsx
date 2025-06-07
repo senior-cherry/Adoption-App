@@ -1,6 +1,6 @@
 "use client";
-import {useRouter} from "next/navigation";
 import React, {useEffect, useState} from "react";
+import {useRouter} from "next/navigation";
 import {useSession, useUser} from "@clerk/nextjs";
 import {checkUserRole} from "@/utils/userUtils";
 import {useTranslations} from "next-intl";

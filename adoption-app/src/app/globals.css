@@ -142,96 +142,10 @@ body {
   border-radius: 5px;
 }
 
-.pet-container, .post-container {
-  margin: 1rem 0;
-  padding: 2rem 0;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  border-radius: 3px;
-  column-gap: 10px;
-}
-
-.pet-container-left, .post-container-left {
-  padding: 20px;
-}
-
-.pet-container-right, .post-container-right {
-  padding: 20px;
-  line-height: 1.6;
-}
-
-.pet-container-right span, .post-container-right span {
-  font-size: 20px;
-}
-
-.img-container img {
-  width: 400px;
-  height: 430px;
-  margin: 0 auto;
-}
-
-.pet-container-right span, .post-container-right span {
-  display: block;
-}
-
-.pet-title, .post-title {
-  font-size: 26px;
-  margin-bottom: 22px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  opacity: 0.9;
-}
-
-.pet-description, .post-description {
-  line-height: 1.6;
-  font-weight: 300;
-  opacity: 0.9;
-  margin-top: 22px;
-}
-
-@media screen and (max-width: 1024px) {
-  .header .menu {
-    display: none;
-  }
-
-  .mobile-menu {
-    display: inline-block;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .header .menu {
-    display: none;
-  }
-
-  .mobile-menu {
-    display: inline-block;
-  }
-}
-
 .pet-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   padding: 32px;
-}
-
-.filter_menu_mb_tb {
-  display: none;
-}
-
-.main-grid {
-  display: grid;
-  grid-template-rows: repeat(2, 1fr);
-  grid-template-columns: repeat(5, 1fr);
-}
-
-.main-grid_tb {
-  display: none;
-}
-
-.main-grid_tb_content {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
 }
 
 @media screen and (max-width: 1650px) {
@@ -254,51 +168,12 @@ body {
   .pet-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-
-  .filter_menu {
-    display: none;
-  }
-
-  .filter_menu_mb_tb {
-    display: block;
-  }
-
-  .main-grid-container {
-    display: none;
-  }
-
-  .main-grid_tb {
-    display: block;
-  }
-
-  .main-grid_tb_content {
-    display: grid;
-  }
 }
 
 @media screen and (max-width: 900px) {
   .pet-grid {
     grid-template-columns: repeat(1, 1fr);
-  }
-}
-
-@media screen and (max-width: 768px) {
-
-  .pet-grid .details_link {
-    display: none;
-  }
-
-  .main-grid_tb_content {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-  }
-
-  .pet-container {
-    display: block;
-  }
-
-  .post-container {
-    display: block;
+    padding: 0;
   }
 }
 

@@ -8,11 +8,11 @@ import {
     Image, ButtonGroup, Button, useToast
 } from '@chakra-ui/react';
 import Link from "next/link";
-import { AdoptionType, CategoryType, PetType, PostType } from "@/types/types";
 import ConfirmModal from "@/components/ConfirmModal";
 import { Tooltip } from "@/components/Tooltip";
 import { useLocale, useTranslations } from "next-intl";
 import {useRouter} from "next/navigation";
+import { AdoptionType, CategoryType, PetType, PostType } from "@/types/types";
 
 const getData = async (collection: string) => {
     try {

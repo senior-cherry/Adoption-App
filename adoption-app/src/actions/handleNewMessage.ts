@@ -3,7 +3,7 @@ import OpenAI from "openai";
 import { auth } from "@clerk/nextjs/server";
 import { v4 as uuidv4 } from "uuid";
 import { revalidatePath } from "next/cache";
-import { prisma } from "@/utils/connect";
+import { prisma } from "../../lib/prisma";
 import { getTranslations } from "next-intl/server";
 import {ChatCompletionMessageParam} from "openai/resources/chat/completions";
 
@@ -32,7 +32,7 @@ export const handleNewMessage = async (formData: FormData) => {
     if (chatId === "ai-helper") {
         try {
             const response = await openai.chat.completions.create({
-                model: "gpt-3.5-turbo-1106",
+                model: "gpt-3.5-turbo",
                 temperature: 0.2,
                 messages: [
                     { role: "system", content: systemMessage },
