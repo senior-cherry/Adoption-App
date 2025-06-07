@@ -1,8 +1,8 @@
-import { Button, Image } from "@chakra-ui/react";
-import Link from "next/link";
+import { Image } from "@chakra-ui/react";
 import { PostType } from "@/types/types";
 import {getBaseUrl} from "@/utils/getBaseUrl";
 import {getLocale} from "next-intl/server";
+import BackButton from "@/components/BackButton";
 
 const getData = async (id: string) => {
     const baseUrl = await getBaseUrl();
@@ -46,11 +46,9 @@ const SinglePost = async ({ params }: Props) => {
                     {locale === 'uk' ? post.description : post.engDescription}
                 </div>
                 <div className="mt-12 text-center">
-                    <Link href="/blog">
-                        <Button colorScheme="blue" size="lg">
-                            {locale === 'uk' ? "Назад" : "Back"}
-                        </Button>
-                    </Link>
+                    <BackButton>
+                        {locale === 'uk' ? "Назад" : "Back"}
+                    </BackButton>
                 </div>
             </div>
         </div>

@@ -47,7 +47,7 @@ const ConfirmModal = ({ id, collection, isIcon, onDeleteSuccess }: ModalProps) =
                                 {t("cancelBtn")}
                             </Button>
                             <DeleteButton id={id} collection={collection} onDeleteSuccess={() => {
-                                onDeleteSuccess();
+                                onDeleteSuccess?.();
                                 setIsOpen(false);
                             }} />
                         </AlertDialogFooter>

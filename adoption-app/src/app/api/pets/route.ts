@@ -24,7 +24,7 @@ export const GET = async (req: NextRequest) => {
                                 in: cat.split(","),
                             },
                         }
-                        : {}),
+                        : {isFeatured: true}),
                 },
                 include: { category: true },
             });
