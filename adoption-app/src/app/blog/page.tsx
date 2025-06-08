@@ -37,7 +37,9 @@ const Blog = () => {
                 params.set("page", pageParam.toString());
                 params.set("limit", postsPerPage.toString());
 
-                const res = await fetch(`/api/blog?${params.toString()}`);
+                const res = await fetch(`/api/blog?${params.toString()}`, {
+                    cache: "no-store"
+                });
                 const data = await res.json();
 
                 setPosts(data.posts || []);

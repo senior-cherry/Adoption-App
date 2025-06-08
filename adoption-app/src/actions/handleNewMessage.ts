@@ -89,8 +89,6 @@ export const handleNewMessage = async (formData: FormData) => {
             },
         });
 
-        revalidatePath("/");
-
         return { message: botResponse };
     } catch (error) {
         console.error("Error processing message", error);

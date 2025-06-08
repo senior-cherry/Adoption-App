@@ -80,7 +80,7 @@ const AdoptionForm = () => {
             species,
             user: user?.fullName || "",
             user_id: user?.id || "",
-            age: savedData?.age || 0,
+            age: savedData?.age || 14,
             phoneNumber: savedData?.phoneNumber || "",
             email: savedData?.email || user?.emailAddresses?.[0]?.emailAddress || "",
             address: savedData?.address || "",

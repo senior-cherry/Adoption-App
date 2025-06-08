@@ -101,7 +101,7 @@ const AdminPanel = () => {
                 throw new Error("Failed");
             }
 
-            router.refresh();
+            setAdoptionReqs(prev => prev.filter(a => a.id !== id));
 
             toast({
                 title: decision === 'approve' ? tt("approve") : tt("deny"),

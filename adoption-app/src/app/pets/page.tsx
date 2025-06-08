@@ -75,7 +75,9 @@ export default function Pets() {
                 params.set("page", pageParam.toString());
                 params.set("limit", petsPerPage.toString());
 
-                const res = await fetch(`/api/pets?${params.toString()}`);
+                const res = await fetch(`/api/pets?${params.toString()}`, {
+                    cache: "no-store"
+                });
                 const data = await res.json();
 
                 setPets(data.pets || []);
@@ -95,7 +97,9 @@ export default function Pets() {
             }
 
             try {
-                const res = await fetch("/api/categories");
+                const res = await fetch("/api/categories", {
+                    cache: "no-store"
+                });
                 const data = await res.json();
                 setAllCategories(data);
             } catch (err) {
