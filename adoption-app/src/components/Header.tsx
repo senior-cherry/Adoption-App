@@ -74,8 +74,8 @@ const Header = () => {
                             <Link href="/about"><MenuItem icon={<InfoIcon />} color="black">{t("about")}</MenuItem></Link>
                             <Link href="/pets"><MenuItem icon={<SearchIcon />} color="black">{t("pets")}</MenuItem></Link>
                             <Link href="/blog"><MenuItem icon={<CalendarIcon />} color="black">{t("blog")}</MenuItem></Link>
-                            <Link href="/chat"><MenuItem icon={<ChatIcon />} color="black">{t("chat")}</MenuItem></Link>
-                            <Link href="/dashboard"><MenuItem icon={<SettingsIcon />} color="black">{t("dashboard")}</MenuItem></Link>
+                            <Link href="/chat-bot"><MenuItem icon={<ChatIcon />} color="black">{t("chat")}</MenuItem></Link>
+                            <Link href="/admin-panel"><MenuItem icon={<SettingsIcon />} color="black">{t("dashboard")}</MenuItem></Link>
 
                             <Divider my={2} />
 
@@ -97,8 +97,8 @@ const Header = () => {
                     <Link href="/about"><Button variant="nav">{t("about")}</Button></Link>
                     <Link href="/pets"><Button variant="nav">{t("pets")}</Button></Link>
                     <Link href="/blog"><Button variant="nav">{t("blog")}</Button></Link>
-                    <Link href="/chat"><Button variant="nav">{t("chat")}</Button></Link>
-                    <Link href="/dashboard"><Button variant="nav">{t("dashboard")}</Button></Link>
+                    <Link href="/chat-bot"><Button variant="nav">{t("chat")}</Button></Link>
+                    <Link href="/admin-panel"><Button variant="nav">{t("dashboard")}</Button></Link>
                 </HStack>
 
                 <HStack display={{ base: "none", xl: "flex" }}>

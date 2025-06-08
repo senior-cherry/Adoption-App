@@ -88,8 +88,8 @@
     "about": "About us",
     "pets": "Pets",
     "blog": "Blog",
-    "chat": "Chat",
-    "dashboard": "Dashboard"
+    "chat": "Chat-bot",
+    "dashboard": "Admin-panel"
   },
   "footer": {
     "heading": "Find your companion",

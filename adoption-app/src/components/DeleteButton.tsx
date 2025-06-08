@@ -13,7 +13,7 @@ const DeleteButton = ({ id, collection, onDeleteSuccess }: { id: string, collect
     useEffect(() => {
         if (isDeleted) {
             if (collection === "chat") {
-                router.replace("/chat");
+                router.replace("/chat-bot");
                 router.refresh();
             } else {
                 onDeleteSuccess?.();

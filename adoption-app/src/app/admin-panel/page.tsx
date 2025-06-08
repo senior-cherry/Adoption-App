@@ -34,7 +34,7 @@ const getData = async (collection: string) => {
     }
 };
 
-const Dashboard = () => {
+const AdminPanel = () => {
     const locale = useLocale();
     const t = useTranslations("dashboard");
     const tt = useTranslations("adoption-toast");
@@ -347,4 +347,4 @@ const Dashboard = () => {
     );
 };
 
-export default Dashboard;
+export default AdminPanel;
