@@ -87,7 +87,7 @@ const UpdatePage = ({ params }: Params) => {
                     engDesc: data.engDesc,
                     catSlug: data.catSlug,
                     imageUrl: data.imageUrl,
-                    isFeatured: true
+                    isFeatured: data.isFeatured
                 });
             } catch (error) {
                 console.error("Error fetching pet:", error);
@@ -111,9 +111,11 @@ const UpdatePage = ({ params }: Params) => {
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
     ) => {
-        setInputs((prev) => {
-            return { ...prev, [e.target.name]: e.target.value };
-        });
+        const { name, type, value, checked } = e.target;
+        setInputs((prev) => ({
+            ...prev,
+            [name]: type === "checkbox" ? checked : value,
+        }));
         if (error) setError(null);
     };
 
@@ -346,6 +348,19 @@ const UpdatePage = ({ params }: Params) => {
                             </option>
                         ))}
                     </select>
+                </div>
+                <div className="w-full flex items-center gap-4">
+                    <label htmlFor="isFeatured" className="text-sm flex items-center gap-2">
+                        <input
+                            type="checkbox"
+                            name="isFeatured"
+                            id="isFeatured"
+                            checked={inputs.isFeatured}
+                            onChange={handleChange}
+                            className="w-4 h-4 accent-orange-600"
+                        />
+                        {t("isFeatured")}
+                    </label>
                 </div>
                 <button
                     type="submit"

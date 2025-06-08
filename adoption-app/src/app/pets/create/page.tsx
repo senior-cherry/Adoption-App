@@ -79,13 +79,14 @@ const AddPage = () => {
         init();
     }, [isLoaded, userRole]);
 
-
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
     ) => {
-        setInputs((prev) => {
-            return { ...prev, [e.target.name]: e.target.value };
-        });
+        const { name, type, value, checked } = e.target;
+        setInputs((prev) => ({
+            ...prev,
+            [name]: type === "checkbox" ? checked : value,
+        }));
         if (error) setError(null);
     };
 
@@ -316,6 +317,19 @@ const AddPage = () => {
                             </option>
                         ))}
                     </select>
+                </div>
+                <div className="w-full flex items-center gap-4">
+                    <label htmlFor="isFeatured" className="text-sm flex items-center gap-2">
+                        <input
+                            type="checkbox"
+                            name="isFeatured"
+                            id="isFeatured"
+                            checked={inputs.isFeatured}
+                            onChange={handleChange}
+                            className="w-4 h-4 accent-orange-600"
+                        />
+                        {t("isFeatured")}
+                    </label>
                 </div>
                 <button
                     type="submit"

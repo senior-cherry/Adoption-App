@@ -23,6 +23,10 @@ const getData = async (collection: string) => {
             return data.pets;
         }
 
+        if (collection === "blog" && "posts" in data) {
+            return data.posts;
+        }
+
         return Array.isArray(data) ? data : [];
     } catch (e) {
         console.error(`Fetch error for /api/${collection}:`, e);

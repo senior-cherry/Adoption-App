@@ -15,22 +15,16 @@ export const GET = async (req: NextRequest) => {
         if (recommended) {
             const petIds = recommended.split(",");
 
-            let pets = await prisma.pet.findMany({
+            const pets = await prisma.pet.findMany({
                 where: {
                     id: { in: petIds },
-                    ...(cat
-                        ? {
-                            catSlug: {
-                                in: cat.split(","),
-                            },
-                        }
-                        : {isFeatured: true}),
+                    ...(cat ? { catSlug: { in: cat.split(",") } } : {}),
+                    ...(!isAdmin ? { isFeatured: true } : {}),
                 },
                 include: { category: true },
             });
 
             const sortedPets = petIds.map((id) => pets.find((pet) => pet.id === id)).filter(Boolean);
-
             const paginated = sortedPets.slice(skip, skip + limit);
 
             return NextResponse.json({
@@ -39,15 +33,22 @@ export const GET = async (req: NextRequest) => {
             });
         }
 
-        const baseFilter = cat ? { catSlug: { in: cat.split(",") } } : { isFeatured: true };
+        let whereClause = {};
+
+        if (!isAdmin) {
+            whereClause = {
+                ...(cat ? { catSlug: { in: cat.split(",") } } : {}),
+                isFeatured: true,
+            };
+        }
 
         const [pets, totalCount] = await Promise.all([
             prisma.pet.findMany({
-                where: baseFilter,
+                where: whereClause,
                 ...(isAdmin ? {} : { skip, take: limit }),
                 include: { category: true },
             }),
-            prisma.pet.count({ where: baseFilter }),
+            prisma.pet.count({ where: whereClause }),
         ]);
 
         return NextResponse.json({ pets, totalCount });
@@ -59,6 +60,7 @@ export const GET = async (req: NextRequest) => {
         );
     }
 };
+
 
 export const POST = async (req: NextRequest) => {
     try {

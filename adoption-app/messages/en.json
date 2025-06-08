@@ -260,7 +260,8 @@
     "enGender": "Gender in English",
     "chooseCategory": "Choose category",
     "petLoadingError": "Failed to load pet data",
-    "categoryName": "Category"
+    "categoryName": "Category",
+    "isFeatured": "Mark as featured"
   },
   "adoption-form-toast": {
     "error": "Error",

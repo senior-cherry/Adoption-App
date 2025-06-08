@@ -260,7 +260,8 @@
     "enGender": "Стать англійською",
     "chooseCategory": "Оберіть категорію",
     "petLoadingError": "Не вдалось завантажити дані про тварину",
-    "categoryName": "Категорія"
+    "categoryName": "Категорія",
+    "isFeatured": "Позначити як рекомендовано"
   },
   "adoption-form-toast": {
     "error": "Помилка",
