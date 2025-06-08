@@ -79,14 +79,19 @@ const AddPage = () => {
         init();
     }, [isLoaded, userRole]);
 
-    const handleChange = (
-        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-    ) => {
-        const { name, type, value, checked } = e.target;
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+        const { name, type, value } = e.target;
+
+        const newValue =
+            type === "checkbox" && "checked" in e.target
+                ? (e.target as HTMLInputElement).checked
+                : value;
+
         setInputs((prev) => ({
             ...prev,
-            [name]: type === "checkbox" ? checked : value,
+            [name]: newValue,
         }));
+
         if (error) setError(null);
     };
 
